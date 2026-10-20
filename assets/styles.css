@@ -28,3 +28,5 @@ code { font-size: .87em; }
 @media print { .reading-grid { display: block; } }
 
 @media (max-width: 700px) { main .table { display: block; max-width: 100%; overflow-x: auto; } }
+
+@media (max-width: 700px) { a.quarto-xref, a.quarto-xref span { white-space: normal; overflow-wrap: anywhere; } }
