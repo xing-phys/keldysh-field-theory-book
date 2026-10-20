@@ -1,0 +1,56 @@
+# What the framework teaches, and where it stops {#sec-outlook}
+
+The review ends by asking how far a field theory for driven open systems can extend beyond its first successful applications [@Sieberer2016]. We can now formulate that question precisely. A microscopic quantum model can yield classical long-distance fluctuations, an emergent thermal relation, or a distinct nonequilibrium fixed point. No one outcome follows from the word "dissipation."
+
+## Three lessons from the applications
+
+**Equilibration can be an emergent property of a sector.** In a lossy Dicke model, a soft collective coordinate has a low-frequency temperature even though the full frequency-dependent state does not satisfy equilibrium fluctuation-dissipation relations. A random cavity model can share an infrared distribution between matter and light while retaining disorder and nontrivial response spectra. A scalar effective temperature is therefore useful only with an observable, a frequency window, and the approximation that defines it.
+
+**Static resemblance does not settle dynamics.** Near the three-dimensional condensation transition, an approximate functional RG treatment finds equilibrium-like static critical behavior together with an independent decay of coherent dynamical couplings. Ratios of coherent and dissipative coefficients carry information that equal-time correlations do not. Truncation-dependent exponent estimates must be distinguished from exact symmetry identities.
+
+**Nonequilibrium can grow under coarse graining.** In low-dimensional phase dynamics, a weak KPZ nonlinearity can become important only at very large distances. A finite sample may appear close to equilibrium across its entire accessible range. Conversely, vortices, strong anisotropy, reservoir modes, or a finite coherence length can intervene before a proposed asymptotic regime is reached. A universal prediction has to be accompanied by a route to its scale.
+
+Heating provides a related dynamical lesson. A number-conserving environment can inject energy, and collisions can create a moving momentum scale rather than an instantly thermal distribution. A momentum-dependent linewidth, a time-dependent crossover, and an evolving structure factor describe different aspects of this process.
+
+## A quantum microscopic model need not have quantum critical fluctuations
+
+A nonzero, approximately white Keldysh noise kernel often dominates at sufficiently low frequency. Relative to it, vertices with several quantum fields can become irrelevant by power counting. The remaining stochastic field theory still originates in quantum mechanics: quantum statistics, commutators, coherent interactions, and microscopic vacuum noise determine its parameters. However, a classical response functional does not retain every quantum property of the density operator.
+
+Engineered dissipation makes an instructive counterexample. If a target state satisfies $L_\alpha|D\rangle=0$ for every jump and is an eigenstate of $H$, then $\rho_D=|D\rangle\langle D|$ is stationary. Direct substitution verifies this statement. It says nothing by itself about uniqueness or the rate of preparation. Reservoir engineering can prepare correlated quantum states [@Diehl2008], and a dark low-energy sector can have a noise structure unlike the generic white-noise case.
+
+The possibilities mentioned in the review include fermionic and topological dissipative matter, lattice transitions, non-Markovian reservoirs, and quantum dynamical criticality. They require additional models and methods; the bosonic white-noise arguments established here are not proofs about all such systems. These are directions for further study rather than results derived by this book.
+
+## The assumptions to revisit first
+
+A useful extension starts by identifying the weakest assumption in an existing calculation.
+
+* If a reservoir relaxes slowly, retain its memory kernel or promote it to a dynamical field. A frequency-independent loss rate is then no longer adequate.
+* If a phase winds by $2\pi$, a smooth noncompact phase expansion misses a defect. Compare defect scales with the predicted KPZ crossover.
+* If a density mode softens, integrating it out as a massive Gaussian variable is no longer justified.
+* If a distribution heats beyond its bandwidth or cutoff, the low-energy kinetic equation must be matched to a microscopic theory.
+* If conservation is exact, retain the corresponding hydrodynamic mode. A global symmetry of a dissipator does not automatically supply that conservation law.
+
+These tests are useful because they point to specific missing variables or terms. Merely adding a more complicated diagram does not repair an omitted slow degree of freedom.
+
+## A workflow for a new problem
+
+First write $H$ and every jump, including units and normalization. Derive the adjoint evolution of the conserved quantities and one simple observable. Translate the generator into a contour action and check normalization, causality, and noise positivity. Solve a quadratic limit and compare it with the master equation. This is where sign errors are least expensive to find.
+
+Next identify a stationary saddle or time-dependent reference state. Determine the linear spectrum and count slow modes. Only then choose an approximation: a classical field reduction, a phase theory, a kinetic closure, a loop expansion, or an RG truncation. State the small parameter or physical separation of scales that supports it. Finally, translate the prediction to a measurable correlation or response and examine whether the proposed regime fits inside the available size and time window.
+
+For a numerical calculation, report cutoff dependence, finite-size effects, and uncertainty separately from a fitted power law. For an analytical approximation, identify exact constraints that it preserves. Agreement with a desired exponent is weaker evidence than agreement with a full scaling form together with its crossover and conservation laws.
+
+### Capstone exercise: a driven condensate with a slow reservoir
+
+Suppose a reservoir density $n_R$ obeys $\partial_t n_R=P-\gamma_R n_R-Rn_R|\psi|^2$, and the condensate gain includes $+Rn_R\psi/2$. When can one replace $n_R$ by an instantaneous function of $|\psi|^2$?
+
+**Solution.** Linearize around $n_{R0},\rho_0$. A reservoir fluctuation satisfies
+
+$$
+[-i\omega+\gamma_R+R\rho_0]\delta n_R
+=-Rn_{R0}\delta\rho.
+$$ {#eq-outlook-reservoir}
+
+If the frequencies of interest obey $|\omega|\ll\gamma_R+R\rho_0$, expand the inverse denominator. Its leading term gives a local saturation of the gain; its next term gives a retardation correction. If this inequality fails, the reservoir is a separate slow mode and its elimination produces memory. A phase-only theory obtained before checking this condition can miss relaxation oscillations or an instability.
+
+The central skill is now transferable: derive the low-energy variables from the dynamical generator, keep response and fluctuations distinct until a symmetry relates them, and ask what changes as the observation scale grows.

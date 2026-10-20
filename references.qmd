@@ -1,0 +1,6 @@
+# References {#sec-references .unnumbered}
+
+The main review is the organizing source. Additional entries are primary papers supporting specific results, methods, and experiments. Citations in each chapter indicate where those results enter; the bibliography is not a substitute for the derivations in the text.
+
+::: {#refs}
+:::

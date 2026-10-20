@@ -1,0 +1,73 @@
+# Coverage of the review {#sec-review-map}
+
+The scientific backbone is Sieberer, Buchhold, and Diehl, *Reports on Progress in Physics* **79**, 096001 (2016), DOI [10.1088/0034-4885/79/9/096001](https://doi.org/10.1088/0034-4885/79/9/096001), with the accessible author manuscript [arXiv:1512.00637v2](https://arxiv.org/abs/1512.00637v2) [@Sieberer2016]. This map uses the lettered subsection notation of its PDF. The experimental HTML conversion sometimes numbers these subsections instead.
+
+Coverage means that the book develops the section's physical question, model, method, and central results in an independent exposition. It does not reproduce every historical citation, sentence, equation number, or published graphic. Review equations are rederived with the conventions in @sec-conventions. When a numerical result comes from a cited paper, it is identified as such rather than presented as a calculation performed for this book.
+
+## Introduction and theoretical background
+
+| Review section | Subject | Book destination |
+|:--|:--|:--|
+| I.A | New phenomena; stationarity, thermalization, and universality | @sec-orientation, @sec-outlook |
+| I.B | Quantum optics, many-body field theory, classical limits | @sec-orientation, @sec-semiclassical |
+| I.C.1 | Optical cavities, cavity arrays, spin-boson models | @sec-orientation, @sec-cavity-spins |
+| I.C.2 | Exciton-polariton systems and open bosons | @sec-orientation, @sec-condensation |
+| I.C.3 | Optical-lattice heating | @sec-orientation, @sec-heating |
+| I.D | Scope and organization | Welcome, this map |
+| II.A | Master equation to functional integral | @sec-prerequisites, @sec-contour |
+| II.B.1 | Single-mode cavity and exact action constraints | @sec-gaussian, @sec-contour |
+| II.B.2 | Driven-dissipative condensate action | @sec-gaussian, @sec-semiclassical |
+| II.C | Semiclassical limit and response functional | @sec-semiclassical |
+| II.D.1 | Equilibrium as a thermal symmetry | @sec-symmetries |
+| II.D.2 | Classical limit of the thermal symmetry | @sec-symmetries |
+| II.D.3 | Noether theorem and Ward identities | @sec-symmetries |
+| II.D.4 | Closed-system conservation laws | @sec-symmetries |
+| II.D.5 | Open-system continuity equations | @sec-symmetries, @sec-heating |
+| II.D.6 | Symmetry breaking and Goldstone mode | @sec-symmetries, @sec-condensation |
+| II.E | Open-system functional RG | @sec-renormalization |
+
+## Stationary spin models
+
+| Review section | Subject | Book destination |
+|:--|:--|:--|
+| III.A.1 | Holstein-Primakoff representation and normal-phase spectrum | @sec-cavity-spins |
+| III.A.2 | Effective Ising action, threshold, temperature, and critical behavior | @sec-cavity-spins |
+| III.B.1 | Random multimode action, disorder average, and saddle equations | @sec-spin-glass |
+| III.B.2 | Glass transition, frozen order, and spectra | @sec-spin-glass |
+| III.B.3 | Infrared photon/atom thermalization | @sec-spin-glass |
+| III.B.4 | Quenched disorder versus a Markov bath | @sec-spin-glass |
+
+## Stationary bosonic models
+
+| Review section | Subject | Book destination |
+|:--|:--|:--|
+| IV.A | Density-phase variables and eliminating massive density modes | @sec-condensation, @sec-kpz |
+| IV.B.1 | Critical effective action and running couplings | @sec-condensation |
+| IV.B.2 | Nonequilibrium FRG flow and projections | @sec-renormalization, @sec-condensation |
+| IV.B.3 | Scaling solution, exponents, and decoherence | @sec-condensation |
+| IV.C | Two-dimensional order, KPZ relevance, and crossover | @sec-kpz |
+| IV.D | One-dimensional KPZ scaling and coherence | @sec-kpz |
+
+## Universal heating and mathematical tools
+
+| Review section | Subject | Book destination |
+|:--|:--|:--|
+| V.A | Driven interacting Luttinger liquid | @sec-heating |
+| V.B | Dyson/Wigner kinetic equation | @sec-heating |
+| V.C | Self-consistent Born approximation and resonant collisions | @sec-heating |
+| V.C.1 | Small-momentum occupation kinetics | @sec-heating |
+| V.C.2 | Self-energy scaling | @sec-heating |
+| V.D.1 | Phonon densities and thermalized momentum sector | @sec-heating |
+| V.D.2 | Nonequilibrium exponents and moving crossover | @sec-heating |
+| V.D.3 | Density structure factor and observable signatures | @sec-heating |
+| VI | Conclusions, quantum regimes, and extensions | @sec-outlook |
+| A | Functional differentiation | @sec-mathematics |
+| B | Gaussian functional integration | @sec-mathematics |
+
+The review's acknowledgements (VII) are the original authors' personal statements and are not teaching content to reproduce. Its bibliography is represented here by citations to the review and to the primary papers used in developing each topic. @sec-laboratory and @sec-conventions are additional teaching material.
+
+## Reading routes
+
+For a first course, read prerequisites → contour → Gaussian theory → classical fields → symmetries, and then choose an application. For a critical-phenomena course, add renormalization → condensation → KPZ. For nonequilibrium dynamics, add heating and reproduce the numerical laboratory. The spin-glass chapter uses bilocal kernels and benefits from studying Gaussian elimination and the effective-action construction first.
+
+A useful assessment is to derive the lossy cavity's occupation without a path integral, derive it again from $G^K$, and explain why the result is not generally a thermal fluctuation-dissipation relation. This connects the microscopic and field-theoretic descriptions before moving to an interacting application.

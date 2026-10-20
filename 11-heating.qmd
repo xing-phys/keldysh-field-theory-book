@@ -1,0 +1,440 @@
+# Universal heating of a one-dimensional quantum fluid {#sec-heating}
+
+The preceding condensates exchanged particles with their environment. Here the environment preserves particle number but injects energy. The slow mode is therefore sound, and the important question is how its occupation and lifetime evolve during heating. This chapter develops review V.A–D, including the kinetic equation and its self-consistent resonant approximation [@Sieberer2016; @BuchholdHeating2015; @BuchholdKinetic2015].
+
+The central result is an intermediate-time scaling regime: modes at relatively large momentum approach an evolving thermal distribution, while sufficiently long-wavelength modes remain strongly nonthermal. The latter have a phonon linewidth proportional to $|q|^{5/3}$ in the approximation described below. This is a statement about a linewidth correction to propagating sound, not a replacement of the sound dispersion by $q^{5/3}$.
+
+## Number-preserving dephasing injects energy
+
+Consider a Bose–Hubbard chain with lattice spacing $a$,
+
+$$
+H=H_J+H_U,
+\quad H_J=-J\sum_j(b_j^\dagger b_{j+1}+\text{h.c.}),
+\quad H_U=\frac U2\sum_jn_j(n_j-1),
+$$
+
+and density dephasing,
+
+$$
+\partial_t\rho=-i[H,\rho]+\Gamma_d\sum_j\mathcal D[n_j]\rho.
+$$ {#eq-heat-master}
+
+Our dissipator is $\mathcal D[L]\rho=L\rho L^\dagger-\tfrac12\{L^\dagger L,\rho\}$. Thus $\Gamma_d$ is twice the parameter multiplying $2n_j\rho n_j-\{n_j^2,\rho\}$ in some conventions. For a Hermitian jump $L$, the adjoint dissipator satisfies
+
+$$
+\mathcal D^\dagger[L]O=-\frac12[L,[L,O]].
+$$ {#eq-heat-double-commutator}
+
+Since $[N,H]=[N,n_j]=0$ for $N=\sum_jn_j$, every moment of total particle number is conserved. Locally,
+
+$$
+\partial_t\langle n_j\rangle+
+\langle j_{j,j+1}-j_{j-1,j}\rangle=0,
+\qquad
+j_{j,j+1}=-iJ(b_j^\dagger b_{j+1}-b_{j+1}^\dagger b_j).
+$$
+
+There is no dissipative density source. Applying @eq-heat-double-commutator to the energy instead gives
+
+$$
+\frac{d\langle H\rangle}{dt}=-\Gamma_d\langle H_J\rangle.
+$$ {#eq-heat-lattice-energy}
+
+Each hopping operator changes occupation on two sites, so the sum of double commutators gives twice that operator. In a low-energy state $\langle H_J\rangle<0$, and the energy increases. Initially the rate is approximately constant if the kinetic energy has changed little. The lattice expression does not assert a constant rate at arbitrary late times.
+
+Dephasing can also be represented by a fluctuating chemical potential $V_j(t)n_j$ with $\langle V_j(t)V_l(t')\rangle=\Gamma_d\delta_{jl}\delta(t-t')$. Averaging this classical white-noise Hamiltonian yields @eq-heat-master. Every realization preserves number, but the time-dependent potential does work on the fluid.
+
+Hermitian jumps make the evolution unital: the identity is stationary. On a finite lattice in a fixed finite-$N$ sector, the normalized identity is an infinite-temperature state and is generically the eventual state when no further conservation law obstructs mixing. An identity on an unbounded bosonic Fock space is not normalizable. The low-energy continuum theory below is intended for the much earlier regime, not for constructing that final state.
+
+## Derive the interacting Luttinger description
+
+For weak, smooth density fluctuations write $b(x)\simeq\sqrt{n(x)}e^{i\theta(x)}$ and
+$n(x)=n_0+\partial_x\phi(x)/\pi$. The continuum kinetic energy is
+
+$$
+H\simeq\int dx\left[
+\frac{n}{2m}(\partial_x\theta)^2+
+\frac{g}{2}(n-n_0)^2+
+\frac{(\partial_x n)^2}{8mn}\right].
+$$ {#eq-heat-hydrodynamic-hamiltonian}
+
+Here $m\simeq1/(2Ja^2)$ near the bottom of the lattice band and $g$ is the continuum contact coupling. The last term, called quantum pressure, adds extra gradients and determines a short-distance cutoff. The canonical relation is
+$[\partial_x\phi(x),\theta(y)]=i\pi\delta(x-y)$.
+
+Expanding the first two terms gives
+
+$$
+H_2=\frac{u}{2\pi}\int dx\left[
+K(\partial_x\theta)^2+K^{-1}(\partial_x\phi)^2\right],
+\quad
+u=\sqrt{gn_0/m},\qquad K=\pi\sqrt{n_0/(mg)},
+$$
+
+The leading cubic term from the density dependence of the phase stiffness is
+
+$$
+H_3=\frac{1}{2\pi m}\int dx\,
+(\partial_x\phi)(\partial_x\theta)^2.
+$$ {#eq-heat-luttinger-hamiltonian}
+
+Thus $uK=\pi n_0/m$ and $u/K=g/\pi$. In a more strongly interacting liquid, $u$, $K$, and the allowed cubic couplings are phenomenological low-energy parameters; the weak-coupling estimates are not universally valid. Additional equation-of-state curvature can generate a $(\partial_x\phi)^3$ term. The treatment below retains the dominant resonant cubic vertex and parameterizes its strength independently.
+
+With $\int_q\equiv\int dq/(2\pi)$ and $[a_q,a_p^\dagger]=2\pi\delta(q-p)$, a canonical diagonalization can be specified by
+
+$$
+\delta n_q=\sqrt{\frac{K|q|}{2\pi}}(a_q+a_{-q}^\dagger),
+\qquad
+\theta_q=-i\sqrt{\frac{\pi}{2K|q|}}(a_q-a_{-q}^\dagger).
+$$ {#eq-heat-phonon-transform}
+
+It gives $H_2=\int_q u|q|a_q^\dagger a_q$ up to zero-point energy. A phonon has energy $\epsilon_q=u|q|$; it is a collective density wave, not an extra physical atom. Phonon number is not conserved by $H_3$, even though atom number is.
+
+The Luttinger theory applies below a momentum cutoff $\Lambda$ of order the inverse healing length and while fluctuations remain small enough for hydrodynamics. A useful occupation criterion is $n_q\ll\Lambda/|q|$; a thermal sufficient condition is $T\ll u\Lambda$. We assume a superfluid or incommensurate gapless regime. A commensurate Mott gap, relevant umklapp scattering, or strong disorder would change the effective theory.
+
+Cubic interactions are irrelevant for static zero-temperature long-distance scaling: they contain one more derivative than the quadratic Hamiltonian. Nevertheless they determine finite lifetimes and redistribution of occupations. Irrelevance in equilibrium power counting is not permission to remove them from a kinetic problem.
+
+## Phonon production in the quadratic theory
+
+The continuum version of density dephasing is
+$\gamma_d\int dx\,\mathcal D[\delta n(x)]$, with a coefficient $\gamma_d$ whose dimensions depend on the continuum normalization. Define the measurable low-momentum production coefficient $h$ by
+
+$$
+\partial_t n_q=h|q|\quad(H_3=0),
+\qquad h=\frac{\gamma_dK}{2\pi}
+$$ {#eq-heat-source-definition}
+
+in the density normalization of @eq-heat-phonon-transform. This explicit definition avoids identifying $\gamma_d$ with a differently rescaled parameter in the review.
+
+One can derive the source directly: $\delta n(x)$ is linear in $a_q$ and $a_q^\dagger$, so its double commutator with $a_q^\dagger a_q$ is a constant proportional to $K|q|$. Its double commutator with $a_q$ vanishes. Consequently the harmonic phonon dynamics gains noise but no friction. This does not mean the microscopic particle operator $b_j$ is unaffected by dephasing; it means density-wave coordinates experience a fluctuating force.
+
+For $n_q=\langle a_q^\dagger a_q\rangle$ and $m_q=\langle a_q a_{-q}\rangle$, with momentum delta functions understood,
+
+$$
+\partial_t n_q=h|q|,\qquad
+\partial_t m_q=-2iu|q|m_q-h|q|.
+$$
+
+Starting from $m_q(0)=0$ gives
+
+$$
+n_q(t)=n_q(0)+h|q|t,
+\qquad
+m_q(t)=\frac{ih}{2u}(1-e^{-2iu|q|t}).
+$$ {#eq-heat-harmonic-solution}
+
+The anomalous occupation is bounded by $h/u$, while $n_q$ grows indefinitely in the quadratic approximation. For weak heating, $h/u\ll1$, neglecting anomalous correlations is a controlled initial simplification. It should be reconsidered for squeezed initial states or stronger forcing.
+
+For a sharp cutoff $|q|<\Lambda$, the energy density obeys
+
+$$
+\dot e=\int_{-\Lambda}^{\Lambda}\frac{dq}{2\pi}\,
+u|q|h|q|
+=\frac{uh\Lambda^3}{3\pi},
+$$ {#eq-heat-continuum-energy}
+
+The cutoff dependence expresses that total energy injection includes short-wavelength physics. Other regulator conventions change the numerical coefficient. It is often preferable to calibrate $h$ from the microscopic heating rate. The universal results below concern the *shape* and linewidth scaling of low-momentum modes, not a cutoff-independent total energy influx.
+
+## Keep resonant scattering
+
+In the phonon basis the cubic Hamiltonian contains both $a^\dagger aa$ and $aaa$ processes and their conjugates. With a linear positive dispersion, $aaa$ cannot conserve energy. A process $p+q\leftrightarrow p,q$ is resonant only if
+
+$$
+|p+q|=|p|+|q|.
+$$
+
+Thus the two merging phonons have the same propagation direction. Nonresonant terms oscillate rapidly in the interaction picture and predominantly renormalize parameters on long kinetic times. Retaining the resonant sector gives
+
+$$
+H_{3,\mathrm{res}}=v_0\int_{p,q}'
+\sqrt{|pq(p+q)|}
+\left(a_{p+q}^\dagger a_pa_q+\text{h.c.}\right).
+$$ {#eq-heat-resonant-hamiltonian}
+
+The prime imposes the resonance condition, and $v_0$ is the resulting cubic vertex amplitude in the chosen Fourier and symmetry-factor convention. Microscopically it is proportional to the inverse-mass nonlinearity and depends on $K$; it can also be fixed from a measured linewidth. In the kinetic equations below its normalization is fixed by the displayed coefficients $2v_0^2$ and $4v_0^2$. Reallocating a factor between a symmetrized Hamiltonian vertex and its integration measure requires the same change in those coefficients.
+
+Linear dispersion makes the resonance severe: every partition of a positive $q$ into $p$ and $q-p$ has exactly the same energy. Bare perturbation theory therefore produces on-shell divergences, rather than a finite Golden Rule linewidth. The remedy will be to keep the linewidth generated by the interactions inside the internal propagators.
+
+## From two-time Green functions to a kinetic equation
+
+For phonons define
+
+$$
+G_q^R(t_1,t_2)=-i\Theta(t_1-t_2)
+\langle[a_q(t_1),a_q^\dagger(t_2)]\rangle,
+\quad
+G_q^K(t_1,t_2)=-i\langle\{a_q(t_1),a_q^\dagger(t_2)\}\rangle.
+$$
+
+Neglecting anomalous components, introduce a Hermitian two-time distribution kernel $F$ through
+
+$$
+G^K=G^R\circ F-F\circ G^A,
+$$ {#eq-heat-distribution-parametrization}
+
+where $\circ$ is time convolution. This definition remains meaningful away from time-translation invariance; Fourier transforming only a time difference would otherwise hide the evolution.
+
+Set the forward time $t=(t_1+t_2)/2$ and relative time $\tau=t_1-t_2$, and define
+
+$$
+A_q(t,\omega)=\int d\tau\,e^{i\omega\tau}
+A_q(t+\tau/2,t-\tau/2).
+$$
+
+For this Fourier convention a convolution becomes the Moyal product
+
+$$
+A\star B=A\exp\left[\frac i2
+(\overleftarrow\partial_\omega\overrightarrow\partial_t
+-\overleftarrow\partial_t\overrightarrow\partial_\omega)\right]B.
+$$ {#eq-heat-moyal}
+
+For example a multiplication by $t_1$ becomes $tB-(i/2)\partial_\omega B$, which fixes the sign. Keeping only $AB$ is the Wigner or leading-gradient approximation. It requires slow forward evolution compared with the relevant relative-time response scale. It does not require the system to be globally thermal.
+
+Dyson's equations and @eq-heat-distribution-parametrization imply
+
+$$
+\partial_tF=i\Sigma^K-i(\Sigma^R\star F-F\star\Sigma^A).
+$$ {#eq-heat-kinetic-F}
+
+The spectral function $\mathcal A=i(G^R-G^A)$ satisfies
+$\int_\omega\mathcal A=1$, where $\int_\omega=\int d\omega/(2\pi)$, and
+$\int_\omega\mathcal AF=2n_q+1$ in the same gradient approximation. For a narrow quasiparticle peak, approximate the self-energies by their values at $\omega=u|q|$:
+
+$$
+\Sigma_q^R\simeq-i\sigma_q^R,\qquad
+\Sigma_q^A\simeq+i\sigma_q^R,\qquad
+\Sigma_q^K\simeq-2i\widetilde\sigma_q^K.
+$$
+
+Here $\sigma_q^R>0$ is an amplitude decay rate and spectral half-width. Multiplying @eq-heat-kinetic-F by $\mathcal A$, integrating over frequency, and using the sum rule gives
+
+$$
+\partial_tn_q=\widetilde\sigma_q^K-
+\sigma_q^R(2n_q+1)
+=h|q|+\sigma_q^K-\sigma_q^R(2n_q+1).
+$$ {#eq-heat-on-shell-kinetic}
+
+The last $\sigma^K$ denotes interaction noise alone, whereas $\widetilde\sigma^K$ includes heating. The dephasing action contributes $2ih|q|$ to the quantum–quantum inverse propagator, without a harmonic retarded damping term. Interaction scattering contributes to both sectors.
+
+Two separate approximations have entered. Wigner truncation neglects memory gradients; the quasiparticle approximation requires $\sigma_q^R\ll u|q|$ and slow variation of self-energies across the spectral peak. A useful gradient diagnostic is
+$|\partial_tF/F|\,|\partial_\omega\Sigma^R/\Sigma^R|\ll1$, together with the analogous term interchanging $t$ and $\omega$. These conditions must be checked in the occupied momentum and time window. The low-energy weak-heating regime makes them compatible even though the distribution is nonthermal.
+
+## Self-consistent Born equations, explicitly
+
+The self-consistent Born approximation (SCBA) keeps one-loop self-energy topologies with *dressed* internal propagators, while neglecting vertex corrections. Near shell,
+
+$$
+G_q^R(t,\omega)\simeq
+\frac1{\omega-u|q|+i\sigma_q^R(t)}.
+$$
+
+Internal widths remove the degeneracy divergence. Convolution of Lorentzian spectral peaks adds widths, explaining the denominators below. This is a resummation of infinitely many bare diagrams, not ordinary second-order perturbation theory.
+
+For an inversion-symmetric distribution and $q>0$, write $n_q=n_{-q}$ and $\sigma_q=\sigma_q^R=\sigma_{-q}^R$. Suppress the common time argument, use $\int_p=\int dp/(2\pi)$, and define
+
+$$
+f_p=\frac{\partial_tn_p}{\sigma_p}+2n_p+1.
+$$
+
+The closed self-energy equation is
+
+$$
+\boxed{
+\sigma_q=v_0^2\int_0^\infty\frac{dp}{2\pi}\,f_p
+\left[\frac{qp(q-p)}{\sigma_p+\sigma_{|q-p|}}
++\frac{qp(p+q)}{\sigma_p+\sigma_{p+q}}\right].}
+$$ {#eq-heat-scba-self-energy}
+
+A physical cutoff is understood. The first numerator has the **signed** factor $q-p$: its contribution for $p>q$ is negative. Taking its absolute value would remove a cancellation with the second term, change the ultraviolet behavior, and define a different approximation. Also the derivative term is divided by $\sigma_p$, the internal linewidth; this follows from the on-shell distribution relation, not by replacing it with the external $\sigma_q$.
+
+The corresponding collision equation is
+
+$$
+\begin{aligned}
+\partial_tn_q={}&hq\\
+&+2v_0^2\int_0^q\frac{dp}{2\pi}
+\frac{pq(q-p)}{\sigma_q+\sigma_p+\sigma_{q-p}}
+\left[n_pn_{q-p}-n_q(1+n_p+n_{q-p})\right]\\
+&+4v_0^2\int_0^\infty\frac{dp}{2\pi}
+\frac{pq(q+p)}{\sigma_q+\sigma_p+\sigma_{q+p}}
+\left[n_{q+p}(1+n_q+n_p)-n_qn_p\right].
+\end{aligned}
+$$ {#eq-heat-scba-collision}
+
+The first integral describes $q\leftrightarrow p+(q-p)$; the second describes $q+p\leftrightarrow q,p$. The expressions in brackets include spontaneous and Bose-enhanced processes. The factor two difference reflects the distinct ways that the observed phonon participates. At a finite cutoff all momenta in each process must lie inside the retained range, and the same cutoff must be used consistently in gain and loss terms.
+
+These equations display why the Keldysh and retarded sectors are both needed. A linewidth alone would give losses without the compensating collision gain. Conversely, prescribing a thermal Keldysh self-energy would erase the nonequilibrium low-momentum solution. One can recover the interaction noise explicitly as
+$\sigma_q^K=\partial_tn_q-hq+\sigma_q(2n_q+1)$ after evaluating the collision integrals.
+
+For $h=0$, a Bose distribution $n_q=[e^{u|q|/T}-1]^{-1}$ makes each collision bracket vanish because $1+n_q=e^{u|q|/T}n_q$ and resonant energies add. Multiplying the collision equation by $u|q|$ and integrating over both chiralities also gives zero: each loss of a parent energy is a gain of the two daughter energies. Collisions conserve energy and momentum within the retained resonant model; they do not undo the positive external heating source.
+
+A practical calculation solves the two equations together. At each integration stage, start from the current $n_q$ and a positive trial $\sigma_q$. Evaluate the collision derivative, insert it into $f_p$, update the self-energy with damping of the iteration if necessary, and repeat to convergence. Only then advance $n_q$. Check positivity, convergence with momentum resolution, collision energy conservation, and $\sigma_q/(u|q|)\ll1$. Iterating only a linewidth while freezing an inconsistent derivative misses the feedback in $f_p$.
+
+SCBA neglects vertex corrections. They are especially small initially for an unsqueezed vacuum and in the weak-heating window considered in the original analysis. Their neglect is not an exact theorem at arbitrary occupation or time. The scaling predictions that follow are analytic consequences of this kinetic approximation, supported by its numerical solution.
+
+## The low-momentum constraint
+
+For $q$ much smaller than the momenta dominating the second collision integral, put $q+p\simeq p$. The small interval $0<p<q$ makes the splitting integral subleading. The bracket in the merging integral tends to $n_p(1+n_p)$, so
+
+$$
+\partial_tn_q\simeq |q|[h+J(t)],
+\qquad
+J(t)=2v_0^2\int_0^\infty\frac{dp}{2\pi}
+\frac{p^2n_p(1+n_p)}{\sigma_p}.
+$$ {#eq-heat-small-q-source}
+
+The source is linear in $|q|$, and collisions enhance its positive coefficient. Starting from the ground state,
+
+$$
+n_q(t)\simeq c(t)|q|,\qquad
+c(t)=ht+\int_0^tJ(t')dt'.
+$$ {#eq-heat-low-q-distribution}
+
+It cannot instantaneously become the thermal Rayleigh–Jeans form $T/(u|q|)$. The exact conserved zero-mode observable is the total-number variance, or the zero-momentum density structure factor. The $q=0$ oscillator in the phonon transformation is singular and must be treated as a separate number/phase zero mode. The shorthand “the zero-momentum phonon occupation is pinned” expresses the limiting boundary condition in this hydrodynamic treatment; total-number conservation itself is the precise microscopic statement.
+
+The initial state matters. A nonzero initial temperature already gives an infrared $1/|q|$ occupation; it can mask the new linear-in-$|q|$ contribution. A clean ground-state preparation or a momentum window above the initial thermal scale is therefore needed to expose the heating regime.
+
+## Derive the nonequilibrium linewidth exponent
+
+Suppose over a broad momentum interval
+$f_p\simeq A_f(t)|p|^{\eta_f}$ and
+$\sigma_q\simeq A_\sigma(t)|q|^{\eta_R}$. Substitute $p=qx$ into @eq-heat-scba-self-energy. The measure contributes one power of $q$, the vertex numerator three, and the denominator $-\eta_R$. Therefore
+
+$$
+A_\sigma q^{\eta_R}=
+\frac{v_0^2 A_f}{A_\sigma}
+q^{4+\eta_f-\eta_R}I_{\eta_f,\eta_R},
+\qquad
+\eta_R=2+\frac{\eta_f}{2},
+$$ {#eq-heat-exponent-relation}
+
+where
+
+$$
+I_{a,b}=\int_0^\infty\frac{dx}{2\pi}\,x^a
+\left[\frac{x(1-x)}{x^b+|1-x|^b}
++\frac{x(1+x)}{x^b+(1+x)^b}\right].
+$$
+
+The signed cancellation must be preserved when assessing convergence. A power-law ansatz only applies within its physical scaling window; it must be matched to the decaying ultraviolet distribution. A universal infrared exponent is meaningful when distant ultraviolet modes do not dominate this integral.
+
+There are three instructive cases.
+
+1. In a stationary vacuum, $f_p=1$, so $\eta_f=0$ and $\eta_R=2$ in this resonant approximation.
+2. In an occupied thermal window, $f_p\simeq2T/(u|p|)$, so $\eta_f=-1$ and $\eta_R=3/2$.
+3. In the heating-dominated infrared, $n_p=c(t)|p|$ and
+$\partial_tn_p/\sigma_p\sim |p|^{1-\eta_R}$. Since $\eta_R>1$, this term dominates the constant and occupation terms as $p\to0$. Thus $\eta_f=1-\eta_R$.
+
+The last case gives
+
+$$
+\eta_R=2+\frac{1-\eta_R}{2}
+\quad\Longrightarrow\quad
+\boxed{\eta_R=\frac53.}
+$$ {#eq-heat-five-thirds}
+
+The lifetime $1/\sigma_q$ scales as $|q|^{-5/3}$, between the thermal $|q|^{-3/2}$ and vacuum $|q|^{-2}$ results. The dispersion remains $u|q|$ because $\sigma_q/(u|q|)\propto |q|^{2/3}\to0$. The sound wave is increasingly well defined at low momentum, even though its small linewidth contains a nonequilibrium exponent.
+
+At the amplitude level, in the heating regime $A_f=c'/A_\sigma$, so
+$A_\sigma^3\propto v_0^2c'$. The exponent $5/3$ follows without assuming a thermal distribution or fitting a time exponent. It does rely on the resonant cubic effective theory, the kinetic approximation, and a sufficiently broad low-momentum scaling regime.
+
+## A moving thermalization front
+
+Numerical solutions of the coupled equations show two momentum regimes,
+
+$$
+n_q(t)\simeq
+\begin{cases}
+c(t)|q|,& |q|\ll q_{\mathrm{th}}(t),\\
+n_B(u|q|,T(t))\simeq T(t)/(u|q|),&
+q_{\mathrm{th}}(t)\ll |q|\ll T(t)/u.
+\end{cases}
+$$ {#eq-heat-two-regimes}
+
+The second line is a local Rayleigh–Jeans window, not a claim that all momenta are classical. At larger energies the full Bose function is required. High-momentum collisions can approximately balance phonon absorption and emission while the reservoir continues injecting energy; $T(t)$ is therefore a fit to a partial distribution, not a global equilibrium temperature.
+
+A useful crossover condition compares the two terms in $f_q$:
+
+$$
+\frac{\partial_tn_{q_{\mathrm{th}}}}{2n_{q_{\mathrm{th}}}+1}
+\sim\sigma_{q_{\mathrm{th}}}.
+$$ {#eq-heat-crossover-condition}
+
+In the regime studied in the primary heating calculation, numerics give approximately $c(t)\propto t^2$. Then $A_\sigma\propto t^{1/3}$. When the occupation at the matching scale is large enough that
+$\partial_tn/(2n+1)\sim1/t$, the crossover condition gives
+
+$$
+q_{\mathrm{th}}(t)\sim[tA_\sigma(t)]^{-3/5}\sim t^{-4/5},
+\qquad
+x_{\mathrm{th}}(t)=q_{\mathrm{th}}^{-1}\sim t^{4/5}.
+$$ {#eq-heat-four-fifths}
+
+This is a subballistically growing distance over which modes have approximately thermalized. It is not the propagation front of density information, which moves with sound velocity $u$. The $4/5$ law combines the analytical linewidth relation with an occupation-growth law found in the kinetic solution; it should not be described as following from number conservation alone.
+
+The review also reports an approximately linear rise of the fitted $T(t)$ in its studied heating regime. That time dependence is regime and cutoff dependent. A constant energy influx alone does not imply $T\propto t$: a completely thermal, low-temperature one-dimensional phonon gas has $e=\pi T^2/(6u)$, which instead gives $T\propto\sqrt t$ for constant influx. Conversely a fully classical cutoff-limited gas has $e\propto\Lambda T$ and can have $T\propto t$. Here the distribution contains a moving nonthermal sector, so the fit and energy must be checked together. The robust distinction is the coexistence of $n_q\propto|q|$ and an approximately thermal sector, with their associated linewidth scalings.
+
+Heating ultimately invalidates Luttinger theory. One must stop when occupations violate the hydrodynamic bound, $T$ approaches $u\Lambda$, or nonlinear/gradient approximations no longer hold. The intermediate scaling is not an infinite-time fixed-temperature steady state.
+
+## What an experiment measures
+
+Density correlations give direct access to the phonons. Define the symmetrized structure factor
+
+$$
+S(q,t,\omega)=\int d\tau\,dx\,e^{i\omega\tau-iqx}
+\frac12\left\langle\{\delta n(t+\tau/2,x),
+\delta n(t-\tau/2,0)\}\right\rangle.
+$$
+
+For negligible anomalous occupation and narrow Lorentzian peaks,
+
+$$
+S(q,t,\omega)\simeq
+\frac{K|q|}{2\pi}(2n_q+1)
+\left[
+\frac{\sigma_q}{(\omega-u|q|)^2+\sigma_q^2}
++\frac{\sigma_q}{(\omega+u|q|)^2+\sigma_q^2}
+\right].
+$$ {#eq-heat-dynamic-structure}
+
+Both peaks have half-width $\sigma_q$. A frequency-resolved density probe can therefore test $q^{5/3}$ at low momentum and $q^{3/2}$ in the thermal sector. The peak area tests occupation, while its location tests sound. Actual Bragg energy absorption measures the response or an unsymmetrized spectral combination, depending on protocol; converting it to the symmetrized expression requires that distinction. Outside equilibrium one must not impose an equilibrium fluctuation–dissipation formula to perform that conversion.
+
+Frequency integration gives
+
+$$
+S(q,t)=\int_\omega S(q,t,\omega)
+=\frac{K|q|}{2\pi}(2n_q+1).
+$$ {#eq-heat-static-structure}
+
+Our factor $1/2$ in the anticommutator defines this normalization; omitting it doubles both structure factors. In the thermal, highly occupied window this tends to $KT/(\pi u)$. In the heating infrared,
+
+$$
+S(q,t)=\frac{K|q|}{2\pi}+\frac{Kc(t)}\pi q^2.
+$$
+
+The first term is the zero-point background. The **excess** structure factor above the initial vacuum has the quadratic scaling. Calling the full structure factor proportional to $q^2$ arbitrarily close to zero would discard its larger vacuum contribution. This distinction matters when fitting low-occupation data.
+
+The same occupations determine phase coherence. In the Gaussian phonon approximation,
+
+$$
+\langle[\theta(x)-\theta(0)]^2\rangle
+=\frac\pi K\int_q\frac{1-\cos(qx)}{|q|}(2n_q+1),
+\quad
+\langle b^\dagger(x)b(0)\rangle\simeq n_0e^{-\langle(\delta\theta)^2\rangle/2}.
+$$
+
+A thermal $1/|q|$ population generates the usual linear-in-$|x|$ phase variance and exponential coherence. A linear-in-$|q|$ excess population has a very different infrared contribution. Equal-time imaging and frequency-resolved spectroscopy consequently provide complementary tests of the moving thermalization regime.
+
+## Worked exercises
+
+**1. Verify number conservation and heating.** Evaluate the dissipator on $N$ and on a hopping operator $T_j=b_j^\dagger b_{j+1}$.
+
+**Solution.** $[n_l,N]=0$, so the dissipator vanishes on $N$. Only $l=j,j+1$ contribute to $[n_l,[n_l,T_j]]$, each giving $T_j$. Thus $\partial_tT_j|_{\mathrm{diss}}=-\Gamma_dT_j$, and $\dot E=-\Gamma_d\langle H_J\rangle$. Particle conservation does not imply energy conservation.
+
+**2. Derive the exponent without a thermal ansatz.** Suppose $\partial_tn_p\propto p$ and the derivative term dominates $f_p$. Find $\eta_R$.
+
+**Solution.** $f_p\propto p^{1-\eta_R}$, while the self-energy integral gives $\eta_R=2+(1-\eta_R)/2$. Solving yields $5/3$. Dropping the derivative term would incorrectly give the vacuum exponent two when $n_p\ll1$.
+
+**3. Separate the quantum background.** For $n_q=c|q|$, what is the crossover between zero-point and occupation contributions to the static structure factor?
+
+**Solution.** Their ratio is $2c|q|$. The excess $q^2$ term dominates only for $2c|q|\gg1$; as $q\to0$ at fixed time, the full structure factor returns to its vacuum $|q|$ term. Subtracting the measured initial structure factor exposes the heating contribution without assuming it dominates.

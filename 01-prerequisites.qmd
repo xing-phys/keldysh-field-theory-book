@@ -1,0 +1,213 @@
+# Quantum dynamics before the contour {#sec-prerequisites}
+
+The central object of an open quantum system is a density matrix, and the central practical question is usually about a correlation function. Keldysh field theory connects these two descriptions. It turns an evolution equation for an operator into a generating functional whose derivatives produce correlations and responses. Before constructing that functional, we develop the few pieces of quantum mechanics that it uses.
+
+These chapters follow the theoretical starting point of @Sieberer2016, with additional intermediate calculations. Throughout, $\hbar=k_B=1$. A frequency therefore has the units of an energy, and an inverse temperature has the units of a time. We use the dissipator
+
+$$
+\mathcal D[L]\rho=L\rho L^\dagger-\frac12\{L^\dagger L,\rho\}.
+$$ {#eq-prereq-dissipator}
+
+A rate multiplying this expression is a probability decay rate. The amplitude decay rate of a harmonic mode is half its particle loss rate. Keeping this distinction visible will prevent many factors of two later.
+
+## States, mixtures, and partial traces
+
+A pure state $|\Psi\rangle$ specifies a density matrix $\rho=|\Psi\rangle\langle\Psi|$. A statistical mixture has the more general form
+
+$$
+\rho=\sum_r w_r |\Psi_r\rangle\langle\Psi_r|,
+\qquad w_r\geq0,\qquad\sum_r w_r=1.
+$$
+
+Different ensembles can describe the same $\rho$; the density matrix is the physical object. It is Hermitian, positive, and has trace one. An observable $O$ has mean $\langle O\rangle=\operatorname{tr}(\rho O)$. Positivity means $\langle v|\rho|v\rangle\geq0$ for every vector, rather than positivity of each matrix element.
+
+Suppose the full Hilbert space is $\mathcal H_S\otimes\mathcal H_B$. For a basis $\{|b\rangle\}$ of the bath, the reduced state is
+
+$$
+\rho_S=\operatorname{tr}_B\rho_{SB}
+=\sum_b\langle b|\rho_{SB}|b\rangle.
+$$
+
+This definition follows from demanding $\operatorname{tr}_{SB}[\rho_{SB}(O_S\otimes1_B)]=\operatorname{tr}_S(\rho_S O_S)$ for every system observable. Even a pure full state generally yields a mixed reduced state. For example, tracing either spin out of $(|00\rangle+|11\rangle)/\sqrt2$ gives $\rho_S=1/2$ on the two dimensional spin Hilbert space.
+
+For a closed system,
+
+$$
+i\partial_t|\Psi\rangle=H|\Psi\rangle,
+\qquad
+\partial_t\rho=-i[H,\rho],
+\qquad
+\rho(t)=U(t,t_0)\rho(t_0)U^\dagger(t,t_0).
+$$ {#eq-prereq-unitary-density}
+
+The operator $U$ acts on the ket index and $U^\dagger$ on the bra index. This is the elementary reason that a real time functional integral for a density matrix needs two branches. Doubling the fields is already necessary before adding dissipation.
+
+## What a Markovian master equation assumes
+
+Consider $H_{SB}=H_S+H_B+\sum_\alpha A_\alpha\otimes B_\alpha$. In the interaction picture, integrating the von Neumann equation once and substituting it back produces a memory term of the form
+
+$$
+\partial_t\rho_S(t)=-\int_{t_0}^t ds\,
+\operatorname{tr}_B[H_I(t),[H_I(s),\rho_{SB}(s)]],
+$$
+
+after removing an initial first order bath average. No approximation has yet made this memory term local: it depends on earlier times and on the full state.
+
+A weak coupling derivation typically replaces $\rho_{SB}(s)$ in this kernel by $\rho_S(s)\otimes\rho_B$ and then uses the short decay time of bath correlations to replace $\rho_S(s)$ by $\rho_S(t)$ inside the memory integral. Appropriate frequency averaging is also needed to obtain a completely positive generator. The bath correlation time must be short compared with the system relaxation time. This does **not** say that every system oscillation is slow, that every bath is white at every frequency, or that a local dissipator is automatically compatible with thermal equilibrium.
+
+The resulting time independent equation has the form
+
+$$
+\partial_t\rho=\mathcal L\rho
+=-i[H,\rho]+\sum_\alpha\gamma_\alpha\mathcal D[L_\alpha]\rho,
+\qquad\gamma_\alpha\geq0.
+$$ {#eq-prereq-lindblad}
+
+The structural theorem identifying generators of completely positive quantum dynamical semigroups is foundational [@Lindblad1976]. Here we use the displayed equation as a model whose physical derivation and regime of validity must be checked separately. Bosonic operators are unbounded; formal manipulations with them also require a sensible domain or occupation cutoff.
+
+Trace preservation is immediate:
+
+$$
+\operatorname{tr}(L\rho L^\dagger)
+=\operatorname{tr}(L^\dagger L\rho),
+\qquad\operatorname{tr}\mathcal D[L]\rho=0.
+$$
+
+The positive jump term and the two anticommutator terms belong together. Removing the jump term gives a useful conditional evolution between detected jumps, but its trace decreases and it is not the unconditional master equation.
+
+A steady state obeys $\mathcal L\rho_{\mathrm{ss}}=0$. Existence, uniqueness, and approach to it are separate questions. A finite system often has a unique stationary state; an infinite system can display phase transitions, several sectors, or persistent dynamics. Sending $t_0\to-\infty$ removes initial conditions only if the modes being studied actually relax.
+
+## The adjoint equation and elementary diagnostics
+
+Instead of evolving $\rho$, we may evolve observables using
+
+$$
+\frac{d}{dt}\langle O\rangle=\langle\mathcal L^\dagger O\rangle,
+\quad
+\mathcal L^\dagger O=i[H,O]
++\sum_\alpha\gamma_\alpha\left(L_\alpha^\dagger O L_\alpha
+-\frac12\{L_\alpha^\dagger L_\alpha,O\}\right).
+$$ {#eq-prereq-adjoint}
+
+A convenient identity is
+
+$$
+\mathcal D^\dagger[L]O
+=\frac12\left(L^\dagger[O,L]+[L^\dagger,O]L\right).
+$$
+
+For $[a,a^\dagger]=1$, $H=\omega_0a^\dagger a$, and loss and incoherent pump,
+
+$$
+\dot\rho=-i[\omega_0a^\dagger a,\rho]
++\kappa\mathcal D[a]\rho+p\mathcal D[a^\dagger]\rho,
+$$ {#eq-prereq-cavity-master}
+
+this identity yields
+
+$$
+\frac{d\langle a\rangle}{dt}
+=-\left(i\omega_0+\frac{\kappa-p}{2}\right)\langle a\rangle,
+\qquad
+\frac{d\langle n\rangle}{dt}=-(\kappa-p)\langle n\rangle+p,
+\quad n=a^\dagger a.
+$$ {#eq-prereq-cavity-moments}
+
+The pump contributes $p(\langle n\rangle+1)$ to particle production. The extra one is spontaneous emission into an empty mode; the term proportional to $n$ is bosonic stimulation. A stable linear stationary state requires $p<\kappa$, and then $n_{\mathrm{ss}}=p/(\kappa-p)$. If $p\geq\kappa$, saturation or other physics is needed. The failure is physical, rather than a defect in the functional integral.
+
+More generally, a symmetry of the generator need not mean conservation of the corresponding charge. Both dissipators above are invariant under $a\mapsto e^{i\theta}a$, because phases cancel between a jump and its adjoint. Nevertheless, their particle number is not conserved. This distinction becomes essential in driven condensates.
+
+::: {.callout-tip title="Checkpoint: rate conventions"}
+For pure loss, $\langle n(t)\rangle=e^{-\kappa t}\langle n(0)\rangle$, while $\langle a(t)\rangle=e^{-(i\omega_0+\kappa/2)t}\langle a(0)\rangle$. A paper writing $2\kappa\mathcal D[a]$ has an amplitude linewidth $\kappa$; its symbol $\kappa$ denotes a different rate from ours.
+:::
+
+## Second quantization and coherent states
+
+A bosonic occupation basis is defined by
+
+$$
+a|n\rangle=\sqrt n\,|n-1\rangle,
+\qquad
+a^\dagger|n\rangle=\sqrt{n+1}\,|n+1\rangle.
+$$
+
+A coherent state is particularly useful because annihilation acts by multiplication. Use the unnormalized convention
+
+$$
+|z\rangle=e^{za^\dagger}|0\rangle
+=\sum_{n=0}^\infty\frac{z^n}{\sqrt{n!}}|n\rangle,
+\qquad a|z\rangle=z|z\rangle.
+$$ {#eq-prereq-coherent}
+
+Its overlap and resolution of the identity are
+
+$$
+\langle z|w\rangle=e^{\bar z w},
+\qquad
+1=\int\frac{d^2z}{\pi}e^{-|z|^2}|z\rangle\langle z|,
+\quad d^2z=d(\operatorname{Re}z)d(\operatorname{Im}z).
+$$ {#eq-prereq-coherent-identity}
+
+To verify completeness, insert the occupation expansion. The angular integral gives $\delta_{mn}$ and the radial integral gives $n!$, canceling the factors in the expansion. Coherent states are overcomplete, so they need not be orthogonal to resolve the identity.
+
+A **normal ordered** polynomial has all creation operators to the left of annihilation operators. For such an operator $F_N$,
+
+$$
+\frac{\langle z|F_N(a^\dagger,a)|w\rangle}{\langle z|w\rangle}
+=F_N(\bar z,w).
+$$ {#eq-prereq-normal-symbol}
+
+This is a statement about matrix elements, not an assertion that quantum operators commute. For example,
+
+$$
+aa^\dagger=a^\dagger a+1,
+\quad (a^\dagger a)^2=a^{\dagger2}a^2+a^\dagger a.
+$$
+
+Their normal symbols are $\bar z w+1$ and $\bar z^2w^2+\bar z w$, respectively. Replacing $a$ by a complex number before commuting would miss these terms.
+
+For a spatial field, $[a(\mathbf x),a^\dagger(\mathbf x')]=\delta^{(d)}(\mathbf x-\mathbf x')$. A lattice with spacing $a_0$ regulates local products, with $a_j\simeq a_0^{d/2}a(\mathbf x_j)$. Contact interactions and coincident point noise should be understood with such a regulator until physical parameters are fixed. The formal object $\delta^{(d)}(0)$ is not a measurable infinite density.
+
+## Correlations and linear response
+
+A density matrix determines equal time averages, but unequal time correlations require the dynamics too. In a Markovian description, for $t>t'$,
+
+$$
+\langle A(t)B(t')\rangle
+=\operatorname{tr}\left[Ae^{(t-t')\mathcal L}
+\bigl(B\rho(t')\bigr)\right].
+$$ {#eq-prereq-regression}
+
+This is the regression rule associated with the same system and bath approximation used for the master equation. One should not assume it for an arbitrary non-Markovian reduced state. The object being propagated, $B\rho$, need not itself be a positive density matrix; the Liouvillian acts linearly on the full operator space.
+
+For a boson we define
+
+$$
+G^R(t,t')=-i\theta(t-t')\langle[a(t),a^\dagger(t')]\rangle,
+\qquad
+G^K(t,t')=-i\langle\{a(t),a^\dagger(t')\}\rangle.
+$$ {#eq-prereq-green-definitions}
+
+The commutator governs the response to a weak coherent probe. The anticommutator gives symmetrized fluctuations. At equal times,
+
+$$
+iG^K(t,t)=2\langle n(t)\rangle+1.
+$$
+
+An empty mode therefore still fluctuates. Dropping the one changes quantum vacuum noise and can give a negative occupation after converting back from symmetrized correlations.
+
+We Fourier transform with $f(t,\mathbf x)=\int d\omega\,d^dk\,(2\pi)^{-(d+1)}e^{-i\omega t+i\mathbf k\cdot\mathbf x}f(\omega,\mathbf k)$. Thus $i\partial_t\mapsto\omega$ and $-\nabla^2\mapsto k^2$. For a stationary state, two time functions depend on $t-t'$; during heating, both times remain independent.
+
+## Exercises with solutions
+
+**1. Purity under mixing.** Compute $\operatorname{tr}\rho^2$ for $\rho=w|0\rangle\langle0|+(1-w)|1\rangle\langle1|$.
+
+**Solution.** Orthogonality gives $\operatorname{tr}\rho^2=w^2+(1-w)^2$. It equals one at the pure endpoints and reaches $1/2$ at $w=1/2$. A density matrix can be mixed even when no classical label identifying its preparation is accessible.
+
+**2. Pair loss.** Add $\eta\mathcal D[a^2]$ to the cavity master equation. Derive its contributions to the amplitude and particle equations.
+
+**Solution.** In the adjoint identity, $[a,a^2]=0$ and $[a^{\dagger2},a]=-2a^\dagger$, giving $\mathcal D^\dagger[a^2]a=-a^\dagger a^2$. Similarly $[n,a^2]=-2a^2$ and $[a^{\dagger2},n]=-2a^{\dagger2}$, giving $\mathcal D^\dagger[a^2]n=-2a^{\dagger2}a^2$. Thus $\dot{\langle a\rangle}|_\eta=-\eta\langle a^\dagger a^2\rangle$ and $\dot{\langle n\rangle}|_\eta=-2\eta\langle n(n-1)\rangle$. Replacing the three operator average by $|\langle a\rangle|^2\langle a\rangle$ is a mean field approximation, not an operator identity.
+
+**3. Incoherent versus coherent pumping.** Why does $p\mathcal D[a^\dagger]$ preserve phase rotation symmetry whereas $H_f=fa^\dagger+\bar f a$ generally does not?
+
+**Solution.** A jump may acquire a phase without changing its dissipator. A specified complex number $f$ instead selects a phase relative to which $a$ is measured. Keeping $f$ fixed while rotating $a$ changes $H_f$. This is why an incoherently pumped condensate can spontaneously choose its phase, while a resonantly driven linear cavity inherits the laser phase.

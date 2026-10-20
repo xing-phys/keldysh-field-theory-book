@@ -1,33 +1,74 @@
 project:
-  type: book          # Multi-page HTML and a combined PDF from one source
+  type: book
   output-dir: _site
+  resources:
+    - figs/
+    - scripts/*.jl
+    - data/
+    - LICENSE
   render:
     - "*.qmd"
 
 book:
-  title: "REPORT TITLE"
-  subtitle: "REPORT SUBTITLE"
+  title: "Keldysh Field Theory"
+  subtitle: "A working introduction to driven open quantum matter"
   author:
     - name: Ze-Yu Xing
       orcid: 0009-0009-5655-0187
       affiliations:
         - Institute of Physics, Chinese Academy of Sciences
         - University of Chinese Academy of Sciences
-  date: last-modified
+  date: "2026-10-20"
   date-format: long
-  search: true
+  output-file: keldysh-field-theory
+  site-url: https://xing-phys.github.io/keldysh-field-theory-book/
+  repo-url: https://github.com/xing-phys/keldysh-field-theory-book
+  repo-actions: [edit, issue]
   downloads: [pdf]
+  search: true
+  favicon: assets/favicon.svg
+  sidebar:
+    style: docked
+    collapse-level: 1
   chapters:
     - index.qmd
-    # - chapter2.qmd
-    # - chapter3.qmd
+    - 00-orientation.qmd
+    - part: "Build the language"
+      chapters:
+        - 01-prerequisites.qmd
+        - 02-contour.qmd
+        - 03-gaussian.qmd
+        - 04-semiclassical.qmd
+    - part: "Symmetry and scale"
+      chapters:
+        - 05-symmetries.qmd
+        - 06-renormalization.qmd
+    - part: "Stationary quantum matter"
+      chapters:
+        - 07-cavity-spins.qmd
+        - 08-spin-glass.qmd
+        - 09-condensation.qmd
+        - 10-kpz.qmd
+    - part: "Dynamics and practice"
+      chapters:
+        - 11-heating.qmd
+        - 12-numerical-laboratory.qmd
+        - 13-outlook.qmd
+    - references.qmd
+  appendices:
+    - a-mathematics.qmd
+    - b-conventions.qmd
+    - c-review-map.qmd
   page-footer:
-    center: |
-      PROJECT NAME
+    left: "An independent, open study companion · CC BY 4.0"
+    right: "[Source & corrections](https://github.com/xing-phys/keldysh-field-theory-book)"
 
 bibliography: assets/bibliography.bib
 csl: assets/american-physics-society.csl
 link-citations: true
+lang: en
+execute:
+  eval: false
 
 format:
   html:
@@ -39,17 +80,29 @@ format:
     toc-depth: 3
     number-sections: true
     fig-responsive: true
+    code-copy: true
+    code-overflow: wrap
     include-in-header: assets/mathjax-config.html
-    reference-location: section
+    reference-location: document
+    link-external-newwindow: true
   pdf:
+    documentclass: scrreprt
+    pdf-engine: xelatex
     papersize: a4
-    geometry:
-      - margin=1in
+    geometry: [margin=25mm]
     fontsize: 11pt
+    mainfont: TeX Gyre Pagella
+    sansfont: TeX Gyre Heros
+    monofont: DejaVu Sans Mono
     colorlinks: true
+    linkcolor: teal
+    urlcolor: teal
+    citecolor: teal
     toc: true
     toc-depth: 2
     number-sections: true
-    include-in-header: assets/macros.sty
-    keep-tex: false
+    include-in-header:
+      - assets/macros.sty
+      - assets/pdf-layout.tex
     reference-location: document
+    keep-tex: false

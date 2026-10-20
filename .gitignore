@@ -2,3 +2,13 @@
 /_site/
 
 **/*.quarto_ipynb
+*.log
+*.aux
+*.out
+*.toc
+*.xdv
+.DS_Store
+__pycache__/
+
+/index.tex
+/index.pdf

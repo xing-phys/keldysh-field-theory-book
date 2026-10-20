@@ -1,5 +1,14 @@
+/*-- scss:defaults --*/
+$body-bg: #faf9f5;
+$body-color: #24343a;
+$link-color: #176b70;
+$primary: #176b70;
+$sidebar-bg: #f1f1eb;
+$font-family-sans-serif: "Source Sans Pro", "Segoe UI", sans-serif;
+$headings-font-family: "Georgia", serif;
+$font-size-base: 1.06rem;
+$line-height-base: 1.7;
 /*-- scss:rules --*/
-
-.navbar-title {
-  font-weight: 600;
-}
+.sidebar-title { font-family: Georgia, serif; font-weight: 600; }
+h1, h2, h3 { color: #243e45; }
+::selection { background: #dce9df; }

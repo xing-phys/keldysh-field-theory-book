@@ -1,0 +1,158 @@
+# Coarse graining in real time {#sec-renormalization}
+
+Perturbation theory sums fluctuations around a chosen reference state. Near a continuous transition, fluctuations occur at many wavelengths and a finite collection of diagrams can become unreliable. Renormalization reorganizes this problem by integrating fluctuations in stages. The functional renormalization group (FRG) does so without abandoning the response and noise structure of the Keldysh theory. This chapter develops the construction introduced in Sec. II.E of @Sieberer2016; later chapters apply it to a driven condensation transition.
+
+## From connected correlations to the effective action
+
+Temporarily collect all real components, contour indices, and spacetime points into a vector $\varphi$. Complex fields can always be split into two real components. With a source $J$, define
+
+$$
+Z[J]=\int\mathcal D\varphi\,e^{iS[\varphi]+iJ\cdot\varphi},
+\qquad W[J]=-i\ln Z[J],\qquad \bar\varphi=\frac{\delta W}{\delta J}.
+$$
+
+The Legendre transform appropriate to this sign convention is
+
+$$
+\Gamma[\bar\varphi]=W[J]-J\cdot\bar\varphi,
+\qquad \frac{\delta\Gamma}{\delta\bar\varphi}=-J.
+$$ {#eq-frg-legendre}
+
+In the Keldysh basis a physical source couples to the quantum field, while a quantum source probes the classical mean field. The dot product above includes that source assignment. At $J=0$, stationarity of $\Gamma$ gives the exact mean field equation, including fluctuation corrections.
+
+Let $C=\langle\varphi\varphi\rangle-\bar\varphi\bar\varphi$ and $G=-iC$. Differentiating gives $W^{(2)}=iC=-G$, hence
+
+$$
+\Gamma^{(2)}=G^{-1}.
+$$
+
+The derivatives of $\Gamma$ are the one particle irreducible vertices: they cannot be separated into two connected pieces by cutting one internal propagator. For a Gaussian theory $\Gamma$ equals the quadratic microscopic action up to a field independent normalization. Interactions make its coefficients depend on momentum, frequency, and background field. Replacing the microscopic action by its effective action therefore changes the equation of motion, the response, and the noise together.
+
+Causality constrains the physical effective action to vanish on the equal branch configuration, $\Gamma[\phi_c,\phi_q=0]=0$, with the conventional normalization of the generating functional. This means that the analogue of a thermodynamic potential is encoded in terms linear in $\phi_q$, rather than in a nonzero classical–classical potential evaluated at $\phi_q=0$.
+
+## Suppressing the slow fluctuations
+
+Introduce a scale $k$ and a quadratic regulator
+
+$$
+\Delta S_k[\varphi]=\frac12\varphi\cdot R_k\cdot\varphi.
+$$
+
+The factor $1/2$ applies to the real field representation used here. In complex notation the same quadratic form can be written without it if fields and conjugates are not double counted. Define $Z_k,W_k$ with $S+\Delta S_k$, and subtract the regulator after the Legendre transform:
+
+$$
+\Gamma_k[\bar\varphi]
+=W_k[J]-J\cdot\bar\varphi-\Delta S_k[\bar\varphi].
+$$ {#eq-frg-average-action}
+
+The subtraction makes $\Gamma_k$ approach the physical effective action as the regulator disappears. It also gives
+
+$$
+G_k=\bigl(\Gamma_k^{(2)}+R_k\bigr)^{-1}.
+$$ {#eq-frg-propagator}
+
+A useful regulator adds a gap to modes with $|\mathbf q|\lesssim k$, changes high momentum modes little, vanishes as $k\to0$, and suppresses all relevant fluctuations at a sufficiently large ultraviolet scale $\Lambda$. Then $\Gamma_\Lambda\simeq S$ and $\Gamma_0=\Gamma$. With a finite regulator at a finite microscopic cutoff, the ultraviolet identification is an approximation or requires matching; it is not an identity for every regulator.
+
+For the complex Keldysh quadratic form, retain the structure
+
+$$
+R_k=\begin{pmatrix}0&R_k^A\\R_k^R&R_k^K\end{pmatrix},
+\qquad R_k^A=(R_k^R)^\dagger.
+$$ {#eq-frg-regulator-structure}
+
+The zero in the classical–classical block preserves causality. $R_k^R$ must have the analytic properties of a retarded inverse response, and the advanced block must be its partner. A frequency independent real spatial regulator is convenient because it does not introduce spurious frequency poles. For a response $P^R=Z\omega-K\mathbf q^2-r+\cdots$ with real positive $K$, an example is
+
+$$
+R_k^R(\mathbf q)=-K(k^2-\mathbf q^2)\Theta(k^2-\mathbf q^2),
+\qquad R_k^A=R_k^R,\qquad R_k^K=0.
+$$
+
+The minus sign is chosen to match this displayed inverse propagator: low momentum modes acquire the same restoring term as momentum $k$. For complex kinetic coefficients the regulator must be adapted so that the regulated dynamics remains stable.
+
+A sharp frequency cutoff can spoil analyticity or contour identities. Choosing a regulator is consequently a physical structural choice, even though an exact final answer cannot depend on it. If one wants to preserve equilibrium along the entire flow, a dissipative regulator must carry the corresponding fluctuations:
+
+$$
+R_k^K=\coth(\beta\omega/2)(R_k^R-R_k^A)
+$$
+
+in a scalar zero chemical potential sector. A real spatial regulator satisfies this with both sides zero. Arbitrarily adding damping while omitting its thermal noise breaks this condition.
+
+## Deriving the flow equation
+
+Differentiate @eq-frg-average-action at fixed $\bar\varphi$. Terms containing the scale derivative of $J$ cancel by the Legendre relation. What remains is
+
+$$
+\partial_k\Gamma_k
+=\frac12\operatorname{Tr}\bigl[(\partial_kR_k)C_k\bigr]
+=\frac{i}{2}\operatorname{Tr}\left[
+\bigl(\Gamma_k^{(2)}+R_k\bigr)^{-1}\partial_kR_k\right].
+$$ {#eq-frg-wetterich}
+
+This is the real time Wetterich equation [@Wetterich1993]. The trace sums internal indices and integrates momenta and frequencies. Fermions require the corresponding supertrace signs; our discussion is bosonic. Its compact appearance resembles a loop with one regulator insertion, but the propagator contains the full field dependent $\Gamma_k^{(2)}$. Expanding this dependence generates arbitrarily many ordinary perturbative loops. Thus the equation is exact before truncation.
+
+A second useful object is the single scale propagator,
+
+$$
+\mathcal S_k=-G_k(\partial_kR_k)G_k.
+$$
+
+It differentiates $G_k$ while holding $\Gamma_k^{(2)}$ fixed. Functional derivatives of @eq-frg-wetterich produce a hierarchy of vertex equations: the two point flow involves three and four point vertices, whose flows involve still higher vertices. The hierarchy has traded one exact functional integral for one exact functional differential equation. Solving it still requires an approximation in an interacting many body problem.
+
+The Keldysh implementation is not restricted to critical phenomena. It can follow frequency dependent transport vertices or finite scale crossovers; suitable cutoff choices were developed directly for nonequilibrium problems [@Jakobs2007FRG]. Near criticality, a derivative expansion is often more economical because only a small number of slow operators matter.
+
+## A usable truncation and its projections
+
+For illustration, consider a local complex order parameter theory,
+
+$$
+\Gamma_k=\int dt\,d^dx\left\{
+\phi_q^*\left[Z_k i\partial_t+K_k\nabla^2-r_k-u_k|\phi_c|^2\right]\phi_c
++\text{conjugate response term}+iD_k|\phi_q|^2\right\}+\cdots.
+$$ {#eq-frg-truncation}
+
+$Z_k,K_k,r_k,u_k$ can be complex, with advanced coefficients fixed consistently. $D_k$ is real and nonnegative in this additive noise truncation. Numerical factors in $u_k$ depend on whether the physical amplitude or the $\sqrt2$ normalized classical field is used; the equation above defines the coefficient to be projected. The ellipsis can include density dependent noise, higher derivatives, and vertices with more quantum fields.
+
+The running response kernel is the $q^*c$ derivative of $\Gamma_k$. In the symmetric phase, a direct prescription is
+
+$$
+\begin{aligned}
+-r_k&=\left.\Gamma^{(2)}_{k,q^*c}\right|_{\omega=\mathbf q=\bar\phi=0},\\
+Z_k&=\left.\partial_\omega\Gamma^{(2)}_{k,q^*c}\right|_0,\\
+K_k&=-\left.\partial_{\mathbf q^2}\Gamma^{(2)}_{k,q^*c}\right|_0,\\
+iD_k&=\left.\Gamma^{(2)}_{k,q^*q}\right|_0.
+\end{aligned}
+$$ {#eq-frg-projections}
+
+A four field derivative, or a derivative of the response kernel with respect to $|\bar\phi_c|^2$, projects $u_k$ with the factors fixed by @eq-frg-truncation. Apply these same operations to the right side of @eq-frg-wetterich to obtain ordinary differential equations for the couplings. In a broken phase it is often better to expand the effective potential around its running minimum. The minimum condition and its scale derivative then determine the running condensate, while the Goldstone identity constrains the transverse mass.
+
+There is an important practical lesson in the noise projection. The retarded flow alone does not close a nonequilibrium theory: $G^K=-G^RP^KG^A$ enters the loops, and $P^K$ itself runs. Inferring it from a thermal FDR would assume the result one wants to test.
+
+At a diffusive classical fixed point, set $z=2$ and choose white noise dimensionless. Momentum dimensions are
+
+$$
+[\phi_q]=\frac{d+2}{2},\qquad [\phi_c]=\frac{d-2}{2},\qquad [u]=4-d.
+$$
+
+The interaction with one quantum and three classical fields is marginal at $d=4$. A vertex with three quantum fields and one classical field has dimension $-d$, while multiplicative noise $|\phi_q|^2|\phi_c|^2$ has dimension $2-d$. These estimates explain why a semiclassical truncation can be consistent near the upper critical dimension. They do not guarantee that every discarded operator is harmless in one dimension or at a different fixed point.
+
+Dimensionless couplings remove the units carried by $k$, $Z_k$, and $K_k$. A fixed point is a scale independent solution for those rescaled quantities. Linearizing their flow gives relevant directions, whose inverse eigenvalues determine correlation length exponents, and irrelevant directions, which describe corrections to scaling. Anomalous dimensions describe the remaining scale dependence of field normalization and kinetic coefficients. In driven systems the relative coherent and dissipative coefficients can have a separate infrared flow, even when static exponents coincide with an equilibrium model.
+
+## How to judge a calculation
+
+An exact flow is independent of its regulator; a truncated one is not. Varying reasonable regulators and enlarging the truncation estimates sensitivity to discarded operators. More decisive structural checks include preservation of the zero classical–classical inverse block, stable retarded poles, the stationary field equation, and any Ward identities that the microscopic action must obey. A conserving microscopic theory must not acquire unaccounted particle sources from the truncation.
+
+An apparent common temperature inferred from two point functions should also be checked against the couplings. If the infrared action develops the classical thermal symmetry, noise and damping match and the coherent/dissipative interaction ratios satisfy the equilibrium constraints. If only one ratio of correlators approaches $2T/\omega$, the conclusion is narrower. The FRG is useful precisely because it can distinguish an emergent symmetry of the effective dynamics from a suggestive fit to one observable.
+
+## Worked exercises
+
+**Gaussian flow.** Take $S=\frac12\varphi P\varphi$ with field independent $P$. What runs?
+
+**Solution.** The right side of @eq-frg-wetterich is field independent because $\Gamma_k^{(2)}=P$. Only a normalization term runs. All two point and higher vertices stay at their Gaussian values. This is a useful test of a code implementing the flow: a field dependent Gaussian correction signals a mistake.
+
+**Why the effective potential is not $\Gamma[\phi_c,0]$.** Explain how an ordered steady state can be encoded although that expression vanishes.
+
+**Solution.** The stationary condition is obtained by differentiating with respect to $\phi_q^*$ and then setting $\phi_q=0$. In @eq-frg-truncation this gives $[-r_k-u_k|\phi_c|^2]\phi_c=0$ for a uniform state. The information survives in the response vertex, even though every term in the action contains at least one quantum field.
+
+**A thermal regulator.** Add $R_k^R=i\gamma_k$, $R_k^A=-i\gamma_k$ at small frequency. Find the classical noise regulator.
+
+**Solution.** Thermal symmetry requires $R_k^K=(2T/\omega)2i\gamma_k$. A frequency independent damping insertion of this form has a singular low frequency thermal noise partner. For an Ohmic inverse response, $R_k^R=i\omega\eta_k$ instead gives the regular white term $R_k^K=4iT\eta_k$. This distinction is one reason to design the regulator around the actual low energy response structure.

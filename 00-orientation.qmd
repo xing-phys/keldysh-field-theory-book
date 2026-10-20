@@ -1,0 +1,198 @@
+# Orientation: what is driven, what is open? {#sec-orientation}
+
+A pendulum with friction eventually stops. A laser continues to emit because an external source supplies energy while photons leave the cavity. Both are open systems; their long-time states are qualitatively different. The same distinction becomes more interesting when the system contains many interacting quantum degrees of freedom. Fluctuations can then remain important at distances much larger than any microscopic length.
+
+The review's introduction organizes this problem around new collective phenomena, a common theoretical language, and three experimental families [@Sieberer2016]. This chapter develops that physical starting point before introducing the formalism.
+
+## System, reservoir, and drive
+
+Let the full Hamiltonian be
+
+$$
+H_{\mathrm{tot}}(t)=H_S(t)+H_B+H_{SB},\qquad
+\rho_S(t)=\operatorname{Tr}_B\rho_{\mathrm{tot}}(t).
+$$ {#eq-orientation-total}
+
+The system is the set of variables whose observables we retain. A reservoir is a large collection of other variables. A drive is an external source that controls parameters or supplies excitations. These roles depend on the question: a pump laser can be represented by a classical field after its quantum fluctuations have been neglected, while leaking electromagnetic modes remain a quantum reservoir.
+
+The total state can evolve unitarily even when the reduced state does not. Partial tracing discards correlations between the system and its environment. A description local in time is often possible when reservoir correlations decay on a time $\tau_B$ much shorter than system relaxation, the coupling is weak enough for a reservoir expansion, and the reservoir is not appreciably changed by the system. These are physical assumptions, not a consequence of writing a density matrix.
+
+Under suitable Markov and secular conditions the reduced evolution takes the completely positive, trace-preserving form
+
+$$
+\partial_t\rho=-i[H,\rho]+\sum_\alpha\gamma_\alpha
+\left(L_\alpha\rho L_\alpha^\dagger-
+\frac12\{L_\alpha^\dagger L_\alpha,\rho\}\right).
+$$ {#eq-orientation-lindblad}
+
+Here $\gamma_\alpha\geq0$ is a rate and $L_\alpha$ describes a jump. A photon annihilation operator describes loss, a creation operator describes incoherent gain, and a number operator describes dephasing. Complete positivity guarantees that the evolution remains physically admissible when the system is entangled with an untouched auxiliary system. @sec-prerequisites derives the elementary properties of this generator.
+
+A rotating frame can remove explicit time dependence from a driven Hamiltonian. If $U(t)=e^{i\omega_d t N}$ and $\rho'=U\rho U^\dagger$, direct differentiation gives
+
+$$
+H'=UHU^\dagger+i\dot U U^\dagger=UHU^\dagger-\omega_dN.
+$$ {#eq-orientation-rotating}
+
+For $H=\omega_0 a^\dagger a+F e^{-i\omega_dt}a^\dagger+F^*e^{i\omega_dt}a$, this becomes $H'=(\omega_0-\omega_d)a^\dagger a+F a^\dagger+F^*a$. The constant detuning is not evidence that the laboratory system is undriven. Its reservoir populations and the work required to maintain $F$ still distinguish it from equilibrium.
+
+## Stationarity is weaker than equilibrium
+
+A stationary state satisfies $\mathcal L\rho_{\mathrm{ss}}=0$. Equilibrium imposes further constraints on the dynamics, encoded by detailed balance and the Kubo-Martin-Schwinger (KMS) condition. In equilibrium, response and fluctuations are related at one temperature for all appropriate observables. A stationary density matrix alone does not establish this property.
+
+An elementary counterexample is a particle on a three-state ring. Label the states $j=0,1,2$ modulo three. Jumps $L_{j,+}=|j+1\rangle\langle j|$ have rate $r_+$ and reverse jumps have rate $r_-$. Diagonal populations obey
+
+$$
+\dot p_j=r_+p_{j-1}+r_-p_{j+1}-(r_++r_-)p_j.
+$$ {#eq-orientation-ring}
+
+The uniform state $p_j=1/3$ is stationary. Across every directed bond the net probability current is
+
+$$
+I=\frac{r_+-r_-}{3}.
+$$ {#eq-orientation-current}
+
+If the states are degenerate, this density matrix has the same form as a Gibbs state, but its maintained circulation violates pairwise detailed balance when $r_+\ne r_-$. In a classical stochastic description with locally balanced reservoir channels, the steady entropy production is
+
+$$
+\dot S_{\mathrm{prod}}=\sum_{j=0}^2 I\log\frac{r_+p_j}{r_-p_{j+1}}
+=(r_+-r_-)\log\frac{r_+}{r_-}\geq0.
+$$ {#eq-orientation-entropy}
+
+The inequality follows because the logarithm is monotone. It vanishes at $r_+=r_-$. The example explains why we will test equilibrium through correlation and response rather than by fitting a stationary occupation to a temperature.
+
+For a bosonic observable with the Green-function conventions in @sec-conventions, equilibrium requires
+
+$$
+G^K(\omega)=\coth\!\left(\frac{\omega-\mu}{2T}\right)
+\bigl[G^R(\omega)-G^A(\omega)\bigr]
+$$ {#eq-orientation-fdr}
+
+when the observable carries one unit of the conserved charge associated with $\mu$. For neutral observables, or frequencies already measured in the corresponding rotating grand-canonical frame, the argument is $\omega/(2T)$. Away from equilibrium the ratio of these functions may depend on frequency, momentum, and the observable. A low-frequency effective temperature is a statement about a specified sector and limit; it need not characterize the full state.
+
+## Why use a field theory?
+
+For $N$ spins, the Hilbert space has dimension $2^N$ and the density matrix has $4^N$ entries. A field theory does not remove all computational difficulty. It reorganizes it around fields, symmetries, and scales. Near a continuous transition, modes with arbitrarily small restoring forces can dominate the answer. Perturbation theory then contains integrals such as
+
+$$
+\int_{|\mathbf q|<\Lambda}\frac{d^d q}{(2\pi)^d}
+\frac{1}{r+q^2},
+$$ {#eq-orientation-infrared}
+
+where $r\to0$ at criticality and $\Lambda$ is a microscopic momentum cutoff. Whether the small-$q$ region is singular depends on dimension. Small microscopic couplings need not imply small fluctuation corrections. Renormalization tracks how the effective theory changes as high-momentum modes are removed.
+
+The Keldysh construction represents both sides of density-matrix evolution. One field follows the forward branch and another the backward branch of a time contour. Their sum represents the physical configuration, while their difference generates response and measures departures from coincident histories. This doubling is what permits independent correlation and response functions. A single imaginary-time equilibrium partition function does not contain the same general dynamical information.
+
+The resulting framework has several useful limits:
+
+| Description | Variables retained | Typical use |
+|---|---|---|
+| Master equation | Full density operator | Exact small systems and microscopic modeling |
+| Quantum trajectories | Stochastic pure-state histories | Sampling a specified Lindblad equation |
+| Keldysh functional integral | Forward/backward fields | Response, diagrams, symmetries, coarse graining |
+| Classical response functional | Physical and response fields, Gaussian noise | Highly occupied long-wavelength modes |
+| Mean-field equation | A deterministic average field | Saddle points and a first stability analysis |
+
+The last two rows are approximations to the quantum theory under stated conditions. A noisy classical field can preserve phase coherence and capture a finite-temperature-like transition while missing quantum entanglement. Conversely, engineered dark states can suppress noise in ways that invalidate a generic classical reduction.
+
+## Platform 1: atoms, photons, and collective spins
+
+Consider two-level atoms coupled to a cavity. With $S^\alpha=\frac12\sum_i\sigma_i^\alpha$, a useful effective Hamiltonian is
+
+$$
+H_D=\omega_0 a^\dagger a+\omega_z S^z+
+\frac{2\lambda}{\sqrt N}(a+a^\dagger)S^x,
+\qquad \partial_t\rho=-i[H_D,\rho]+\kappa\mathcal D[a]\rho.
+$$ {#eq-orientation-dicke}
+
+The $1/\sqrt N$ scaling permits an extensive thermodynamic limit. The transformation $a\mapsto-a$, $S^x\mapsto-S^x$ is a discrete symmetry. A superradiant stationary phase can break it, producing two opposite signs of the field and spin polarization. A transition requires an appropriate large-system limit; a finite symmetric system need not choose one sign indefinitely.
+
+In a pumped atomic gas, the two effective spin states can be different momentum configurations rather than two internal electronic levels. Off-resonant Raman scattering converts pump photons into cavity photons while changing atomic motion. Eliminating an electronic excited state of detuning $\Delta_a$ yields dispersive shifts proportional to $g^2/\Delta_a$ and Raman matrix elements proportional to $g\Omega/\Delta_a$, where $g$ is the atom-cavity coupling and $\Omega$ a pump amplitude. The low energy splitting can then be a recoil frequency rather than an optical frequency. This is why a collective transition can be accessible without an optical-scale bare coupling. Baumann and collaborators observed this type of cavity transition [@Baumann2010].
+
+In a multimode cavity, position-dependent mode functions generate couplings with different signs. Competition between the induced interactions can produce frustration. @sec-spin-glass explains the additional disorder and large-$N$ assumptions required to obtain a glass saddle. Frustration alone is not a proof of a glass phase.
+
+An array of small cavities adds spatial structure. A microscopic model before eliminating local atomic excitations is
+
+$$
+\begin{split}
+H_{\mathrm{array}}={}&\sum_i\left[\Delta_c a_i^\dagger a_i+
+\Delta_a\sigma_i^+\sigma_i^-+
+ g(a_i^\dagger\sigma_i^-+a_i\sigma_i^+)
+ +F_i a_i^\dagger+F_i^*a_i\right]\\
+&-J\sum_{\langle ij\rangle}(a_i^\dagger a_j+\mathrm{h.c.}).
+\end{split}
+$$ {#eq-orientation-array}
+
+Photon hopping is $J$. Photon loss and atomic spontaneous emission are separate jump channels. Far from resonance, elimination can generate an effective photon nonlinearity. Close to resonance, retaining both matter and light is essential. This example also distinguishes coherent pumping, which fixes a phase through $F_i$, from incoherent pumping, which can preserve a global phase symmetry.
+
+## Platform 2: exciton-polariton condensates
+
+A cavity photon hybridized with an exciton, an electron-hole bound state, forms a polariton. At each in-plane momentum, neglecting damping for the moment,
+
+$$
+H_{\mathbf k}=\begin{pmatrix}a_{\mathbf k}^\dagger&b_{\mathbf k}^\dagger\end{pmatrix}
+\begin{pmatrix}\epsilon_c(\mathbf k)&\Omega_R/2\\
+\Omega_R/2&\epsilon_x(\mathbf k)\end{pmatrix}
+\begin{pmatrix}a_{\mathbf k}\\b_{\mathbf k}\end{pmatrix}.
+$$ {#eq-orientation-polariton-matrix}
+
+Diagonalizing this $2\times2$ matrix gives
+
+$$
+\epsilon_{\pm}(\mathbf k)=\frac{\epsilon_c+\epsilon_x}{2}
+\pm\frac12\sqrt{(\epsilon_c-\epsilon_x)^2+\Omega_R^2}.
+$$ {#eq-orientation-polariton-branches}
+
+The photon component supplies a small effective mass, and the exciton component supplies interactions. Leakage gives a finite lifetime. Pumping replenishes excitations. Polariton condensation was observed in semiconductor microcavities [@Kasprzak2006]. Macroscopic occupation and coherence do not, by themselves, determine whether the long-wavelength state is thermal.
+
+A minimal lower-branch field model uses a repulsive interaction and incoherent pump, one-body loss, and saturating two-body loss. At a coarse-grained level it leads to a complex Ginzburg-Landau equation
+
+$$
+\partial_t\psi=(r_d+i r_c)\psi+(K_d+iK_c)\nabla^2\psi
+ -(u_d+i u_c)|\psi|^2\psi+\zeta.
+$$ {#eq-orientation-cgle}
+
+Here $r_d$ measures net linear growth, $u_d>0$ saturates it, $K_c$ gives coherent dispersion, and $K_d$ describes dissipative smoothing. The imaginary coefficients include frequency shifts and interactions. This form is an effective model; reservoir memory, extra polarization modes, or a slowly relaxing pump reservoir can require additional fields.
+
+Above threshold, a slowly varying phase can remain after density fluctuations relax. In low dimensions its nonlinear dynamics is described, under suitable conditions, by the Kardar-Parisi-Zhang equation. Near a three-dimensional condensation threshold, fluctuations instead require a critical amplitude-and-phase theory. The same microscopic starting point therefore leads to different effective descriptions in different regimes.
+
+## Platform 3: optical-lattice atoms and heating
+
+For bosons in an optical lattice, use
+
+$$
+H_{\mathrm{BH}}=-J\sum_{\langle ij\rangle}(b_i^\dagger b_j+\mathrm{h.c.})
++\frac U2\sum_i n_i(n_i-1),\qquad n_i=b_i^\dagger b_i.
+$$ {#eq-orientation-bh}
+
+Off-resonant light scattering can, in an appropriate spatial-resolution limit, monitor the local density. A minimal model is $\gamma\sum_i\mathcal D[n_i]$. For a Hermitian jump, the adjoint dissipator acting on an observable is
+
+$$
+\mathcal D^\dagger[n]O=-\frac12[n,[n,O]].
+$$ {#eq-orientation-double}
+
+Since $[N,n_i]=0$ for $N=\sum_i n_i$, particle number is conserved. Since hopping does not commute with $n_i$, energy generally is not. Each hopping term has a nonzero commutator at its two endpoints. Applying @eq-orientation-double at both endpoints yields
+
+$$
+\frac{d}{dt}\langle H_{\mathrm{BH}}\rangle
+=-\gamma\langle H_{\mathrm{kin}}\rangle.
+$$ {#eq-orientation-heating}
+
+The interaction term commutes with every $n_i$. In a low-energy delocalized state, $\langle H_{\mathrm{kin}}\rangle<0$, so the energy initially increases. Heating conserves the total number while redistributing energy and correlations. At low energy in one dimension, the appropriate degrees of freedom are sound modes of a Luttinger liquid. Their collision kinetics and changing momentum scales are developed in @sec-heating.
+
+## From microscopic facts to universal questions
+
+The applications ask three different questions. The Dicke problem asks how a discrete order parameter becomes unstable in a noisy cavity. Condensation asks how a continuous phase symmetry behaves in different dimensions. Heating asks how a distribution changes in time when drive injects energy into an interacting, number-conserving system.
+
+A useful route through any of them is: identify the microscopic generator; derive the action; check its exact constraints; find a saddle; determine its soft modes; decide which fluctuations are relevant; then calculate an observable. The final step matters: an exponent inferred from an effective phase field must be translated into optical coherence, and a phonon distribution must be translated into a density structure factor.
+
+### Worked checkpoint: a stationary flux
+
+For the three-state ring, let $r_+=2$ and $r_-=1$ in inverse-time units. Show that each population is stationary but detailed balance fails.
+
+**Solution.** Each right-hand side in @eq-orientation-ring is $(2+1-3)/3=0$. Across a bond, the forward flux is $2/3$ and the backward flux is $1/3$. Thus $I=1/3$ and $\dot S_{\mathrm{prod}}=\log2>0$. A stationary population has hidden the circulation.
+
+### Worked checkpoint: number-preserving noise
+
+Show that density dephasing can destroy off-diagonal coherence while preserving populations for a single isolated site.
+
+**Solution.** In the number basis, $\langle m|\mathcal D[n]\rho|n\rangle=-\frac12(m-n)^2\rho_{mn}$. Diagonal matrix elements are unchanged. Off-diagonal entries decay as $e^{-\gamma(m-n)^2t/2}$. The channel does not remove particles; it records number information in the environment.

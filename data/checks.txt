@@ -1,0 +1,6 @@
+Julia 1.10.2; standard libraries only
+Cavity nbar = 0.24999999999999942; exact = 0.25
+Dicke lambda_c = 0.5099019513592785
+EW maximum cutoff discrepancy = 0.000807111178254688
+Two-site maximum energy discrepancy = 2.220446049250313e-16
+All trace, positivity, stationarity, threshold, and covariance checks passed.

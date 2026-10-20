@@ -1,0 +1,283 @@
+# Frustration, memory, and a photon glass {#sec-spin-glass}
+
+Uniform cavity feedback favors a common spin orientation. Random mode functions can instead make different pairs prefer incompatible orientations. This frustration opens the possibility of a glass: spins remember a random pattern for arbitrarily long times even though their spatial average vanishes. The cavity can then carry both the frozen pattern and its slow fluctuations into the emitted light. This chapter develops the random coupling field theory behind Sec. III.B of @Sieberer2016, with its assumptions stated explicitly.
+
+## From many modes to a random interaction model
+
+Start with
+
+$$
+H=\frac{\omega_z}{2}\sum_i\sigma_i^z
++\sum_{\ell=1}^M\omega_\ell a_\ell^\dagger a_\ell
++\sum_{i\ell}g_{i\ell}\sigma_i^x(a_\ell+a_\ell^\dagger),
+\qquad
+\mathcal L_{\mathrm{loss}}=\kappa\sum_\ell\mathcal D[a_\ell].
+$$ {#eq-glass-model}
+
+For stationary atoms, $g_{i\ell}$ is determined by a mode function at the position of atom $i$ and by the pumping geometry. Its sign can vary in space. Integrating out each Gaussian photon produces a retarded spin coupling and a correlated noise kernel, just as in @eq-dicke-influence. Nearly degenerate modes allow one to factor out a common frequency kernel; the remaining matrix contains products $g_{i\ell}g_{j\ell}$.
+
+This construction does not automatically produce independent Gaussian pair couplings. With finitely many modes, that matrix has rank at most $M$ and its entries share the same mode patterns. For identical signs of all detunings it is a weighted Gram matrix, not a generic Gaussian orthogonal matrix. A finite number of patterns as $N\to\infty$ can favor retrieval or ordered states rather than a generic fully frustrated glass. Geometry, mode number scaling, and additional correlations decide the actual phase diagram.
+
+Following the reference mean field theory [@Strack2011; @Buchhold2013], we now study a specified random pair model. Let $J_{ij}=J_{ji}$ have mean zero and covariance
+
+$$
+\overline{J_{ij}J_{mn}}=\frac{\Delta^2}{N}
+(\delta_{im}\delta_{jn}+\delta_{in}\delta_{jm}).
+$$ {#eq-glass-disorder}
+
+The overbar means an average over static samples. $\Delta^2$ measures the interaction variance, with its numerical normalization defined by this equation. A nonzero mean would add a uniform ordering channel and allow competition between superradiance and glassiness. The zero mean model isolates the frustrated sector. It is a solvable effective model of many random couplings, rather than a theorem that every finite multimode cavity realizes the same ensemble.
+
+Use real spin fields $\varphi_i$, whose isolated response is normalized as in @eq-dicke-soft-spin. For convenience define the interaction kernel
+
+$$
+\Lambda^{R,A,K}=-D_X^{R,A,K},\qquad
+\Lambda^R(\omega)=-\frac{\omega_p}{(\omega+i\gamma)^2-\omega_p^2},
+\qquad \gamma=\kappa/2.
+$$ {#eq-glass-lambda}
+
+Thus $\Lambda^K=2i\gamma(\omega^2+\omega_p^2+\gamma^2)/| (\omega+i\gamma)^2-\omega_p^2 |^2$. The minus signs define the pair action convention below; $D_X$ itself has the physical Green function signs of @eq-dicke-cavity-kernels. Overall factors from the microscopic couplings are absorbed in $J$ and hence in $\Delta$. The reference random-pair saddle is written with the quadratic kernel
+
+$$
+\mathsf P_{ij}=\mathsf P_0\delta_{ij}-J_{ij}\mathsf\Lambda,
+\qquad
+\mathsf\Lambda=\begin{pmatrix}0&\Lambda^A\\\Lambda^R&\Lambda^K\end{pmatrix},
+\qquad P_0^R=\frac{(\omega+i0^+)^2-\lambda}{2\omega_z}.
+$$ {#eq-glass-fixed-sample}
+
+The spin length constraint makes $\lambda$ self consistent. A closed Gaussian oscillator with fixed $\lambda$ would not reproduce all of the spin physics.
+
+::: {.callout-note title="Optional modeling check: positive noise"}
+The microscopic multimode Lindblad model has positive noise. When constructing a different independent random matrix model at the level of its entire influence kernel, positivity should be checked rather than inferred from the covariance of pair interactions. For example, replacing a common coupling matrix by $c\mathsf I-\mathsf J$ with $c>2\Delta$ makes it positive with probability approaching one at large $N$. This adds a frequency dependent local term $c\Lambda^{R,K}$ and therefore defines a different model; it cannot in general be absorbed into a static $\lambda$. We do not use that completion in the reference saddle or assign the reference critical scalings to it.
+:::
+
+## Why disorder creates a two-time field
+
+For a Gaussian random variable $J$ and a functional $B$, $\overline{e^{iJB}}=e^{-\overline{J^2}B^2/2}$. In the present problem $B_{ij}$ contains an integral over time. Squaring it produces two independent time integrals. The disorder averaged action therefore has a quartic term schematically of the form
+
+$$
+S_{\mathrm{dis}}\ \propto\ i\frac{\Delta^2}{N}
+\sum_{ij}\int dt\,dt'\,
+\mathcal B_{ij}(t)\mathcal B_{ij}(t').
+$$ {#eq-glass-bilocal-disorder}
+
+The factors $\mathcal B$ include the photon memory kernel and the required Keldysh indices. A Hubbard–Stratonovich decoupling introduces a field with two times and two contour indices,
+
+$$
+Q_{ab}(t,t')=-\frac{i}{N}\sum_i
+\langle\varphi_{ai}(t)\varphi_{bi}(t')\rangle,
+\qquad a,b\in\{c,q\}.
+$$ {#eq-glass-q-definition}
+
+At a physical stationary saddle,
+
+$$
+\mathsf Q(\omega)=\begin{pmatrix}Q^K(\omega)&Q^R(\omega)\\
+Q^A(\omega)&0\end{pmatrix}.
+$$
+
+The saddle fields are consequently not arbitrary order parameters: they are the local correlation and response functions. Their two-time nature is indispensable because a glass distinguishes a short time fluctuation from a correlation that never decays.
+
+Once $Q$ is introduced, the remaining spin integral is Gaussian at fixed multiplier and produces a trace logarithm. Both its disorder term and trace logarithm are proportional to $N$, so the collective saddle becomes sharp as $N\to\infty$ in this model. The multiplier equation supplies the spherical constraint. A genuine local spin-$1/2$ model may need a local interacting impurity problem in place of the Gaussian integral; the spherical saddle describes the reference theory used here.
+
+A useful technical advantage is normalization. For each disorder sample the closed contour has $Z[J_c=J_q=0]=1$. One can average the source-dependent generating functional without dividing by a sample dependent equilibrium partition function. This avoids introducing replicas for these dynamical saddle equations. Sources must be retained until the desired correlators have been differentiated: averaging the number $Z=1$ alone would contain no physics. Nor does this procedure turn static disorder into an annealed physical interaction.
+
+## Explicit response and correlation equations
+
+With the normalization in @eq-glass-fixed-sample, the large $N$ Gaussian random matrix saddle obeys
+
+$$
+\mathsf\Sigma=\Delta^2\mathsf\Lambda\mathsf Q\mathsf\Lambda,
+\qquad
+\mathsf Q=(\mathsf P_0-\mathsf\Sigma)^{-1}.
+$$ {#eq-glass-matrix-saddle}
+
+Matrix multiplication immediately gives
+
+$$
+Q^R(\omega)=\left[
+\frac{(\omega+i0^+)^2-\lambda}{2\omega_z}
+-\Delta^2\bigl(\Lambda^R(\omega)\bigr)^2Q^R(\omega)
+\right]^{-1},
+\qquad Q^A=(Q^R)^*.
+$$ {#eq-glass-retarded-saddle}
+
+The regular Keldysh component, neglecting infinitesimal initial-state noise once a unique damped regular solution is selected, is
+
+$$
+Q_{\mathrm{reg}}^K=
+\frac{\Delta^2|Q^R|^2\Lambda^K
+\bigl(\Lambda^RQ^R+\Lambda^AQ^A\bigr)}
+{1-\Delta^2|\Lambda^RQ^R|^2}.
+$$ {#eq-glass-keldysh-saddle}
+
+These formulas have the same self consistent structure as the review's equations, but use the disorder variance and spin response normalization defined here. Their prefactors must not be mixed with the review's $K$ or auxiliary spin normalization. These are the central random-pair saddle equations whose glass behavior is discussed in the review.
+
+Equation @eq-glass-keldysh-saddle can be checked without a functional integral. The matrix equation gives
+
+$$
+\Sigma^K=\Delta^2\left[
+|\Lambda^R|^2Q^K+\Lambda^K(\Lambda^RQ^R+\Lambda^AQ^A)\right].
+$$
+
+Inserting $Q^K=|Q^R|^2\Sigma^K$ and solving for $Q^K$ produces its denominator. This denominator is also where the regular stationary solution becomes marginal.
+
+The real spin constraint closes the system:
+
+$$
+1=q_{\mathrm{EA}}+\frac{i}{2}\int_\omega Q_{\mathrm{reg}}^K(\omega).
+$$ {#eq-glass-constraint}
+
+For a given variance, first solve the causal branch of @eq-glass-retarded-saddle, then compute the regular noise spectrum, and finally adjust $\lambda$ or $q_{\mathrm{EA}}$ to satisfy this equation. The physical branch is analytic in the upper half plane, matches the high frequency bare response, and has nonnegative symmetrized noise. Choosing a square root independently at every real frequency can violate these conditions.
+
+## Frozen order and the glass transition
+
+Define the Edwards–Anderson parameter by the long time spin autocorrelation,
+
+$$
+q_{\mathrm{EA}}=\lim_{t\to\infty}\frac1N\sum_i
+\overline{\langle\sigma_i^x(t)\sigma_i^x(0)\rangle}.
+$$ {#eq-glass-ea}
+
+The limiting prescription refers to a stationary sector or a symmetry selected state after the thermodynamic limit. In a generic aging problem the two-time correlator need not become a function of $t-t'$; the stationary ansatz is then insufficient.
+
+With our definition $G^K=-i\langle\{\varphi,\varphi\}\rangle$, the frozen contribution is
+
+$$
+Q^K(\omega)=-4\pi i\,q_{\mathrm{EA}}\delta(\omega)+Q_{\mathrm{reg}}^K(\omega).
+$$ {#eq-glass-ea-delta}
+
+The minus sign is fixed by a positive equal time variance. The regular FDR discussed below applies away from this static delta function. A plateau is not captured by simply extending a smooth Bose distribution to zero frequency.
+
+The uniform magnetization $m=N^{-1}\sum_i\overline{\langle\sigma_i^x\rangle}$ and $q_{\mathrm{EA}}$ distinguish three possibilities:
+
+| State | Uniform order $m$ | Frozen correlation $q_{\mathrm{EA}}$ |
+|:--|:--:|:--:|
+| Normal | $0$ | $0$ |
+| Uniform superradiant state | nonzero | nonzero |
+| Glass without uniform order | $0$ | nonzero |
+
+A nonzero $q_{\mathrm{EA}}$ alone consequently does not distinguish a glass from an ordinary ordered state. The random pattern, absence of uniform order, and collective spectral structure are essential additional information.
+
+For an algebraic view of the transition set
+
+$$
+p(\omega)=\frac{(\omega+i0^+)^2-\lambda}{2\omega_z},
+\qquad a(\omega)=\Delta^2\bigl(\Lambda^R(\omega)\bigr)^2.
+$$
+
+The response equation is $a(Q^R)^2-pQ^R+1=0$. The discriminant $p^2-4a$ describes the edge of a continuum of random collective modes. At zero frequency the marginal point obeys
+
+$$
+\lambda_c=4\omega_z\Delta|\Lambda^R(0)|,
+\qquad 1-\Delta^2|\Lambda^R(0)Q^R(0)|^2=0.
+$$ {#eq-glass-marginality}
+
+The variance at which the normal state reaches this point is fixed by the integral constraint, not by marginality alone. In the glass saddle $\lambda$ remains at the marginal value and $q_{\mathrm{EA}}$ supplies the missing weight in @eq-glass-constraint. This is the counterpart of a condensate occupying the edge of a continuum, rather than the single bright mode of the uniform Dicke transition.
+
+## Dissipation changes the infrared spectrum
+
+At marginality the constant part of the discriminant vanishes. For $\gamma>0$, expanding $\Lambda^R$ gives a term linear in $i\omega$, so the retarded response has the form
+
+$$
+Q^R(\omega)=Q^R(0)+c\sqrt{-i\omega}+O(\omega),
+$$ {#eq-glass-branch-cut}
+
+with a coefficient and a branch chosen to make the response causal. Thus the spectral density
+
+$$
+\mathcal A(\omega)=i(Q^R-Q^A)=-2\operatorname{Im}Q^R
+\ \propto\ \operatorname{sgn}(\omega)\sqrt{|\omega|}
+$$ {#eq-glass-spectrum}
+
+at sufficiently small frequency. The response itself approaches a finite static value with a nonanalytic correction in this saddle. The quantity that diverges as $1/\sqrt{|\omega|}$ is the regular correlation spectrum after multiplying by its thermal $1/\omega$ distribution factor. These two spectra should not be confused.
+
+At intermediate frequencies, weak photon loss can become unimportant and the spectrum approaches the linear $\mathcal A\propto\omega$ behavior of the coherent reference glass. The crossover scale follows by balancing the linear dissipative and quadratic coherent terms in the discriminant; it is proportional to $\gamma$ at weak loss, with a coefficient depending on detuning, spin splitting, and disorder strength. Calling it $\omega_c$, the dissipative square root is visible at times longer than $1/\omega_c$. A long experiment and a small loss rate need not commute.
+
+On the normal side, a low frequency interval can be fitted by a damped quasiparticle response,
+
+$$
+Q_n^R(\omega)\simeq\frac{Z_\delta}{(\omega+i\gamma_\delta)^2-\alpha_\delta^2},
+$$
+
+where $\delta>0$ measures distance to the glass boundary. For the reference spherical mean field theory analyzed in @Buchhold2013, the normal-to-glass approach has the characteristic asymptotic scalings
+
+$$
+\alpha_\delta\propto\left|\frac{\delta}{\ln\delta}\right|^{3/2},\qquad
+\gamma_\delta\propto\left|\frac{\delta}{\ln\delta}\right|^{2},\qquad
+Z_\delta\propto\left|\frac{\delta}{\ln\delta}\right|^{3},
+$$ {#eq-glass-critical-scales}
+
+up to parameter dependent positive prefactors and a dimensionless choice of $\delta$. Approaching the glass from a uniform superradiant saddle has the corresponding powers without that normal-side logarithmic correction in this reference theory. These are model results, rather than universal exponents for every cavity geometry.
+
+Both the gap and damping vanish while the pole weight disappears into a continuum. This differs from the single soft, overdamped Dicke mode and from the purely real modes of the strictly closed reference model. The dissipative glass belongs to the broader class of glasses coupled to dynamical baths; similar infrared spectra can occur with an equilibrium Ohmic bath. Its nonanalytic response should not be advertised as something impossible in all equilibrium system–bath settings.
+
+## Low frequency equilibration and optical signatures
+
+The saddle equations provide an instructive exact simplification for the scalar regular sector. Subtract the advanced response equation from the retarded one. The same denominator that appears in @eq-glass-keldysh-saddle then occurs in $Q^R-Q^A$, yielding
+
+$$
+\frac{Q_{\mathrm{reg}}^K}{Q^R-Q^A}
+=\frac{\Lambda^K}{\Lambda^R-\Lambda^A}
+=\frac{\omega^2+\omega_p^2+\gamma^2}{2\omega_p\omega}.
+$$ {#eq-glass-distribution}
+
+Therefore the atomic regular correlations have
+
+$$
+T_{\mathrm{eff}}=\frac{\omega_p^2+\gamma^2}{4\omega_p}
+$$
+
+at low frequency. The response retains its glass singularity while its population factor is classical. Thermal statistics and unusual dissipative spectra are compatible statements about different factors of the Green function.
+
+The full photon problem has a matrix distribution, as discussed in @sec-cavity-spins. In the glass critical sector the same continuum dominates both atomic and photon response, and the relevant low frequency photon distribution approaches the atomic one [@Buchhold2013]. This is the sense in which the subsystems share a low energy temperature. It does not assert an exact Gibbs state at all frequencies, or make the frozen delta function obey an ordinary regular FDR. A scalar coordinate FDR can agree already before the full matrix distributions do.
+
+From @eq-glass-spectrum and @eq-glass-distribution,
+
+$$
+iQ_{\mathrm{reg}}^K(\omega)\propto |\omega|^{-1/2}.
+$$
+
+Fourier transforming gives a $t^{-1/2}$ regular correlation tail, in addition to the frozen plateau; the branch correction in the retarded response has a $t^{-3/2}$ tail. A stable linear cavity transfer function cannot remove this singularity. It imprints the atomic glass continuum on the light, and a nonzero static spin pattern produces a corresponding photon plateau, often described as a photon glass. The photon Edwards–Anderson weight is proportional to the atomic weight near a continuous boundary, with a coefficient fixed by the static transfer function.
+
+Several complementary measurements are useful. Fluorescence spectroscopy resolves low frequency intensity weight; phase sensitive homodyne measurements select the quadrature carrying the glass response; and the intensity correlator
+
+$$
+g^{(2)}(\tau)=\frac{\langle a^\dagger(0)a^\dagger(\tau)a(\tau)a(0)\rangle}{\langle a^\dagger a\rangle^2}
+$$
+
+tests temporal memory. In a Gaussian fluctuation calculation, Wick's theorem expresses its connected part through products of two point functions. Regular $t^{-1/2}$ tails then give algebraic, rather than simple exponential, relaxation; the leading power depends on whether a frozen component and anomalous photon correlations contribute. A coherent superradiant signal alone or excess low frequency noise alone is not a complete glass diagnosis. Comparing uniform order, frozen memory, and the continuum response is stronger.
+
+## Quenched disorder and Markov noise have opposite memories
+
+A static coupling obeys
+
+$$
+\overline{J_{ij}(t)J_{mn}(t')}=\frac{\Delta^2}{N}
+(\delta_{im}\delta_{jn}+\delta_{in}\delta_{jm}),
+$$
+
+independent of the time separation. A white random force instead has covariance proportional to $\delta(t-t')$. Averaging the former generates a double-time interaction; averaging the latter generates a local-in-time noise term. Replacing one by the other changes the theory even if their equal time variances are tuned to match.
+
+![Static disorder correlates two arbitrarily separated times, whereas white Markov noise correlates only coincident times. The distinct temporal kernels explain why disorder averaging introduces a bilocal collective field.](figs/disorder-memory){#fig-disorder-memory}
+
+Describing static disorder as a bath of infinite memory is a helpful analogy, but the random couplings are not a fluctuating thermal reservoir and need not exchange energy with the system. Static scattering alone also does not thermalize a collection of otherwise noninteracting normal modes. Here the spin constraint, light–matter coupling, and reservoir act together. They generate a slow collective continuum, while photon leakage supplies the dissipative term that changes its longest time behavior.
+
+The stationary saddle captures the reference glass spectra and frozen weight. It does not prove the absence of aging, derive a full hierarchy of metastable states for a microscopic spin model, or settle every finite-mode experimental geometry. Those require the appropriate two-time equations, constraint treatment, and disorder ensemble rather than only the stationary spherical solution.
+
+## Worked exercises
+
+**Frozen weight and signs.** A real spin coordinate has $\langle\varphi(t)\varphi(0)\rangle\to q$ at long times. Find its Keldysh delta function.
+
+**Solution.** The anticommutator tends to $2q$, so $G^K(t)\to-2iq$. Since a constant transforms to $2\pi\delta(\omega)$, the result is $-4\pi iq\delta(\omega)$, as in @eq-glass-ea-delta. Inserting it into $(i/2)\int_\omega G^K$ returns the positive variance $q$.
+
+**Why the spectrum is a square root.** Derive the leading exponent without solving the constraint.
+
+**Solution.** The response satisfies a quadratic equation. At marginality its discriminant vanishes at $\omega=0$. A nonzero damping term makes the first frequency correction linear, so the quadratic formula has a $\sqrt{-i\omega}$ branch. The constraint determines where marginality occurs and the coefficients, but not this local algebraic mechanism.
+
+**A rank check.** Can an arbitrary $N\times N$ independent random interaction matrix be generated by one cavity mode?
+
+**Solution.** With one mode, its matrix is proportional to $g_i g_j$ and has rank one. All entries are correlated. Even though individual couplings can change sign, a site dependent sign rotation removes that single pattern's apparent frustration. Several competing patterns are needed, and their number and statistics matter in the thermodynamic limit.
+
+**Long time tails.** If $\mathcal A(\omega)\propto\operatorname{sgn}(\omega)|\omega|^{1/2}$ and $F\simeq2T/\omega$, what is the regular correlation tail?
+
+**Solution.** Their product is proportional to $|\omega|^{-1/2}$. Rescaling the Fourier integral by $u=\omega t$ gives $C_{\mathrm{reg}}(t)\propto t^{-1/2}$. A delta function at zero frequency adds a constant plateau, which must be treated separately.

@@ -1,28 +1,28 @@
-/* Shared styles for the OYA-OQS report site */
-
-/* Slightly larger, clearer display equations */
-.math.display {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 0.25rem 0;
-}
-
-/* Keep long inline formulas from breaking awkwardly */
-.math.inline {
-  white-space: nowrap;
-}
-
-/* Figure captions */
-figure.quarto-float.tbl figcaption,
-figure.quarto-float.fig figcaption {
-  font-size: 0.9em;
-  line-height: 1.4;
-}
-
-/* Theorem boxes */
-div.callout {
-  border-radius: 6px;
-}
-
-/* Dark mode: SVG figures with dark backgrounds can be dimmed if needed */
-/* .quarto-dark figure svg { filter: brightness(0.85); } */
+:root { --book-accent: #176b70; }
+main { max-width: 960px; }
+h1 { letter-spacing: -.025em; line-height: 1.18; }
+h2 { margin-top: 2.1rem; letter-spacing: -.015em; }
+p { text-wrap: pretty; }
+.math.display { overflow-x: auto; overflow-y: hidden; padding: .4rem 0; }
+figure { margin: 2rem 0; }
+figure img { border-radius: 5px; }
+figcaption { font-size: .9em; line-height: 1.5; }
+.callout { border-radius: 4px; }
+.sidebar-item { line-height: 1.4; }
+.sidebar-item-container { padding-top: .12rem; padding-bottom: .12rem; }
+.hero { padding: 1.6rem 0 1.3rem; border-top: 2px solid #a66b42; }
+.hero .eyebrow { color: #9c653e; text-transform: uppercase; font-size: .76rem; letter-spacing: .17em; font-weight: 700; }
+.hero .lead { font-family: Georgia, serif; font-size: 1.42rem; line-height: 1.55; max-width: 40rem; }
+.hero-art { width: 100%; margin: 1.1rem 0 1.6rem; }
+.reading-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; margin: 1.5rem 0 2rem; }
+.reading-card { border: 1px solid #9aaba46b; padding: 1.15rem; border-radius: 5px; }
+.reading-card strong { display: block; font-family: Georgia, serif; font-size: 1.1rem; margin-bottom: .45rem; }
+.reading-card p { font-size: .93rem; margin-bottom: .6rem; }
+.book-button { display: inline-block; padding: .4rem .85rem; border: 1px solid #176b70; border-radius: 3px; margin-right: .5rem; text-decoration: none; }
+.quarto-dark .book-button { border-color: #8dcebf; }
+.quarto-dark .hero .eyebrow { color: #ddb48f; }
+.figure-white { background: #fff; }
+.table { font-size: .92em; }
+code { font-size: .87em; }
+@media (max-width: 700px) { .reading-grid { grid-template-columns: 1fr; } .hero .lead { font-size: 1.2rem; } }
+@media print { .reading-grid { display: block; } }

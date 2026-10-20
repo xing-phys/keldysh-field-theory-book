@@ -1,0 +1,105 @@
+# Conventions and a working dictionary {#sec-conventions}
+
+This appendix is part of the derivation, not just typography. When comparing with another source, first match its jump normalization, field rotation, Fourier convention, and definition of $G^K$.
+
+## Units, operators, and rates
+
+We set $\hbar=k_B=1$. A Hamiltonian has units of frequency; time has inverse-frequency units. Bosonic operators obey $[a,a^\dagger]=1$ and continuum fields obey $[\hat\psi(\mathbf x),\hat\psi^\dagger(\mathbf x')]=\delta^{(d)}(\mathbf x-\mathbf x')$. Thus the continuum field has units length$^{-d/2}$.
+
+Our dissipator is
+
+$$
+\mathcal D[L]\rho=L\rho L^\dagger-\frac12\{L^\dagger L,\rho\}.
+$$ {#eq-dictionary-dissipator}
+
+A term $\kappa\mathcal D[a]$ gives $\partial_t\langle a\rangle=-\kappa\langle a\rangle/2$ and $\partial_t\langle a^\dagger a\rangle=-\kappa\langle a^\dagger a\rangle$ in the absence of other terms. Some literature instead writes $\kappa(2a\rho a^\dagger-\{a^\dagger a,\rho\})$. Its $\kappa$ equals our $\kappa/2$. Check a pole or a number-decay equation before comparing formulas.
+
+With pump $p\mathcal D[a^\dagger]$, define
+
+$$
+\Gamma=\frac{\kappa-p}{2},\qquad
+\partial_t\langle n\rangle=-(\kappa-p)\langle n\rangle+p.
+$$ {#eq-dictionary-linewidth}
+
+The linear model has a normalizable stationary state only when $\kappa>p$. At equality its occupation grows without bound; above equality a nonlinear saturation is required.
+
+## Fields and contours
+
+The independent integration variables on the forward and backward branches are $\phi_\pm,\bar\phi_\pm$. Bars label the complex partner in the coherent-state integral. At a physical saddle they are complex conjugates; variations treat them as independent.
+
+$$
+\phi_c=\frac{\phi_++\phi_-}{\sqrt2},\qquad
+\phi_q=\frac{\phi_+-\phi_-}{\sqrt2},\qquad
+\psi=\frac{\phi_c}{\sqrt2}\quad\text{at }\phi_q=0.
+$$ {#eq-dictionary-rotation}
+
+The last equality identifies the physical amplitude, so a physical density $|\psi|^2$ corresponds to $|\phi_c|^2/2$. Effective-action chapters may use an explicitly defined $\rho=\bar\phi_c\phi_c$; this $\rho$ is twice the physical mean-field density. Coefficients must be translated with the field definition.
+
+We write $Z=\int\mathcal D\phi\,e^{iS}$ and $W=-i\log Z$. A positive noise term in the action has the form $+iD|\phi_q|^2$ with $D\geq0$; it suppresses nonzero response histories because $i(iD)=-D$. At zero sources $Z=1$ for a normalized initial density matrix. The bulk action vanishes at coincident histories. A boundary functional still carries the initial state.
+
+## Fourier transforms and the Keldysh matrix
+
+The convention is
+
+$$
+f(t,\mathbf x)=\int\frac{d\omega}{2\pi}\frac{d^d k}{(2\pi)^d}
+ e^{-i\omega t+i\mathbf k\cdot\mathbf x}f(\omega,\mathbf k).
+$$ {#eq-dictionary-fourier}
+
+For bosons,
+
+$$
+\begin{split}
+G^R(t,t')&=-i\theta(t-t')\langle[a(t),a^\dagger(t')]\rangle,\\
+G^A(t,t')&=+i\theta(t'-t)\langle[a(t),a^\dagger(t')]\rangle,\\
+G^K(t,t')&=-i\langle\{a(t),a^\dagger(t')\}\rangle.
+\end{split}
+$$ {#eq-dictionary-green}
+
+The matrix ordering is $(c,q)$:
+
+$$
+G=\begin{pmatrix}G^K&G^R\\G^A&0\end{pmatrix},\qquad
+P=G^{-1}=\begin{pmatrix}0&P^A\\P^R&P^K\end{pmatrix}.
+$$ {#eq-dictionary-matrix}
+
+Matrix multiplication includes integration over intermediate spacetime variables. For a stable pumped oscillator,
+
+$$
+P^R=\omega-\omega_0+i\Gamma,\quad
+P^A=(P^R)^*,\quad P^K=i(\kappa+p),\qquad
+G^K=-G^R P^K G^A.
+$$ {#eq-dictionary-cavity}
+
+Retarded poles lie below the real frequency axis for stable evolution. At equal time, $iG^K(t,t)=2\langle n\rangle+1$. Losing the $+1$ loses vacuum fluctuations.
+
+For a Hermitian quadrature $X$, a common alternative symmetrized spectrum is $C_X(\omega)=\frac12\int dt\,e^{i\omega t}\langle\{X(t),X(0)\}\rangle$. With our definitions, $C_X=iG_X^K/2$. The susceptibility for a perturbation $+f(t)X$ is $G_X^R$; for $-h(t)X$ it is $-G_X^R$. An absorptive spectrum must be compared together with its coupling convention.
+
+## Noise and classical fields
+
+A complex noise $\zeta=\zeta_1+i\zeta_2$ is circular when $\langle\zeta\zeta\rangle=0$. If
+
+$$
+\langle\zeta^*(x)\zeta(x')\rangle=2\sigma\delta(x-x'),
+$$ {#eq-dictionary-complex-noise}
+
+then each real component has covariance $\sigma\delta(x-x')$. A real phase noise is often defined by $\langle\eta(x)\eta(x')\rangle=2\Delta\delta(x-x')$. These two definitions cannot be exchanged without projecting onto amplitude and phase and tracking their factors. The relevant chapters carry out that projection explicitly.
+
+Itô and Stratonovich prescriptions agree for additive noise, but multiplicative noise can generate a drift correction. A continuum action derived from a discretized master equation inherits an ordering and equal-time prescription. One must not choose a different prescription halfway through a calculation.
+
+## Notation across applications
+
+| Symbol | Meaning and qualification |
+|---|---|
+| $\mathcal L$ | Liouvillian superoperator |
+| $\Gamma_k$ | Scale-dependent one-particle-irreducible effective action; $k$ here is an RG scale |
+| $\Gamma$ or $\gamma$ in a cavity calculation | A linewidth defined locally; never infer its relation to a jump rate from the symbol |
+| $\rho_0$ | Condensate density in the field normalization specified in the chapter |
+| $K_c,K_d$ | Coherent and dissipative gradient coefficients of the physical CGLE |
+| $u_c,u_d$ | Coherent interaction and dissipative saturation coefficients |
+| $D,\lambda,\Delta$ | Phase diffusion, nonlinear phase coupling, and phase-noise strength in KPZ |
+| $\chi,z,\beta$ | Roughness, dynamic, and growth exponents, with $\beta=\chi/z$ |
+| $n_q,\sigma_q$ in heating | Phonon occupation and positive on-shell linewidth, not a cavity density or noise variance |
+| $q_{\mathrm{EA}}$ | Edwards-Anderson frozen correlation, not a quantum field |
+
+All phase-only conclusions assume density modes have already relaxed. A low-energy phonon theory assumes a microscopic momentum cutoff and a time interval before injected energy invalidates that cutoff. Thermodynamic-limit claims and finite-size crossovers are distinguished in the application chapters.

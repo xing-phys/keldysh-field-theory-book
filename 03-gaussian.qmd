@@ -1,0 +1,280 @@
+# Exact Gaussian dynamics and the condensation saddle {#sec-gaussian}
+
+A quadratic action is the place to learn what the formalism measures. Its propagator can be inverted exactly, and every answer can be checked against an operator calculation. We first solve the pumped, lossy cavity, extending the pure loss example of @Sieberer2016, Sec. II.B.1. We then use the same kernels to organize the interacting condensate of Sec. II.B.2. The latter calculation is a saddle point and Gaussian fluctuation approximation, not an exact many body solution.
+
+## The cavity action and its exact inverse
+
+Take
+
+$$
+\dot\rho=-i[\omega_0a^\dagger a,\rho]
++\kappa\mathcal D[a]\rho+p\mathcal D[a^\dagger]\rho,
+\qquad
+\gamma=\frac{\kappa-p}{2},\quad D_0=\kappa+p.
+$$ {#eq-gaussian-cavity-model}
+
+Assume $\gamma>0$ throughout the stationary calculation. The normalized causal action is
+
+$$
+S=\int_\omega
+\begin{pmatrix}\bar\phi_c&\bar\phi_q\end{pmatrix}
+\begin{pmatrix}
+0&\omega-\omega_0-i\gamma\\
+\omega-\omega_0+i\gamma&iD_0
+\end{pmatrix}
+\begin{pmatrix}\phi_c\\\phi_q\end{pmatrix},
+\qquad\int_\omega=\int_{-\infty}^{\infty}\frac{d\omega}{2\pi}.
+$$ {#eq-gaussian-cavity-action}
+
+Loss and pump subtract in the amplitude linewidth, but add in the noise. Pump compensates damping while introducing additional fluctuations. It cannot produce a noiseless cancellation of loss.
+
+Inversion gives
+
+$$
+G^R(\omega)=\frac1{\omega-\omega_0+i\gamma},\qquad
+G^A(\omega)=\frac1{\omega-\omega_0-i\gamma},
+$$
+
+$$
+G^K(\omega)=\frac{-iD_0}{(\omega-\omega_0)^2+\gamma^2}.
+$$ {#eq-gaussian-cavity-propagators}
+
+For example, close the Fourier contour in the lower half plane for $t>0$. The retarded pole at $\omega_0-i\gamma$ yields
+
+$$
+G^R(t)=-i\theta(t)e^{-i\omega_0t-\gamma t},
+\qquad
+G^K(t)=-i\frac{D_0}{2\gamma}e^{-i\omega_0t-\gamma|t|}.
+$$ {#eq-gaussian-cavity-time}
+
+For $t<0$, the retarded integral closes in the upper half plane and vanishes. The absolute value in $G^K$ reflects correlations on both time orderings. It must not be replaced by a retarded exponential.
+
+Gaussian integration also evaluates the entire generating functional. With the sources of the previous chapter and $\mathcal J=(j_q,j_c)^T$,
+
+$$
+Z[J]=\exp\left[-i\int_\omega\mathcal J^\dagger
+\begin{pmatrix}G^K&G^R\\G^A&0\end{pmatrix}\mathcal J\right],
+\qquad
+W[J]=-\int_\omega\mathcal J^\dagger G\mathcal J.
+$$ {#eq-gaussian-exact-generating}
+
+A source independent determinant has been fixed by $Z[0]=1$. Notice that setting $j_q=0$ gives one even for nonzero $j_c$, as required by trace preservation. This is a useful check on the arrangement of sources.
+
+A weak laser probe with frequency $\omega$ measures $G^R(\omega)$ through the coherent intracavity amplitude. In input–output language, each observed port couples the outside field to the cavity with an amplitude proportional to the square root of its photon escape rate. Interfering the transmitted or reflected field with a phase controlled reference laser in homodyne detection extracts its quadratures, and hence the complex response after known port factors are removed. Measuring spontaneous fluctuations instead probes the statistical sector. The distinction between these measurements is the experimental counterpart of separating $G^R$ and $G^K$.
+
+## Spectrum, occupation, and photon correlations
+
+The spectral function of this stable single annihilation mode is
+
+$$
+A(\omega)=i(G^R-G^A)=-2\operatorname{Im}G^R
+=\frac{2\gamma}{(\omega-\omega_0)^2+\gamma^2},
+\qquad\int_\omega A(\omega)=1.
+$$ {#eq-gaussian-cavity-spectrum}
+
+It has half width $\gamma$ and full width $2\gamma=\kappa-p$. The sum rule is the frequency version of $[a,a^\dagger]=1$. Positivity holds in this example; a general driven response with Nambu mixing or population inversion requires a separate analysis and should not inherit this positivity assertion automatically.
+
+The occupation follows from the *equal time* Keldysh correlator:
+
+$$
+n_{\mathrm{ss}}=\frac12\left(i\int_\omega G^K(\omega)-1\right)
+=\frac12\left(\frac{\kappa+p}{\kappa-p}-1\right)
+=\frac p{\kappa-p}.
+$$ {#eq-gaussian-cavity-occupation}
+
+The subtracted one removes the vacuum contribution of symmetrized ordering. For $p=0$ the result is zero even though $G^K$ is nonzero.
+
+An independent check comes from the occupation probabilities. Their stationary birth and death balance obeys $p(n+1)P_n=\kappa(n+1)P_{n+1}$, so
+
+$$
+P_n=(1-r)r^n,\qquad r=p/\kappa<1.
+$$
+
+Summing $\sum_n nP_n$ reproduces the result above. The mean field $\langle a\rangle$ vanishes because this state has no preferred phase; a finite $\langle n\rangle$ does not imply a coherent state.
+
+For $n_{\mathrm{ss}}>0$, Wick factorization gives the normally ordered intensity correlation
+
+$$
+g^{(2)}(\tau)=
+\frac{\langle a^\dagger(0)a^\dagger(\tau)a(\tau)a(0)\rangle}{n_{\mathrm{ss}}^2}
+=1+e^{-2\gamma|\tau|}.
+$$ {#eq-gaussian-cavity-g2}
+
+Indeed, the normal two time correlator is $\langle a^\dagger(0)a(\tau)\rangle=n_{\mathrm{ss}}e^{-i\omega_0\tau-\gamma|\tau|}$, and the two Wick pairings give $n_{\mathrm{ss}}^2+|\langle a^\dagger(0)a(\tau)\rangle|^2$. Thus $g^{(2)}(0)=2$, characteristic of this Gaussian incoherent state. At exactly zero occupation, this normalized ratio is undefined. A coherently driven displaced state has different intensity statistics and must include its nonzero mean before applying Wick's theorem.
+
+## Distribution functions and the equilibrium comparison
+
+For the scalar stationary cavity, write
+
+$$
+G^K(\omega)=F\,[G^R(\omega)-G^A(\omega)],
+\qquad F=\frac{\kappa+p}{\kappa-p}=2n_{\mathrm{ss}}+1.
+$$ {#eq-gaussian-cavity-distribution}
+
+A general problem instead admits a distribution kernel parameterization
+
+$$
+G^K=G^R\circ F-F\circ G^A,
+$$
+
+where $\circ$ denotes time convolution and matrix multiplication. In a nonstationary system the distribution carries two times. When matrices fail to commute, replacing this equation by $G^K=F(G^R-G^A)$ changes its content.
+
+For a true equilibrium bosonic correlator with frequencies measured relative to the appropriate chemical potential, the fluctuation dissipation relation is
+
+$$
+G^K(\omega)=\coth\left(\frac{\omega}{2T}\right)
+[G^R(\omega)-G^A(\omega)].
+$$ {#eq-gaussian-thermal-fdr}
+
+The thermal factor has frequency dependence. The geometric cavity state can be written as a Gibbs state of the isolated oscillator by choosing $e^{-\omega_0/T_{\mathrm{eff}}}=p/\kappa$ when $\omega_0>0$. That equality of density matrices alone does not establish the full finite linewidth equilibrium relation: the Markovian cavity has a constant $F$ across its broadened line. A frequency selective reservoir or a weak coupling limit is needed when exact frequency resolved thermal relations matter.
+
+For an isolated oscillator in a chosen thermal state, an infinitesimal regulator gives a transparent representation. Take $P^R=\omega-\omega_0+i\epsilon$ and $P^K=2i\epsilon F_0$, where $F_0=\coth(\omega_0/2T)$. After taking $\epsilon\to0^+$,
+
+$$
+G^R=\frac1{\omega-\omega_0+i0^+},\qquad
+G^K=-2\pi iF_0\delta(\omega-\omega_0).
+$$
+
+Only the on shell value of the thermal factor contributes, so this reproduces the isolated thermal mode. Setting both noise and damping to zero before specifying this limit would lose the occupation. Order of limits is part of specifying the state.
+
+![Exact cavity response and fluctuations for $\kappa=1$, $p=0.2$, and $\omega_0=1$. The calculated linewidth is $\gamma=0.4$, the occupation is $n=0.25$, and $iG^K=(2n+1)A$. Original figure generated by `scripts/build_figures.jl`.](figs/cavity-spectrum){#fig-cavity-spectrum}
+
+## An interacting boson model with saturation
+
+Consider a field on a regulated continuum with
+
+$$
+H=\int d^dx\left[
+\bar a(-K\nabla^2+r)a+\frac U2 a^{\dagger2}a^2\right],
+\qquad K=\frac1{2m},
+$$
+
+$$
+\partial_t\rho=-i[H,\rho]
++\int d^dx\left[\kappa\mathcal D[a]\rho
++p\mathcal D[a^\dagger]\rho+\eta\mathcal D[a^2]\rho\right].
+$$ {#eq-gaussian-boson-master}
+
+We take $U>0$ and $\eta>0$. Pair loss supplies saturation: its particle loss grows quadratically with density. Rates and fields inherit the ultraviolet regulator; the local products are defined before removing it.
+
+The quadratic action has
+
+$$
+P^R=i\partial_t+K\nabla^2-r+i\gamma,
+\quad P^A=(P^R)^\dagger,\quad P^K=iD_0.
+$$
+
+The quartic Hamiltonian and pair loss generate the following complete local interaction in the causal continuum convention:
+
+$$
+\begin{aligned}
+S_{\mathrm{int}}=\int_{t,\mathbf x}\biggl\{
+&-\frac12(U-i\eta)\bar\phi_q\bar\phi_c(\phi_c^2+\phi_q^2)\\
+&-\frac12(U+i\eta)\phi_q\phi_c(\bar\phi_c^2+\bar\phi_q^2)
++2i\eta|\phi_c|^2|\phi_q|^2\biggr\}.
+\end{aligned}
+$$ {#eq-gaussian-full-interaction}
+
+One can verify each coefficient directly. Writing $\phi_\pm=(c\pm q)/\sqrt2$, the Hamiltonian difference is
+
+$$
+\frac U2(|\phi_+|^4-|\phi_-|^4)
+=\frac U2(|c|^2+|q|^2)(\bar c q+\bar q c).
+$$
+
+For pair loss the branch polynomial is
+
+$$
+\begin{aligned}
+\phi_+^2\bar\phi_-^2
+-\frac12(|\phi_+|^4+|\phi_-|^4)
+={}&\frac12(\bar c^2cq-\bar q\bar c c^2
+-\bar q\bar c q^2+\bar q^2cq)\\
+&-2|c|^2|q|^2.
+\end{aligned}
+$$
+
+Multiplication by $-i\eta$ gives the imaginary drift vertices and the positive imaginary noise vertex. These algebraic expansions expose the factors of two that a purely phenomenological equation would leave undetermined.
+
+There are vertices with one quantum field, with three quantum fields, and with two quantum fields. The one quantum field vertices determine deterministic mean field evolution. The three quantum field vertices retain information that cannot be reproduced by an ordinary positive Gaussian noise alone. The two quantum field term gives density dependent noise. Truncating the last two structures requires a scale argument, developed in @sec-semiclassical.
+
+## Mean field threshold and the rotating frame
+
+The physical saddle has $\phi_q=0$. Varying with respect to $\bar\phi_q$ and setting $\phi_c=\sqrt2\psi$ gives
+
+$$
+i\partial_t\psi=
+\left[-K\nabla^2+r-i\gamma+(U-i\eta)|\psi|^2\right]\psi.
+$$ {#eq-gaussian-condensate-meanfield}
+
+For a homogeneous field $\psi(t)=\sqrt{n_0}e^{-i\Omega t}$, its imaginary and real parts give
+
+$$
+n_0=-\frac\gamma\eta=\frac{p-\kappa}{2\eta},
+\qquad \Omega=r+Un_0,
+$$ {#eq-gaussian-condensate-density}
+
+provided $p>\kappa$. Below this threshold, the symmetric saddle has $\psi=0$. Choosing a frame rotating at $\Omega$ makes the nonzero saddle time independent; it does not eliminate the laboratory oscillation or impose a bath chemical potential.
+
+This is an equation for the coherent order parameter. It is not an exact occupation equation, and it omits the incoherent density and fluctuation corrections close to threshold. A finite noisy single mode has no strict spontaneous symmetry breaking; a broken symmetry saddle describes a thermodynamic limit, or a symmetry selected sector on appropriate scales. Whether long range order survives in an extended system depends on dimension and fluctuations.
+
+## Gaussian fluctuations and the dissipative Goldstone mode
+
+In the rotating frame set $\psi=\sqrt{n_0}+\delta\psi$, choosing the saddle real. The linear equation is
+
+$$
+i\partial_t
+\begin{pmatrix}\delta\psi_{\mathbf k}\\\delta\bar\psi_{-\mathbf k}\end{pmatrix}
+=M(\mathbf k)
+\begin{pmatrix}\delta\psi_{\mathbf k}\\\delta\bar\psi_{-\mathbf k}\end{pmatrix},
+$$
+
+$$
+M=\begin{pmatrix}
+\epsilon_k+(U-i\eta)n_0&(U-i\eta)n_0\\
+-(U+i\eta)n_0&-\epsilon_k-(U+i\eta)n_0
+\end{pmatrix},\qquad\epsilon_k=Kk^2.
+$$ {#eq-gaussian-bogoliubov-matrix}
+
+The doubled vector is a Nambu vector: it keeps a fluctuation and its complex conjugate together because the condensate mixes them. It does not represent two independent bosonic species. In this equation of motion convention the inverse response is $\omega1-M$; an action convention with a Nambu metric can move a minus sign into its second row without changing the poles.
+
+Since $\operatorname{tr}M=-2i\eta n_0$ and $\det M=-\epsilon_k(\epsilon_k+2Un_0)$, the frequencies are
+
+$$
+\omega_\pm(k)=-i\eta n_0
+\pm\sqrt{\epsilon_k(\epsilon_k+2Un_0)-(\eta n_0)^2}.
+$$ {#eq-gaussian-condensate-poles}
+
+At $k=0$ one root is zero and the other is $-2i\eta n_0$. The zero mode changes the condensate phase, costing no restoring force because all phases are equivalent. The massive mode changes its density, which relaxes through the balance of gain and nonlinear loss.
+
+For $K,U,\eta>0$ and sufficiently small $k$,
+
+$$
+\omega_{\mathrm{phase}}=-i\frac{KU}{\eta}k^2+O(k^4),
+\qquad
+\omega_{\mathrm{density}}=-2i\eta n_0+O(k^2).
+$$ {#eq-gaussian-diffusive-mode}
+
+The low energy mode is diffusive rather than a propagating sound wave. At larger $k$, the discriminant becomes positive and the modes acquire opposite real frequencies. If one sends the damping to zero at fixed density, the formula recovers the Hamiltonian Bogoliubov dispersion $\pm\sqrt{\epsilon_k(\epsilon_k+2Un_0)}$. This limit is nonuniform at small $k$.
+
+For completeness, expansion of the quantum quadratic term gives the fluctuation noise strength
+
+$$
+D_{\mathrm{cond}}=D_0+4\eta n_0.
+$$
+
+It is diagonal in the complex noise basis before Nambu rearrangement. Together with the retarded matrix and its adjoint, it fixes the Gaussian correlation matrix through $G^K=-G^R P^K G^A$. Including Nambu doubling in an action introduces a compensating factor $1/2$ to avoid counting the same complex field twice.
+
+## Exercises with solutions
+
+**1. The threshold divergence.** What happens to the Gaussian cavity occupation and linewidth as $p\to\kappa^-$?
+
+**Solution.** The linewidth $\gamma=(\kappa-p)/2$ goes to zero while $D_0\to2\kappa$. The integrated fluctuations therefore diverge as $1/\gamma$. An arbitrarily small nonlinear loss becomes relevant to saturation; the linear stationary model cannot be continued through its instability.
+
+**2. Phase and density eigenvectors.** Identify the zero frequency perturbation at $k=0$.
+
+**Solution.** An infinitesimal phase rotation gives $\delta\psi=i\sqrt{n_0}\delta\theta$ and $\delta\bar\psi=-i\sqrt{n_0}\delta\theta$. The vector proportional to $(1,-1)^T$ is annihilated by $M(0)$. The relaxing density mode can also contain a phase shift when $U\ne0$, because changing density shifts the oscillation frequency.
+
+**3. A nongeneric limit.** Set $U=0$ while keeping $\eta n_0>0$ and no dissipative gradient term. Find the leading slow pole.
+
+**Solution.** Expand $\sqrt{-(\eta n_0)^2+\epsilon_k^2}=i\eta n_0[1-\epsilon_k^2/(2\eta^2n_0^2)+\cdots]$. The slow pole is $-iK^2k^4/(2\eta n_0)$. The $k^2$ diffusion coefficient above vanishes in this special limit. An allowed dissipative gradient term generally restores a $k^2$ contribution.

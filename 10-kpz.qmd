@@ -1,0 +1,237 @@
+# Phase roughening, topology, and KPZ universality {#sec-kpz}
+
+How can a weak microscopic violation of equilibrium become more visible at longer distances? The phase equation derived in the previous chapter provides a concrete answer. Its nonlinearity changes the scaling of fluctuations in one and two dimensions. This chapter covers review IV.C and IV.D, including the assumptions behind statements about the absence of algebraic order [@Sieberer2016].
+
+The field $\theta$ is the phase of a complex condensate. For smooth configurations it obeys
+
+$$
+\partial_t\theta=D\nabla^2\theta+\frac\lambda2(\nabla\theta)^2+\eta,
+\qquad
+\langle\eta(X)\eta(X')\rangle=2\Delta\delta(X-X').
+$$
+
+Here $D>0$, $\lambda$, and $\Delta$ have the explicit microscopic-to-mesoscopic interpretation in @eq-cond-kpz-coefficients. The same equation describes a growing interface, with its height replacing $\theta$ [@Kardar1986]. This mapping relates universality classes, not the physical meanings of all observables. In particular a condensate phase is an angle, whereas an interface height is usually a noncompact real number.
+
+## Start with the solvable linear theory
+
+At $\lambda=0$, the Fourier component obeys
+$\partial_t\theta_q=-Dq^2\theta_q+\eta_q$. A stationary solution has
+
+$$
+\langle\theta_q(t)\theta_{-q}(0)\rangle
+=\frac{\Delta}{Dq^2}e^{-Dq^2|t|},
+$$ {#eq-kpz-linear-correlator}
+
+with the volume or delta function suppressed. For a locally fixed amplitude,
+
+$$
+g^{(1)}(t,\mathbf{x})=
+\frac{\langle\psi^*(0,0)\psi(t,\mathbf{x})\rangle}{n_0}
+\simeq\left\langle e^{i[\theta(t,\mathbf{x})-\theta(0,0)]}\right\rangle.
+$$ {#eq-kpz-coherence}
+
+For a Gaussian phase difference this is exactly
+$g^{(1)}=\exp[-\langle(\delta\theta)^2\rangle/2]$, after removing the average phase rotation. In two dimensions,
+
+$$
+\langle[\theta(\mathbf{x})-\theta(0)]^2\rangle
+=\frac{2\Delta}{D}\int\frac{d^2q}{(2\pi)^2}
+\frac{1-\cos(\mathbf q\cdot\mathbf x)}{q^2}
+\simeq\frac{\Delta}{\pi D}\ln\frac{|\mathbf x|}{\xi_0},
+$$
+
+and therefore
+
+$$
+g^{(1)}(0,r)\sim(r/\xi_0)^{-\Delta/(2\pi D)}.
+$$ {#eq-kpz-algebraic-linear}
+
+![Exact stationary phase variance of a one-dimensional linear noisy phase field on a ring. A finite Fourier sum approaches $C(x)=(\Delta/D)x(1-x/L)$; the finite-size curvature enforces periodicity. This is a Gaussian reference calculation, not a simulation of nonlinear KPZ growth.](figs/phase-variance){#fig-phase-variance}
+
+The short-distance cutoff $\xi_0$ is of order the healing or density relaxation length. The system has algebraic rather than true long-range order within the smooth-phase theory. In one dimension the integral instead gives
+$\langle[\theta(x)-\theta(0)]^2\rangle=(\Delta/D)|x|$, hence exponential spatial coherence. These conclusions follow from a Gaussian integral; they do not yet include the phase nonlinearity or defects.
+
+The linear dynamic exponent is $z=2$ because a mode of wave number $q$ relaxes on time $1/(Dq^2)$. Under a scaling $x\to bx$, $t\to b^zt$, the phase fluctuation scale is $\theta\to b^\chi\theta$. The linear theory has $\chi=(2-d)/2$, with logarithmic roughness at $d=2$. Its growth exponent is $\beta=\chi/z$, so $\beta=1/4$ in one dimension.
+
+## Why the nonlinearity becomes important
+
+At observation length $L$, a dimensionless measure of the phase nonlinearity is
+
+$$
+g(L)=\frac{\lambda^2\Delta}{D^3}L^{2-d}.
+$$ {#eq-kpz-dimensionless}
+
+This expression follows either from rescaling the response action or from comparing the typical nonlinear and diffusion terms using linear-theory fluctuations. It is relevant by power counting in $d=1$, marginal in $d=2$, and irrelevant near the weak-coupling fixed point in $d>2$. Its sign is nonnegative and does not distinguish $\lambda$ from $-\lambda$.
+
+In the following, the RG variable is $\ell=\ln(L/\xi_0)$, increasing toward the infrared. This is opposite to a logarithmic running momentum cutoff. In isotropic two dimensions, the one-loop result is
+
+$$
+\frac{dg}{d\ell}=\frac{g^2}{8\pi}+O(g^3),\qquad
+\frac1{g(\ell)}=\frac1{g_0}-\frac{\ell}{8\pi}.
+$$ {#eq-kpz-two-d-flow}
+
+Thus any small positive $g_0$ grows. Perturbation theory ceases to apply at the parametrically large length
+
+$$
+L_*\sim\xi_0\exp(8\pi/g_0).
+$$ {#eq-kpz-crossover-length}
+
+![Weak-coupling estimate of the two-dimensional KPZ crossover length: $\log_{10}(L_*/\xi_0)=8\pi/(g_0\ln10)$. The exponential scale can exceed any experimental size for small bare drive. This plots the analytical one-loop estimate and does not determine the strong-coupling regime.](figs/kpz-crossover){#fig-kpz-crossover}
+
+The numerical prefactor inside the criterion for “strong coupling” is not universal; the exponential dependence is the useful weak-coupling result. One loop predicts escape from weak coupling. It cannot calculate the strong-coupling two-dimensional exponents by continuing through its divergence.
+
+An initially near-equilibrium two-dimensional condensate can consequently display convincing algebraic coherence over all accessible distances while lying on a flow toward a different asymptotic regime. For example, $g_0=1$ gives $L_*/\xi_0\sim e^{25}$; even modestly increasing $g_0$ changes that ratio by many orders of magnitude. Finite system size, finite observation time, and a spatially varying pump can each stop the flow before $L_*$.
+
+In three dimensions this phase-only analysis has a weak-coupling basin flowing toward equilibrium and can also permit a roughening transition at larger drive. This statement concerns phase fluctuations inside an ordered regime. It is logically separate from the condensation critical point studied with both amplitude components in the previous chapter.
+
+## What two-dimensional strong coupling implies
+
+The noncompact KPZ strong-coupling regime has rough phase fluctuations,
+
+$$
+\langle[\theta(\mathbf{x})-\theta(0)]^2\rangle\sim r^{2\chi},
+\qquad \chi>0.
+$$
+
+Numerical determinations in two dimensions give approximately $\chi\simeq0.39$, $z\simeq1.61$. These are numerical universality-class estimates, not exact analytic exponents. The tilt symmetry of the noncompact continuum KPZ theory implies $\chi+z=2$ when the nonlinearity remains active.
+
+A second-cumulant approximation to @eq-kpz-coherence then gives
+
+$$
+|g^{(1)}(0,r)|\approx\exp[-A r^{2\chi}],\qquad A>0.
+$$ {#eq-kpz-two-d-coherence}
+
+This decays faster than a power law. The phase statistics at strong coupling are non-Gaussian, so the functional form above does not follow exactly from the roughness exponent alone. The established phase-theory conclusion is that the isotropic smooth-phase KPZ fixed point does not sustain the equilibrium Gaussian algebraic order. A quantitative coherence law can require higher cumulants and topological defects. It is inaccurate to infer an exact stretched exponential for every driven condensate from a single exponent.
+
+The departure from a Gaussian theory also explains why a Bogoliubov calculation can miss the effect: expanding $e^{i\theta}$ about one phase and retaining only linear fluctuations removes $(\nabla\theta)^2$ from the phase equation. It then reproduces @eq-kpz-algebraic-linear by construction, even when that fixed point is unstable.
+
+## Compactness, vortices, and competing lengths
+
+A condensate phase satisfies $\theta\equiv\theta+2\pi$. In two dimensions it can have vortices with
+
+$$
+\oint_{\mathcal C}\nabla\theta\cdot d\mathbf l=2\pi m,
+\qquad m\in\mathbb Z.
+$$
+
+The amplitude vanishes in a vortex core, where the smooth density elimination fails. A noncompact KPZ equation excludes these configurations and therefore cannot decide vortex creation rates or the full vortex-unbinding transition.
+
+At equilibrium, vortex entropy competes with logarithmic interaction energy. The smooth stationary weight is
+$\exp[-(D/2\Delta)\int(\nabla\theta)^2]$. A single vortex costs a dimensionless action $\pi D\ln(L/\xi_0)/\Delta$, while its position entropy is $2\ln(L/\xi_0)$. This estimate locates the familiar threshold. Including screening by small vortex pairs gives the universal condition in terms of the **renormalized** coefficients,
+
+$$
+\frac{\Delta_R}{D_R}=\frac\pi2,
+\qquad \eta_{\mathrm{coherence}}=\frac14.
+$$ {#eq-kpz-bkt-condition}
+
+This numerical ratio uses the noise convention $\langle\eta\eta\rangle=2\Delta\delta$. Factors assigned differently to a dimensionless “temperature” change the displayed critical value. Bare coefficients need not satisfy the universal relation at the transition.
+
+Out of equilibrium there are at least three relevant lengths: $\xi_0$, the smooth-phase nonlinear crossover $L_*$, and a defect scale controlled by vortex fugacity and nonequilibrium vortex interactions. A vortex plasma can destroy coherence before smooth-phase KPZ roughening is observed. Conversely, sufficiently rare defects can leave a broad KPZ window. A compact-KPZ duality calculation explicitly treats the change in vortex interactions induced by drive [@Wachtel2016]. Its weak-drive predictions are more specific than the noncompact mapping, but still rely on their own continuum and perturbative assumptions.
+
+Experiments with incoherent pumping also contain a reservoir. Reservoir elimination requires its relaxation to be faster than the measured dynamics; otherwise it supplies another slow field and the simple KPZ coefficients change. Reducing pump power can simultaneously lower local density, increase relative phase noise, and shorten the nonlinear crossover length. Whether an experiment first encounters vortices or smooth roughening depends on these competing scales. Algebraic coherence observed over a finite optical spot is therefore meaningful evidence about that window, but does not alone establish the infinite-system phase.
+
+## Anisotropy changes the answer
+
+For spatially anisotropic relaxation and dispersion, density elimination gives
+
+$$
+\partial_t\theta=\sum_{i=x,y}\left[
+D_i\partial_i^2\theta+\frac{\lambda_i}{2}(\partial_i\theta)^2\right]+\eta,
+\quad
+D_i=K_d^i+K_c^i\frac{u_c}{u_d},\quad
+\lambda_i=2\left(K_d^i\frac{u_c}{u_d}-K_c^i\right).
+$$ {#eq-kpz-anisotropic}
+
+Both $D_i$ must be positive for the uniform smooth state to be stable. After an anisotropic coordinate rescaling, define
+
+$$
+\Gamma=\frac{\lambda_yD_x}{\lambda_xD_y},\qquad
+g=\frac{\lambda_x^2\Delta}{D_x^2\sqrt{D_xD_y}}.
+$$
+
+For $\lambda_x\neq0$, the weak-coupling flows are [@Altman2015]
+
+$$
+\frac{dg}{d\ell}=\frac{g^2}{32\pi}(\Gamma^2+4\Gamma-1),
+\qquad
+\frac{d\Gamma}{d\ell}=\frac{\Gamma g}{32\pi}(1-\Gamma^2).
+$$ {#eq-kpz-anisotropic-flow}
+
+At $\Gamma=1$ the first equation reduces to @eq-kpz-two-d-flow. For $\Gamma>0$, the nonlinearities have the same sign and the flow approaches isotropy before strong coupling. Simply having unequal diffusion constants does not prevent roughening.
+
+For $\Gamma<0$, the nonlinearities have opposite signs. The flow instead approaches $\Gamma=-1$, $g=0$. Then an effective Gaussian long-distance theory is possible, with phase-noise ratio $\Delta/\sqrt{D_xD_y}$. Algebraic order can survive if vortices remain bound, and a Berezinskii–Kosterlitz–Thouless transition is allowed. This is the strong-anisotropy exception to a claim about isotropic condensates. “Any drive destroys algebraic order in two dimensions” is too broad.
+
+Microscopic reservoir models can make the effective noise vary nonmonotonically with pump. The analysis underlying review IV.C consequently predicts a possible reentrant ordered regime: varying pump can enter and later leave algebraic order in the strongly anisotropic sector. This is a model-dependent phase-diagram prediction, rather than a universal requirement of the anisotropic equation. Algebraic coherence also does not by itself determine every definition of superfluid response in an open system; that requires an appropriate current-response calculation.
+
+## One dimension: exact exponents and what they measure
+
+One-dimensional KPZ has unusually strong constraints. With periodic boundaries and in the smooth sector, the stationary slope distribution is
+
+$$
+P[\theta]\propto\exp\left[-\frac{D}{2\Delta}
+\int dx\,(\partial_x\theta)^2\right].
+$$ {#eq-kpz-one-d-stationary}
+
+The nonlinear drift does not alter this equal-time distribution: its contribution to the functional probability current integrates to a spatial total derivative. This gives $\chi=1/2$ exactly. Tilt symmetry supplies $\chi+z=2$, and therefore
+
+$$
+\boxed{\chi=\frac12,\qquad z=\frac32,\qquad
+\beta=\frac\chi z=\frac13.}
+$$ {#eq-kpz-one-d-exponents}
+
+The spatial stationary coherence remains exponential,
+$g^{(1)}(0,x)=\exp[-\Delta|x|/(2D)]$ in the ideal infinite smooth-phase model. Its functional form does not distinguish one-dimensional KPZ from the linear diffusion theory. Dynamics does: the linear theory has $z=2$ and $\beta=1/4$.
+
+Dynamic scaling of the phase difference takes the form
+
+$$
+\langle[\theta(t,x)-\theta(0,0)]^2\rangle_c
+=|x|^{2\chi}\mathcal F(t/|x|^z),
+$$ {#eq-kpz-dynamic-scaling}
+
+up to metric factors and the specification of the initial or stationary ensemble. At a fixed point in space it predicts growth proportional to $|t|^{2/3}$. In a second-cumulant description the temporal coherence consequently behaves as
+
+$$
+|g^{(1)}(t,0)|\approx e^{-B|t|^{2/3}},
+$$
+
+instead of the linear-theory form $e^{-B_0|t|^{1/2}}$. Simulations of the stochastic complex Ginzburg–Landau equation found this useful signature [@He2015]. The exponents of the phase variance are exact properties of the ideal universality class; a Gaussian formula for the characteristic function of non-Gaussian phase increments is an additional approximation. Finite experimental windows often support extracting the exponent from $-2\ln|g^{(1)}|$ together with consistency checks on phase fluctuations.
+
+A particularly transparent numerical diagnostic is the squared interface width
+
+$$
+W^2(L,t)=\left\langle\frac1L\int_0^Ldx\,
+[\theta(x,t)-\bar\theta(t)]^2\right\rangle,
+\qquad \bar\theta=\frac1L\int_0^Ldx\,\theta.
+$$
+
+It obeys Family–Vicsek scaling,
+
+$$
+W^2(L,t)=L^{2\chi}\mathcal W(t/L^z),\qquad
+\mathcal W(y)\propto y^{2\beta}\ (y\ll1),
+\quad \mathcal W(y)\to\text{constant}\ (y\gg1).
+$$ {#eq-kpz-width-scaling}
+
+For a periodic stationary system, @eq-kpz-one-d-stationary gives the more specific result $W^2=\Delta L/(12D)$ after removing the zero mode. The saturation time grows as $L^{3/2}$ in KPZ and $L^2$ in the linear theory. Curves for several sizes should collapse with one pair of exponents, which is a stronger test than fitting a short straight segment on logarithmic axes.
+
+The weak-coupling one-dimensional crossover length is parametrically
+$L_{\mathrm{KPZ}}\sim D^3/(\lambda^2\Delta)$. A diffusive estimate of its associated time is $L_{\mathrm{KPZ}}^2/D$. Both must fit within the system and the observation window. There must also be enough time before rare phase slips, where the amplitude crosses zero and the winding changes. An unwrapped phase can be used only while such events are absent or are explicitly handled. Applying a noncompact width analysis across uncontrolled phase slips can create spurious roughness.
+
+The review discussed these results as theoretical predictions and numerical findings. A subsequent experiment reported KPZ universal scaling in a one-dimensional polariton condensate [@Fontaine2022]. This is a useful historical update: the experimental evidence supports the scaling picture in an accessible regime, while the compactness, reservoir, and finite-size qualifications remain part of its interpretation.
+
+## Worked exercises
+
+**1. Estimate a crossover.** If a two-dimensional sample has $\ln(L/\xi_0)=8$, what bare coupling makes the one-loop crossover comparable to its size?
+
+**Solution.** Set $8\pi/g_0\simeq8$, giving $g_0\simeq\pi$. Since this is not small, the numerical estimate lies beyond controlled weak-coupling perturbation theory. The calculation is still informative: for $g_0\ll1$, this finite sample is very unlikely to reach the predicted asymptotic regime.
+
+**2. Derive the one-dimensional width.** Use $q_m=2\pi m/L$ and $\langle|\theta_m|^2\rangle=\Delta/(DLq_m^2)$.
+
+**Solution.** Removing $m=0$ gives
+$W^2=\Delta L(4\pi^2D)^{-1}\sum_{m\neq0}m^{-2}
+=\Delta L/(12D)$. The amplitude depends on coefficients, whereas the power $L^1=L^{2\chi}$ identifies $\chi=1/2$.
+
+**3. Diagnose anisotropy.** Suppose $D_x=D_y>0$ and $\lambda_y=-\lambda_x$. Which weak-coupling flow applies?
+
+**Solution.** $\Gamma=-1$ stays fixed and $dg/d\ell=-g^2/(8\pi)$, so $g$ decreases. The remaining question is whether the renormalized noise is low enough for vortices to bind. The smooth-phase flow alone does not answer it.

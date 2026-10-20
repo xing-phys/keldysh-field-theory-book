@@ -1,0 +1,318 @@
+# Condensation and critical dynamics {#sec-condensation}
+
+A condensate maintained by gain and loss can have a freely chosen phase even though its particle number is not conserved. These statements concern different symmetries. Incoherent gain and loss respect a common rotation of the field, so a phase mode can be gapless. They nevertheless change particle number, so density fluctuations need not be hydrodynamic. This distinction determines both the phase theory in the ordered state and the critical dynamics at its boundary.
+
+This chapter develops the density and phase description in review IV.A and the three-dimensional critical theory in IV.B [@Sieberer2016]. The next chapter treats the low-dimensional consequences. Throughout, a phase theory assumes an already established local amplitude. It cannot describe the condensation transition itself, where amplitude fluctuations also become soft.
+
+## A complex order parameter with noise
+
+Use the physical complex field $\psi=\phi_c/\sqrt{2}$, whose squared modulus is a particle density. A useful mesoscopic equation is
+
+$$
+\partial_t\psi=
+\left[r_d+i r_c+(K_d+iK_c)\nabla^2-(u_d+i u_c)|\psi|^2\right]\psi+\zeta.
+$$ {#eq-cond-cgle}
+
+Here $r_d$ is net linear growth, $u_d>0$ saturates growth, $r_c$ is an adjustable oscillation frequency, $u_c$ is a coherent interaction, $K_c$ is the coherent dispersion coefficient, and $K_d\geq0$ describes spatial relaxation. For a free massive particle $K_c=1/(2m)$. Coarse graining can generate $K_d$ even when a microscopic model has only coherent hopping. We choose the noise normalization explicitly:
+
+$$
+\langle\zeta^*(X)\zeta(X')\rangle=2\sigma\delta(X-X'),\qquad
+\langle\zeta(X)\zeta(X')\rangle=0,
+\quad X=(t,\mathbf{x}).
+$$ {#eq-cond-noise}
+
+Thus the real and imaginary parts each have covariance $\sigma\delta(X-X')$. This equation defines $\sigma$; identifying it with a noise coefficient in a differently normalized Keldysh action without rescaling would produce a factor-of-two error. For linear loss $\kappa\mathcal D[a]$ and pump $p\mathcal D[a^\dagger]$, the deterministic linear amplitude growth is $(p-\kappa)/2$. The phenomenological $r_d$ contains this contribution and any other linear relaxation.
+
+To translate the microscopic equation in @sec-semiclassical, note that it was written as an $i\partial_t$ equation for $\phi_c$, whereas @eq-cond-cgle is a $\partial_t$ equation for $\psi=\phi_c/\sqrt2$. In that chapter's local notation, the translation is $r_d^{\mathrm{here}}=-r_d^{\mathrm{there}}$, $r_c^{\mathrm{here}}=-r_c^{\mathrm{there}}$, $u_d^{\mathrm{here}}=2u_d^{\mathrm{there}}$, and $u_c^{\mathrm{here}}=2u_c^{\mathrm{there}}$; the gradient coefficients are unchanged. Its noise $\xi$ becomes $\zeta=-i\xi/\sqrt2$, so $\sigma=D_{\mathrm{noise}}/4$ if $\langle\xi^*\xi\rangle=D_{\mathrm{noise}}\delta$. For the simple microscopic model this gives $u_c=U$, $u_d=\eta$, and $r_d=(p-\kappa)/2$. The equations defining the coefficients, rather than their reused letters, fix their meaning.
+
+For $r_d>0$, the uniform deterministic density is
+
+$$
+n_0=\frac{r_d}{u_d}.
+$$
+
+Choose a rotating frame with $r_c=u_c n_0$. Then $\psi=\sqrt{n_0}$ is stationary. A small uniform density perturbation decays at rate $\Gamma_n=2u_d n_0$, whereas a uniform phase shift costs no restoring force. Neither the existence of $n_0$ nor this linear stability calculation establishes long-range coherence: that requires studying spatial fluctuations.
+
+## Density and phase without expanding the phase
+
+Write $\psi=\sqrt n\,e^{i\theta}$ and define the rotated real noises $\xi_1+i\xi_2=e^{-i\theta}\zeta$. Their covariance remains locally isotropic. For smooth configurations, the identity
+
+$$
+\frac{\nabla^2\psi}{\psi}=A+iB,\qquad
+A=\frac{\nabla^2\sqrt n}{\sqrt n}-(\nabla\theta)^2,
+\quad
+B=\nabla^2\theta+\frac{\nabla n}{n}\cdot\nabla\theta
+$$ {#eq-cond-polar-identity}
+
+gives
+
+$$
+\begin{aligned}
+\frac{\partial_t n}{2n}
+ &=r_d-u_dn+K_d A-K_c B+\frac{\xi_1}{\sqrt n},\\
+\partial_t\theta
+ &=r_c-u_cn+K_c A+K_d B+\frac{\xi_2}{\sqrt n}.
+\end{aligned}
+$$ {#eq-cond-density-phase}
+
+The deterministic terms are exact. Stochastic polar coordinates require a prescription: these formulas are understood with a regulated, Stratonovich representation of the original additive noise. An Itô transformation adds the corresponding local radial drift. In the weak-noise expansion below this drift shifts the stationary density; it does not change the displayed leading gradient coefficients. White noise in a continuum field theory always presupposes a short-distance regulator.
+
+Crucially, we have not approximated $e^{i\theta}$ by $1+i\theta$. The phase can wander through many radians over long distances even when local density fluctuations remain small. Linearizing the original complex field around one globally fixed phase would discard precisely that possibility.
+
+Let $n=n_0+\delta n$. At frequencies much smaller than $\Gamma_n$ and wavelengths long compared with the density relaxation length, the leading density equation is
+
+$$
+\partial_t\delta n=-\Gamma_n\delta n
+-2n_0K_d(\nabla\theta)^2-2n_0K_c\nabla^2\theta
++2\sqrt{n_0}\xi_1+\cdots .
+$$
+
+The omitted terms contain additional derivatives of $\delta n$ or higher powers of its small amplitude. In Fourier space the solution contains $(\Gamma_n-i\omega)^{-1}$. Expanding this denominator in $\omega/\Gamma_n$ gives the adiabatic result
+
+$$
+\delta n\simeq
+-\frac{K_d}{u_d}(\nabla\theta)^2
+-\frac{K_c}{u_d}\nabla^2\theta
++\frac{\xi_1}{u_d\sqrt{n_0}}.
+$$ {#eq-cond-eliminate-density}
+
+Substitution into the phase equation gives the Kardar–Parisi–Zhang equation
+
+$$
+\partial_t\theta=D\nabla^2\theta+
+\frac{\lambda}{2}(\nabla\theta)^2+\eta,
+$$ {#eq-cond-kpz}
+
+with
+
+$$
+\boxed{
+D=K_d+K_c\frac{u_c}{u_d},\qquad
+\lambda=2\left(K_d\frac{u_c}{u_d}-K_c\right),\qquad
+\Delta=\frac{\sigma}{2n_0}\left[1+\left(\frac{u_c}{u_d}\right)^2\right].}
+$$ {#eq-cond-kpz-coefficients}
+
+Here $\eta=(\xi_2-u_c\xi_1/u_d)/\sqrt{n_0}$ and
+$\langle\eta(X)\eta(X')\rangle=2\Delta\delta(X-X')$. Density noise affects phase because density fluctuations shift the local oscillation frequency through $u_c$. This explains the interaction-dependent contribution to $\Delta$.
+
+These coefficients are exact at the stated leading order in the density and gradient expansion of @eq-cond-cgle. They are not exact coefficients at arbitrarily long scales: phase fluctuations subsequently renormalize them. Stability of the smooth homogeneous state requires $D>0$. If $D<0$, gradients initially grow and the present expansion must be augmented by higher spatial derivatives or a different state.
+
+The phase action, with a real response field $\widehat\theta$, is conveniently written
+
+$$
+iS_\theta=
+ i\int_X\widehat\theta
+ \left[\partial_t\theta-D\nabla^2\theta-\frac\lambda2(\nabla\theta)^2\right]
+-\Delta\int_X\widehat\theta^2.
+$$ {#eq-cond-phase-action}
+
+Integrating over $\widehat\theta$ weights a trajectory by the Gaussian probability of the noise required to produce it. Equivalently, start directly in the Keldysh integral and set
+$\phi_c=\sqrt\rho\,e^{i\theta}$, $\phi_q=e^{i\theta}(\chi_1+i\chi_2)$, where $\rho=2n$. The common phase rotates both fields. The complex-plane measure satisfies $d\operatorname{Re}\phi_c\,d\operatorname{Im}\phi_c=\tfrac12d\rho\,d\theta$, so no density-dependent Jacobian appears. At leading order the massive density fluctuation enters linearly and its integral imposes a relation between $\chi_1$ and $\chi_2$. The remaining combination is $\widehat\theta$. This is the functional-integral counterpart of @eq-cond-eliminate-density.
+
+If the microscopic action includes multiplicative noise from two-body loss, its value at $n_0$ must be added before the density is integrated out. Review IV.A retains such a tree-level noise contribution, whereas the simplest mesoscopic additive-noise equation has already neglected or absorbed it. The two results are consistent only after specifying that choice.
+
+## Equilibrium alignment and the closed-system limit
+
+When $K_c/K_d=u_c/u_d$, the phase nonlinearity vanishes. More generally, an equilibrium complex Ginzburg–Landau theory requires all coherent and dissipative terms to derive from the same functional with a common ratio, together with the appropriate noise relation. Equality of just these two ratios is a diagnostic within the truncated phase sector, not a proof of equilibrium for a theory with additional fields or vertices.
+
+For $\lambda=0$, @eq-cond-kpz is noisy diffusion. Its stationary smooth-phase distribution is
+
+$$
+P[\theta]\propto
+\exp\left[-\frac{D}{2\Delta}\int d^dx\,(\nabla\theta)^2\right].
+$$
+
+The equilibrium-looking ratio $\Delta/D$ then measures phase fluctuations. A nonzero $\lambda$ introduces a drift that generally cannot be obtained from the variation of this functional. In one dimension there is an exceptional stationary measure discussed in the next chapter; the dynamics can still violate detailed balance.
+
+One cannot recover a closed superfluid by putting $u_d=0$ in @eq-cond-kpz-coefficients. The entire elimination assumed a nonzero density gap. Instead set dissipation and noise to zero before integrating density. The linear equations then have the structure
+
+$$
+\partial_t\delta n=-2n_0K_c\nabla^2\theta,
+\qquad
+\partial_t\theta=-u_c\delta n,
+$$
+
+and hence $\partial_t^2\theta=c^2\nabla^2\theta$ with
+$c^2=2n_0K_cu_c$. A conserved density and its conjugate phase jointly form sound. A phase whose conjugate density relaxes rapidly has diffusive dynamics. This change in the number of slow variables is the reason the limit is singular.
+
+## Why the three-dimensional transition needs a different theory
+
+At a continuous condensation transition, the correlation length $\xi$ diverges and $n_0$ vanishes. Density cannot be eliminated because $\Gamma_n$ also vanishes. Both real components of the complex order parameter must be retained. Mean-field theory predicts $\xi\sim|r_d-r_{d,c}|^{-1/2}$ and a relaxation time $\tau\sim\xi^2$, but interaction fluctuations modify these laws below the upper critical dimension four.
+
+The relevant comparison is with an equilibrium two-component, *nonconserved* order parameter, called model A. An isolated equilibrium Bose fluid has additional conserved densities and belongs to a different dynamical setting, conventionally model F. Matching the static symmetry alone does not determine dynamic universality.
+
+A functional renormalization group (FRG) description integrates fluctuations gradually. Let $k$ be a running momentum cutoff, $s=\ln(k/\Lambda)$, and let $\Gamma_k$ be the effective action. As $k$ decreases, $s$ becomes negative. In a real doubled field basis the real-time flow has the form
+
+$$
+\partial_s\Gamma_k=\frac{i}{2}\operatorname{Tr}
+\left[(\Gamma_k^{(2)}+R_k)^{-1}\partial_sR_k\right].
+$$ {#eq-cond-wetterich}
+
+The trace includes momentum, frequency, and field indices. A regulator $R_k$ suppresses modes with $|\mathbf q|\lesssim k$. The equation is exact, but solving it requires approximating the functional form of $\Gamma_k$.
+
+## An explicit FRG truncation and its projections
+
+The following derivative and local-potential expansion reproduces the calculation summarized in review IV.B [@Sieberer2013; @Sieberer2014]:
+
+$$
+\Gamma_k=\int_X\left\{
+\bar\phi_q^*\left[iZ^*\partial_t+\bar K^*\nabla^2
+-\bar U'^*(\bar\rho)\right]\bar\phi_c
++\text{c.c.}+i\bar\gamma|\bar\phi_q|^2\right\},
+\qquad \bar\rho=|\bar\phi_c|^2,
+$$ {#eq-cond-frg-ansatz}
+
+where “c.c.” applies to the deterministic contribution, with the corresponding derivative convention. The running parameters $Z$, $\bar K$, and $\bar u_j$ below are complex, while $\bar\gamma$ and $\bar\rho_0$ are real. Set
+
+$$
+\bar U(\bar\rho)=
+\frac{\bar u_2}{2}(\bar\rho-\bar\rho_0)^2+
+\frac{\bar u_3}{6}(\bar\rho-\bar\rho_0)^3,
+\quad
+\bar K=\bar A+i\bar D,
+\quad \bar u_2=\bar\lambda_2+i\bar\kappa_2.
+$$
+
+The cubic potential term means a sixth-order field interaction; it is included because it is marginal under classical power counting in three dimensions. This truncation omits higher derivatives, frequency-dependent noise, and further vertices. Its numerical exponents are estimates, not exact numbers.
+
+Absorb $Z$ in the response field: $\phi_q=Z\bar\phi_q$, $\phi_c=\bar\phi_c$. Define
+
+$$
+U=\bar U/Z,\quad K=\bar K/Z=A+iD,\quad
+\gamma=\bar\gamma/|Z|^2,\quad
+u_j=\bar u_j/Z,
+\quad \eta_Z=-\partial_s\ln Z.
+$$
+
+Write $u_2=\lambda_2+i\kappa_2$ and $u_3=\lambda_3+i\kappa_3$. These running rescaled couplings are distinct from the microscopic coefficients in @eq-cond-cgle.
+
+A projection is an instruction for extracting one coefficient from the functional flow. For constant background fields, introduce
+$\rho_{cq}=\phi_c^*\phi_q$ and $\rho_q=|\phi_q|^2$. If $\mathcal V$ is the space-time volume, define the loop contribution
+
+$$
+\mathcal B'(\rho)=
+-\frac{1}{\mathcal V}
+\left.\partial_{\rho_{cq}}(\partial_s\Gamma_k)\right|_{\phi_q=0}
+\quad\text{in the rescaled field convention}.
+$$
+
+More precisely this denotes the trace contribution after rescaling, so that
+$\partial_sU'=\eta_ZU'+\mathcal B'$. Taking density derivatives and enforcing stationarity gives
+
+$$
+\begin{aligned}
+\partial_s\rho_0&=-\frac{\operatorname{Im}\mathcal B'(\rho_0)}{\kappa_2},\\
+\partial_su_2&=\eta_Zu_2+u_3\partial_s\rho_0+\mathcal B''(\rho_0),\\
+\partial_su_3&=\eta_Zu_3+\mathcal B'''(\rho_0),\\
+\partial_s\gamma&=2\operatorname{Re}\eta_Z\,\gamma
+-\frac{i}{\mathcal V}
+\left.\partial_{\rho_q}(\partial_s\Gamma_k)\right|_{\mathrm{stat}}.
+\end{aligned}
+$$ {#eq-cond-frg-potential-flow}
+
+The density flow follows from differentiating $\operatorname{Im}U'(\rho_0)=0$. The real stationarity condition fixes the rotating frame. Treating these as two independent conditions on one density would overconstrain the calculation.
+
+For completeness, frequency and momentum projections are also explicit. Resolve
+$\bar\phi_\alpha=(\chi_{\alpha1}+i\chi_{\alpha2})/\sqrt2$ and take the background along component 1. The retarded inverse matrix is
+
+$$
+\bar P^R(\omega,q)=
+\begin{pmatrix}
+-iZ_I\omega-\bar A q^2-2\bar\lambda_2\rho_0 & iZ_R\omega-\bar Dq^2\\
+-iZ_R\omega+\bar Dq^2+2\bar\kappa_2\rho_0 &-iZ_I\omega-\bar A q^2
+\end{pmatrix}.
+$$ {#eq-cond-frg-retarded}
+
+It has a zero eigenvalue at $\omega=q=0$ in the broken-symmetry state. The projections
+
+$$
+\begin{aligned}
+\partial_sZ&=-\frac12\left.
+\partial_\omega\operatorname{tr}[(1+\sigma_y)\partial_s\bar P^R]
+\right|_{\omega=q=0},\\
+\partial_s\bar K&=-\left.\partial_{q^2}
+(\partial_s\bar P^R_{22}+i\partial_s\bar P^R_{12})
+\right|_{\omega=q=0},\\
+\partial_sK&=\eta_ZK+\frac{\partial_s\bar K}{Z}
+\end{aligned}
+$$ {#eq-cond-frg-derivative-flow}
+
+extract precisely the coefficients displayed in the matrix. Here $\sigma_y$ is the Pauli matrix. To evaluate $\partial_s\bar P^R$, differentiate the trace in @eq-cond-wetterich twice with respect to the real fields. This generates the familiar one-loop expressions with full running propagators and vertices, rather than bare perturbation theory.
+
+For example, an optimized spatial regulator replaces $q^2$ by
+$q^2+(k^2-q^2)\Theta(k^2-q^2)$ in the gradient terms. All propagators below $k$ then have a gradient contribution proportional to $k^2$. These specifications, the trace equation, and the projections define a closed calculational scheme; lengthy rational threshold functions are evaluated from that trace, not additional physical assumptions.
+
+## Scaling variables, thermalization, and decoherence
+
+The six real dimensionless variables used in the three-dimensional truncation are
+
+$$
+\mathbf r=\left(\frac AD,\frac{\lambda_2}{\kappa_2},
+\frac{\lambda_3}{\kappa_3}\right),\qquad
+\mathbf h=\left(\frac{2\kappa_2\rho_0}{k^2D},
+\frac{\gamma\kappa_2}{2kD^2},
+\frac{\gamma^2\kappa_3}{4D^3}\right).
+$$ {#eq-cond-frg-dimensionless}
+
+The factors of $k$ remove canonical dimensions. A fixed point means these combinations become constant; it does not mean every dimensionful coefficient stops running. The nontrivial critical solution has
+$\mathbf r_*=0$ and, within this regulator and truncation,
+$\mathbf h_*\simeq(0.475,5.308,51.383)$. The coordinates themselves are scheme dependent.
+
+Near this point, the linearized flow separates into coherent-ratio and dissipative blocks,
+
+$$
+\partial_s\begin{pmatrix}\delta\mathbf r\\\delta\mathbf h\end{pmatrix}
+=\begin{pmatrix}N&0\\0&H\end{pmatrix}
+\begin{pmatrix}\delta\mathbf r\\\delta\mathbf h\end{pmatrix}.
+$$
+
+The one negative eigenvalue in the tuning direction gives $\nu=-1/y_t$ with this decreasing-$k$ convention. Field and time rescalings determine $\eta$ and $z$, defined by
+$\xi\sim|\delta|^{-\nu}$,
+$C(q)\sim q^{-2+\eta}$, and $\tau\sim\xi^z$.
+The reported estimates are
+
+$$
+\nu\simeq0.716,\qquad \eta\simeq0.039,\qquad z\simeq2.121.
+$$
+
+They describe effective equilibrium model-A behavior within the approximation. In particular the long-wavelength distribution acquires a classical fluctuation–dissipation relation with a finite effective temperature. The microscopic baths have not become identical; the infrared correlation and response relation has acquired an emergent symmetry.
+
+The coherent-ratio block contains positive eigenvalues
+$0.101$, $0.143$, and $1.728$. Because $s\to-\infty$, these directions decay. Generically the smallest one dominates:
+
+$$
+\mathbf r\propto k^{0.101}=k^{-\eta_r},\qquad
+\eta_r\simeq-0.101.
+$$ {#eq-cond-decoherence-exponent}
+
+This defines our sign convention for the **drive or decoherence exponent**. A negative $\eta_r$ means the coherent-to-dissipative ratio vanishes. Papers sometimes use the positive decay exponent $-\eta_r$, or an exponent $\eta_c$ related by $\eta_r=\eta_c-\eta$. Numbers from these conventions must not be compared directly.
+
+The distinction is visible in the retarded pole:
+
+$$
+\omega(q)\simeq A_0q^{z-\eta_r}-iD_0q^z.
+$$ {#eq-cond-critical-pole}
+
+Thus the spectral peak position becomes smaller than its width by a factor $q^{-\eta_r}$. Correlation functions can thermalize at leading order while this approach of the response to its limiting form retains universal information about drive. In the restricted equilibrium subspace all three coherent ratios are equal; only the middle decay eigenvalue is available. Generic driven couplings can access the slower direction.
+
+The existence and interpretation of this extra scaling direction are analytic conclusions of the RG analysis. The displayed numbers are truncation results. A separate two-loop expansion around $d=4$, with $\epsilon=4-d$, gives [@Tauber2014]
+
+$$
+\eta_r=-\frac{2\epsilon^2}{25}\ln\frac43+O(\epsilon^3),
+$$
+
+or about $-0.023$ upon setting $\epsilon=1$. Its difference from $-0.101$ exposes quantitative uncertainty; the FRG estimate should not be presented as an accurately measured universal constant. The observability proposal is to resolve the momentum dependence of both spectral position and linewidth, for example in angle-resolved optical spectroscopy. A small difference of exponents requires a substantial scaling window.
+
+## Worked exercises
+
+**1. Track amplitude noise into phase.** Suppose $u_c/u_d=2$, $K_d=K_c/2$, and the density is $n_0$. Find the smooth-phase coefficients.
+
+**Solution.** Direct substitution gives $D=5K_c/2$, $\lambda=0$, and $\Delta=5\sigma/(2n_0)$. The vanishing nonlinearity reflects aligned coherent and dissipative ratios. The factor five in the noise is not optional: four fifths of it comes from density-to-phase conversion.
+
+**2. Check the infrared sign.** A running ratio obeys $\partial_s r=0.1r$. Does it grow or decay at long distances?
+
+**Solution.** $r(k)=r(\Lambda)(k/\Lambda)^{0.1}$, which decays as $k\to0$. In the notation $r\sim k^{-\eta_r}$ this is $\eta_r=-0.1$. A positive stability eigenvalue is irrelevant with $s=\ln(k/\Lambda)$.
+
+**3. Identify a failed approximation.** Why does replacing $n$ by $n_0$ before calculating the phase equation give a wrong diffusion constant when $K_d=0$?
+
+**Solution.** It discards $\delta n\simeq-(K_c/u_d)\nabla^2\theta$. The frequency shift $-u_c\delta n$ produces $D=K_cu_c/u_d$. A massive variable can transmit a leading effect when its response is inserted into the slow equation; “massive” does not mean identically zero.

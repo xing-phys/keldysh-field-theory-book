@@ -1,0 +1,179 @@
+# A numerical laboratory in Julia {#sec-laboratory}
+
+A small exactly solvable model is often the fastest way to find a field-theory convention error. This chapter checks four derivations with independent calculations. It does not reproduce the full functional RG or the self-consistent heating kinetics of the research papers. Those are substantially larger numerical projects. The calculations here establish concrete points of contact between operator evolution, response functions, linear stability, and stochastic fields.
+
+All code uses Julia's standard libraries. Run the complete script from the repository root:
+
+```bash
+julia --startup-file=no scripts/build_figures.jl
+```
+
+The script writes original SVG figures, CSV data, and a check report in `data/checks.txt`. The source is distributed with the book at [scripts/build_figures.jl](https://github.com/xing-phys/keldysh-field-theory-book/blob/main/scripts/build_figures.jl). Julia 1.10.2 was used for the first edition. The figure exports used in the PDF are generated separately with Inkscape; no plotting library is required for the calculations themselves.
+
+## Laboratory 1: solve a cavity in two languages
+
+Take loss $\kappa=1$, pump $p=0.2$, and oscillator frequency $\omega_0=1$. The exact stationary occupation is $\bar n=p/(\kappa-p)=0.25$. An independent calculation uses only diagonal Fock-state probabilities:
+
+$$
+\dot P_n=\kappa(n+1)P_{n+1}+pnP_{n-1}
+-[\kappa n+p(n+1)]P_n.
+$$ {#eq-lab-birth-death}
+
+At the upper cutoff $n=N-1$, the upward transition is removed from both the gain and escape terms. This defines a trace-preserving finite birth-death chain; merely dropping the gain term would not. For an infinite stable chain, zero probability current gives
+
+$$
+\frac{P_{n+1}}{P_n}=\frac p\kappa,\qquad
+P_n=(1-p/\kappa)(p/\kappa)^n.
+$$ {#eq-lab-geometric}
+
+The omitted tail of this distribution is $(p/\kappa)^N$. With $N=28$ and $p/\kappa=0.2$, it is negligible at double precision for the mean tested here. A pump closer to threshold would require a larger cutoff.
+
+In Julia, construct the Markov generator by adding complete transitions:
+
+```julia
+using LinearAlgebra
+κ, p, N = 1.0, 0.2, 28
+Q = zeros(N, N)
+for n in 0:N-1
+    if n > 0
+        Q[n, n+1] += κ*n
+        Q[n+1, n+1] -= κ*n
+    end
+    if n < N-1
+        Q[n+2, n+1] += p*(n+1)
+        Q[n+1, n+1] -= p*(n+1)
+    end
+end
+B = copy(Q)
+B[end, :] .= 1
+rhs = zeros(N); rhs[end] = 1
+P = B \ rhs
+nbar = dot(0:N-1, P)
+```
+
+We replace one redundant stationarity equation by normalization and solve a nonsingular linear system. The script checks positivity, $QP=0$, and agreement of $\bar n$ with $0.25$ to $10^{-12}$.
+
+Now compare the field theory. With $\Gamma=(\kappa-p)/2=0.4$,
+
+$$
+A(\omega)=\frac{2\Gamma}{(\omega-\omega_0)^2+\Gamma^2},\qquad
+ iG^K(\omega)=\frac{\kappa+p}{(\omega-\omega_0)^2+\Gamma^2}.
+$$ {#eq-lab-cavity-spectra}
+
+Their ratio is $2\bar n+1=1.5$ at every frequency. The spectral normalization is $\int d\omega\,A/(2\pi)=1$, and the equal-time Keldysh integral is $2\bar n+1$. These are exact integrals over the whole real line. A finite plotted frequency interval is not the full integral.
+
+The script tests the ratio pointwise. This test would detect using the population decay rate in place of the amplitude linewidth, or dropping the vacuum contribution in $G^K$. A frequency-independent ratio of this Markov model is not the full equilibrium $\coth[(\omega-\mu)/(2T)]$ relation.
+
+## Laboratory 2: locate the Dicke instability
+
+In the normal-phase Holstein-Primakoff approximation, use quadratures $X=(a+a^\dagger)/\sqrt2$ and $P=(a-a^\dagger)/(i\sqrt2)$ for each oscillator. Their deterministic drift matrix is
+
+$$
+\partial_t\begin{pmatrix}X_a\\P_a\\X_b\\P_b\end{pmatrix}
+=\mathsf A\begin{pmatrix}X_a\\P_a\\X_b\\P_b\end{pmatrix},\qquad
+\mathsf A=\begin{pmatrix}
+-\gamma&\omega_0&0&0\\
+-\omega_0&-\gamma&-2\lambda&0\\
+0&0&0&\omega_z\\
+-2\lambda&0&-\omega_z&0
+\end{pmatrix},\quad\gamma=\kappa/2.
+$$ {#eq-lab-drift}
+
+An eigenvalue with positive real part describes an exponentially growing perturbation. At threshold a zero eigenvalue gives $\det\mathsf A=0$, hence
+
+$$
+\lambda_c=\frac12\sqrt{\frac{\omega_z(\omega_0^2+\gamma^2)}{\omega_0}}.
+$$ {#eq-lab-dicke-threshold}
+
+For $\omega_0=\omega_z=1$ and population loss $\kappa=0.4$, the script finds $\lambda_c=0.5099019513592785$. It checks the determinant at this value and the signs of the largest eigenvalue real part at $0.99\lambda_c$ and $1.01\lambda_c$.
+
+```julia
+γ, ω0, ωz = 0.2, 1.0, 1.0
+A(λ) = [-γ ω0 0.0 0.0;
+        -ω0 -γ -2λ 0.0;
+         0.0 0.0 0.0 ωz;
+        -2λ 0.0 -ωz 0.0]
+growth_rate(λ) = maximum(real.(eigvals(A(λ))))
+```
+
+This calculation establishes linear instability of a specified normal saddle. It does not establish the nonlinear stationary amplitude above threshold, the finite-$N$ switching time, or a critical exponent beyond the approximation. Those require additional dynamics.
+
+## Laboratory 3: sum phase fluctuations mode by mode
+
+Consider the one-dimensional Edwards-Wilkinson equation on a ring of length $L$,
+
+$$
+\partial_t\theta=D\partial_x^2\theta+\eta,\qquad
+\langle\eta(x,t)\eta(x',t')\rangle
+=2\Delta\delta(x-x')\delta(t-t').
+$$ {#eq-lab-ew}
+
+Expand $\theta(x)=\sum_q\theta_q e^{iqx}$ with $q=2\pi n/L$. Every nonzero mode is an Ornstein-Uhlenbeck process. Its stationary variance follows by differentiating $\langle|\theta_q|^2\rangle$:
+
+$$
+\partial_t\langle|\theta_q|^2\rangle
+=-2Dq^2\langle|\theta_q|^2\rangle+\frac{2\Delta}{L},\qquad
+\langle|\theta_q|^2\rangle=\frac{\Delta}{DLq^2}.
+$$ {#eq-lab-ew-mode}
+
+The zero mode diffuses indefinitely but cancels from phase differences. Summing positive and negative nonzero modes gives
+
+$$
+C(x)=\langle[\theta(x)-\theta(0)]^2\rangle
+=\frac{4\Delta}{DL}\sum_{n=1}^\infty
+\frac{1-\cos(2\pi nx/L)}{(2\pi n/L)^2}
+=\frac\Delta D x\left(1-\frac xL\right)
+$$ {#eq-lab-ew-variance}
+
+for $0\leq x\leq L$. One way to obtain the final equality is to integrate twice the Fourier series for a periodic delta function, imposing $C(0)=C(L)=0$. Since the phase difference is Gaussian, $g^{(1)}(x)=\exp[-C(x)/2]$.
+
+With $L=100$, $D=1$, and $\Delta=0.08$, the script truncates to 1024 positive modes and compares the covariance with the exact ring expression. The maximum absolute discrepancy on its grid is approximately $8.07\times10^{-4}$. This is a cutoff error, not stochastic sampling uncertainty. The tail is bounded because $1-\cos\leq2$ and $\sum_{n>M}n^{-2}\leq1/M$.
+
+This example verifies the noise factor and finite-size behavior. It is not a simulation of KPZ dynamics. In one dimension, a noncompact stationary KPZ phase field with appropriate boundary conditions can share the same equal-time roughness exponent while having a different dynamical exponent. A static covariance alone cannot distinguish their dynamics.
+
+## Laboratory 4: heat a particle without losing it
+
+Take one particle on two sites with Hamiltonian
+
+$$
+H=-J(|1\rangle\langle2|+|2\rangle\langle1|)
+=-J\sigma_x,
+$$ {#eq-lab-two-site-h}
+
+and dephasing $\gamma\sum_{j=1}^2\mathcal D[n_j]$. In this fixed-number sector $n_1=\operatorname{diag}(1,0)$, $n_2=\operatorname{diag}(0,1)$, and $N=n_1+n_2=I$. Choose the bonding state $\rho(0)=\frac12\begin{pmatrix}1&1\\1&1\end{pmatrix}$. The equal populations and real off-diagonal entry commute with $H$. Each dephasing channel contributes half the coherence decay, giving
+
+$$
+\rho(t)=\frac12\begin{pmatrix}1&e^{-\gamma t}\\e^{-\gamma t}&1\end{pmatrix},\qquad
+E(t)=-Je^{-\gamma t},\qquad\langle N\rangle=1.
+$$ {#eq-lab-two-site-exact}
+
+This is an elementary example of the heating identity in the orientation chapter. Its energy rises from $-J$ to zero while its particle number stays fixed.
+
+For an independent calculation, stack matrix columns into $\operatorname{vec}\rho$. The identity $\operatorname{vec}(A\rho B)=(B^T\otimes A)\operatorname{vec}\rho$ turns the master equation into a matrix equation. Its generator is
+
+$$
+\mathsf L=-i(I\otimes H-H^T\otimes I)
++\gamma\sum_j\left[n_j^*\otimes n_j
+-\tfrac12 I\otimes n_j^\dagger n_j
+-\tfrac12(n_j^\dagger n_j)^T\otimes I\right].
+$$ {#eq-lab-vectorized}
+
+The code evaluates $e^{t\mathsf L}\operatorname{vec}\rho(0)$ at 121 times between zero and eight with $J=1$, $\gamma=0.7$. It checks Hermiticity, trace, positivity, and energy against @eq-lab-two-site-exact. The energy discrepancy is below $10^{-12}$; it is about $2.2\times10^{-16}$ in the recorded first-edition run.
+
+![An exact finite-dimensional matrix exponential and the analytical solution agree for number-conserving dephasing. Their overlapping curves describe the same specified two-site model, not the universal Luttinger-liquid heating calculation.](figs/two-site-heating){#fig-two-site-heating}
+
+## Exercises to extend the checks
+
+**1. Cutoff failure near threshold.** Set $p/\kappa=0.95$ in the cavity calculation. Why is $N=28$ inadequate?
+
+**Solution.** The omitted geometric tail is $0.95^{28}\simeq0.238$. The exact mean is 19, and the broad tail above the cutoff matters strongly. Increase $N$ until the occupation and several distribution moments converge. Normalization of a truncated stationary vector alone does not demonstrate convergence to the infinite system.
+
+**2. A different heating initial state.** Start the two-site example in $|1\rangle$. Does the preceding purely exponential energy formula still follow from the same initial energy?
+
+**Solution.** The initial energy is zero. For this particular two-site model, the exact adjoint equation remains $\dot E=-\gamma E$, so $E(t)=0$ even while the populations oscillate and dephase. The full state is time dependent although this one expectation stays fixed. The bonding-state example was chosen to exhibit positive heating from a negative initial kinetic energy.
+
+**3. A global phase mode.** Why can the stationary EW phase-difference covariance exist while the variance of the spatially averaged phase grows forever?
+
+**Solution.** Spatial averaging removes the Laplacian and leaves white noise of covariance $2\Delta/L$. Thus the mean phase has variance increment $2\Delta t/L$. A phase difference has zero overlap with that mode, so all of its contributing Fourier modes have nonzero restoring rates $Dq^2$.
+
+These checks establish a habit: validate one exact identity, one physical limit, and one normalization before trusting a larger calculation.

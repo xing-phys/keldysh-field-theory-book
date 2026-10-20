@@ -1,0 +1,252 @@
+# Functional calculus and Gaussian integrals {#sec-mathematics}
+
+The algebra of field theory becomes less mysterious when it is treated as ordinary multivariable calculus with a continuous index. This appendix derives the formulas used in the main text and supplies the convergence and ordering qualifications hidden in compact functional notation. It expands the material in Appendices A and B of @Sieberer2016.
+
+## Functional derivatives are continuous matrix derivatives
+
+For a functional $F[\phi]$, define its derivative by the linear variation
+
+$$
+F[\phi+\epsilon h]-F[\phi]
+=\epsilon\int_x\frac{\delta F}{\delta\phi(x)}h(x)+O(\epsilon^2).
+$$ {#eq-math-functional-definition}
+
+The test function $h$ is arbitrary, subject to the stated boundary conditions. Thus
+
+$$
+\frac{\delta\phi(x)}{\delta\phi(y)}=\delta(x-y),\qquad
+\frac{\delta}{\delta\phi(y)}\int_xf(x)\phi(x)=f(y).
+$$
+
+The Dirac delta is the continuum identity matrix. If $A(x,y)$ is an integral kernel, its inverse satisfies
+
+$$
+\int_y A(x,y)A^{-1}(y,z)=\delta(x-z),
+$$ {#eq-math-kernel-inverse}
+
+including any internal identity matrix. The inverse of a differential operator is not specified until its boundary conditions are supplied. A retarded inverse and an advanced inverse solve the same local differential equation with different support.
+
+For a lattice cell volume $\Delta V$, a continuum derivative corresponds to $(\Delta V)^{-1}\partial/\partial\phi_j$, because an integral becomes $\sum_j\Delta V$. This factor explains why lattice noise covariance contains $1/\Delta V$.
+
+For a real field,
+
+$$
+F=\frac12\int_{x,y}\phi(x)A(x,y)\phi(y)
+\quad\Longrightarrow\quad
+\frac{\delta F}{\delta\phi(z)}
+=\frac12\int_y[A(z,y)+A(y,z)]\phi(y).
+$$
+
+Only the symmetric part contributes. If $A=A^T$, the derivative is $A\phi$, and the second derivative is $A$. A missing $1/2$ would double the real field Hessian.
+
+## Complex fields and independent variations
+
+For $z=X+iY$, define Wirtinger derivatives
+
+$$
+\partial_z=\frac12(\partial_X-i\partial_Y),\qquad
+\partial_{\bar z}=\frac12(\partial_X+i\partial_Y).
+$$
+
+They give $\partial_z z=1$, $\partial_z\bar z=0$, and their conjugates. Although the integration contour has $\bar z=z^*$, a variation can be organized by treating $z$ and $\bar z$ as independent algebraic variables. This is convenient bookkeeping for two real variations, rather than a change in the physical number of degrees of freedom.
+
+For a complex field,
+
+$$
+F=\int_{x,y}\bar\phi(x)A(x,y)\phi(y)
+\quad\Longrightarrow\quad
+\frac{\delta F}{\delta\bar\phi(z)}=\int_yA(z,y)\phi(y),
+\qquad
+\frac{\delta^2F}{\delta\bar\phi(z)\delta\phi(w)}=A(z,w).
+$$ {#eq-math-complex-hessian}
+
+There is no $1/2$. Useful local derivatives include
+
+$$
+\frac{\delta}{\delta\bar\phi(x)}\int_y\frac U2|\phi(y)|^4
+=U|\phi(x)|^2\phi(x),
+$$
+
+$$
+\frac{\delta}{\delta\phi(y)}[|\phi(x)|^2\phi(x)]
+=2|\phi(x)|^2\delta(x-y),\qquad
+\frac{\delta}{\delta\bar\phi(y)}[|\phi(x)|^2\phi(x)]
+=\phi(x)^2\delta(x-y).
+$$ {#eq-math-quartic-derivatives}
+
+The second derivative that mixes two unconjugated fields is nonzero at a condensate. This is the algebraic origin of anomalous Nambu mixing in the Bogoliubov calculation.
+
+Derivatives acting on spatial gradients require integration by parts. For periodic boundaries or decaying variations,
+
+$$
+\delta\int_x K\nabla\bar\phi\cdot\nabla\phi
+=-\int_xK\,\delta\bar\phi\nabla^2\phi
+-\int_xK\,\delta\phi\nabla^2\bar\phi.
+$$
+
+Hence $\delta F/\delta\bar\phi=-K\nabla^2\phi$. If instead $F=\int\bar\phi\nabla^2\phi$, its mixed Hessian is $\nabla_x^2\delta(x-y)$, not a scalar $\nabla^2$ with unspecified arguments. Boundary terms may encode real boundary physics and should only be dropped when the chosen boundary conditions justify it.
+
+The chain rule has its familiar form,
+
+$$
+\frac{\delta F[\chi[\phi]]}{\delta\phi(x)}
+=\int_y\frac{\delta F}{\delta\chi(y)}
+\frac{\delta\chi(y)}{\delta\phi(x)},
+$$
+
+with a sum over all field components. Applying it to the field–source Legendre transform produces the inverse Hessian identity used in the contour chapter.
+
+## Real oscillatory Gaussians
+
+Let $x\in\mathbb R^N$ and let $A=A^T$ be invertible with a positive imaginary part to ensure convergence. Completing the square,
+
+$$
+\frac12x^TAx+j^Tx
+=\frac12(x+A^{-1}j)^TA(x+A^{-1}j)
+-\frac12j^TA^{-1}j.
+$$
+
+Analytic continuation from a strictly convergent Gaussian gives
+
+$$
+\int\frac{d^Nx}{(2\pi)^{N/2}}
+\exp\left[\frac i2x^TAx+ij^Tx\right]
+=\det(-iA)^{-1/2}
+\exp\left[-\frac i2j^TA^{-1}j\right].
+$$ {#eq-math-real-gaussian}
+
+The determinant square root has the branch selected by continuation from convergence. A purely oscillatory expression needs an $i0^+$ prescription. For normalized averages, the source independent factor cancels and only the final exponential remains.
+
+Differentiating the normalized generating integral gives
+
+$$
+\langle x_i\rangle_j=-(A^{-1}j)_i,\qquad
+\langle x_ix_j\rangle_{j=0}=i(A^{-1})_{ij}.
+$$ {#eq-math-real-covariance}
+
+The factor $i$ is indispensable in real time. Repeated source differentiation gives Wick's theorem: an even zero mean moment is a sum over all pairings of the two point covariance, while an odd moment vanishes. For instance,
+
+$$
+\langle x_1x_2x_3x_4\rangle
+=\langle x_1x_2\rangle\langle x_3x_4\rangle
++\langle x_1x_3\rangle\langle x_2x_4\rangle
++\langle x_1x_4\rangle\langle x_2x_3\rangle.
+$$
+
+For a nonzero mean, apply this rule to $x-\langle x\rangle$, then restore the mean contributions.
+
+## Complex oscillatory Gaussians
+
+For $z\in\mathbb C^N$ and a kernel whose anti-Hermitian part supplies convergence,
+
+$$
+\begin{aligned}
+&\int\prod_{i=1}^N\frac{d^2z_i}{\pi}
+\exp\left[i\bar zAz+i\bar\eta z+i\bar z\chi\right]\\
+&\hspace{1cm}=\det(-iA)^{-1}
+\exp\left[-i\bar\eta A^{-1}\chi\right].
+\end{aligned}
+$$ {#eq-math-complex-gaussian}
+
+Here $\bar\eta$ and $\chi$ can be independent external sources. The determinant has power minus one, rather than minus one half, because a complex variable contains two real integration variables. For a single mode with $A=i\alpha$, $\alpha>0$, the zero source integral is $\int d^2z\,e^{-\alpha|z|^2}/\pi=1/\alpha$, checking the prefactor.
+
+The complex covariance is
+
+$$
+\langle z_i\bar z_j\rangle=i(A^{-1})_{ij}.
+$$
+
+A number conserving Gaussian has no $\langle zz\rangle$ covariance. A condensed, paired, or parametrically driven problem can have one; then a Nambu vector or a real component representation is required. If a Nambu action integrates over a field and its conjugate as a doubled vector, its explicit $1/2$ compensates the duplicate description.
+
+Keldysh integrals are often not absolutely convergent in every field direction before a regulator is added. The formula should then be read through its time discretization, causal boundary conditions, or continuation from a convergent regulated Gaussian. Inverting the bulk matrix without this prescription cannot determine the state of an isolated system.
+
+## Fourier kernels and transpose conventions
+
+For a translation invariant convolution, $A(x,y)=A(x-y)$,
+
+$$
+(A\circ B)(k)=A(k)B(k),\qquad
+A^{-1}(k)=[A(k)]^{-1}.
+$$
+
+A real field obeys $\phi(-k)=\phi(k)^*$. The symmetry condition of a real quadratic form becomes $A(k)=A(-k)^T$, not necessarily $A(k)=A(k)^T$. The two signs of momentum are related, so they should not be counted as independent real variables while also keeping the full factor $1/2$ incorrectly.
+
+For complex fields, Hermitian conjugation exchanges the spacetime arguments and internal indices. In a stationary Fourier representation this gives $P^A(\omega,\mathbf k)=P^R(\omega,\mathbf k)^\dagger$ on real frequencies. It should not be replaced by a transpose when coefficients are complex.
+
+## Integrating out Gaussian variables: the Schur complement
+
+Divide real variables into retained $x$ and eliminated $y$:
+
+$$
+S=\frac12x^TAx+x^TBy+\frac12y^TCy.
+$$
+
+Complete the square in $y$:
+
+$$
+S=\frac12(y+C^{-1}B^Tx)^TC(y+C^{-1}B^Tx)
++\frac12x^T(A-BC^{-1}B^T)x.
+$$
+
+Thus Gaussian elimination produces
+
+$$
+A_{\mathrm{eff}}=A-BC^{-1}B^T.
+$$ {#eq-math-schur-complement}
+
+The eliminated determinant can depend on retained fields and then contributes to the effective action. It may be dropped as a normalization only when it is field independent. For complex block matrices $\left(\begin{smallmatrix}A&B\\ C&D\end{smallmatrix}\right)$, the corresponding retained kernel is $A-BD^{-1}C$. Kernel multiplication includes time integration, so eliminating a fast or damped field generally produces memory.
+
+As a physical example, couple a cavity $a$ to an auxiliary damped mode $b$ by $g(a^\dagger b+b^\dagger a)$. Its linear frequency equations are
+
+$$
+R_a a-gb=\xi_a,\qquad R_b b-ga=\xi_b,
+\quad R_b=\omega-\omega_b+i\Gamma_b.
+$$
+
+Eliminating $b$ gives
+
+$$
+\left(R_a-\frac{g^2}{R_b}\right)a
+=\xi_a+\frac g{R_b}\xi_b.
+$$ {#eq-math-auxiliary-mode}
+
+If the independent noise spectra are $D_a$ and $D_b$, the retained noise spectrum is
+
+$$
+D_{\mathrm{eff}}(\omega)=D_a+
+\frac{g^2D_b}{(\omega-\omega_b)^2+\Gamma_b^2}.
+$$
+
+The retarded self energy and colored noise arise together. Replacing the self energy by a damping rate while forgetting the induced noise changes the physical reduced problem. A local Markov approximation requires the auxiliary response and noise to vary little over the retained frequency range.
+
+## Determinants, traces, and a practical checklist
+
+For a differentiable invertible matrix or regulated kernel,
+
+$$
+\delta\ln\det A=\operatorname{Tr}(A^{-1}\delta A),
+\qquad
+\delta A^{-1}=-A^{-1}(\delta A)A^{-1}.
+$$ {#eq-math-logdet-variation}
+
+The second formula follows by varying $AA^{-1}=1$; the first follows by expanding $\det(1+A^{-1}\delta A)$ to first order. Functional traces include all internal indices and integration over coincident arguments. Those integrals may need ultraviolet regularization.
+
+When deriving a fluctuation correction, first decide whether the variables are real, complex, or Nambu doubled; next compute the Hessian with the associated factors; then specify the causal inverse and normalize the determinant consistently. These simple bookkeeping choices are responsible for many apparent disagreements between equivalent Keldysh calculations.
+
+## Exercises with solutions
+
+**1. A derivative with gradients.** Find $\delta F/\delta\phi$ for $F[\phi]=\int dx\,[K(\partial_x\phi)^2/2+r\phi^2/2+u\phi^4/4]$ with a real periodic field.
+
+**Solution.** Vary the integrand and integrate $K\partial_x\phi\,\partial_x\delta\phi$ by parts. The result is $-K\partial_x^2\phi+r\phi+u\phi^3$. The boundary contribution vanishes because the field and variation are periodic.
+
+**2. Verify a Schur inverse.** For scalar blocks, compare $(A-BC^{-1}B)^{-1}$ with the upper left entry of $\left(\begin{smallmatrix}A&B\\B&C\end{smallmatrix}\right)^{-1}$.
+
+**Solution.** The full inverse is $(AC-B^2)^{-1}\left(\begin{smallmatrix}C&-B\\-B&A\end{smallmatrix}\right)$. Its upper left entry is $C/(AC-B^2)=1/(A-B^2/C)$, exactly the retained propagator.
+
+**3. Noise normalization.** Evaluate $\int d^2\xi\,e^{-|\xi|^2/D}|\xi|^2/(\pi D)$.
+
+**Solution.** Polar coordinates give $2D^{-1}\int_0^\infty dr\,r^3e^{-r^2/D}=D$. Equal variances of the two real components therefore give $D/2$ each, as used in the Langevin mapping.
+
+**4. A source sign check.** For $S=\bar zAz$ and source $\bar jz+\bar zj$, determine the mean field.
+
+**Solution.** The normalized generating function is $Z=e^{-i\bar jA^{-1}j}$, so $W=-\bar jA^{-1}j$ and $\langle z\rangle=\delta W/\delta\bar j=-A^{-1}j$. The same sign follows by stationary variation: $Az+j=0$.
