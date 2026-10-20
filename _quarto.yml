@@ -1,0 +1,55 @@
+project:
+  type: book          # Multi-page HTML and a combined PDF from one source
+  output-dir: _site
+  render:
+    - "*.qmd"
+
+book:
+  title: "REPORT TITLE"
+  subtitle: "REPORT SUBTITLE"
+  author:
+    - name: Ze-Yu Xing
+      orcid: 0009-0009-5655-0187
+      affiliations:
+        - Institute of Physics, Chinese Academy of Sciences
+        - University of Chinese Academy of Sciences
+  date: last-modified
+  date-format: long
+  search: true
+  downloads: [pdf]
+  chapters:
+    - index.qmd
+    # - chapter2.qmd
+    # - chapter3.qmd
+  page-footer:
+    center: |
+      PROJECT NAME
+
+bibliography: assets/bibliography.bib
+csl: assets/american-physics-society.csl
+link-citations: true
+
+format:
+  html:
+    theme:
+      light: [cosmo, assets/theme-light.scss]
+      dark: [darkly, assets/theme-dark.scss]
+    css: assets/styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    fig-responsive: true
+    include-in-header: assets/mathjax-config.html
+    reference-location: section
+  pdf:
+    papersize: a4
+    geometry:
+      - margin=1in
+    fontsize: 11pt
+    colorlinks: true
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    include-in-header: assets/macros.sty
+    keep-tex: false
+    reference-location: document
