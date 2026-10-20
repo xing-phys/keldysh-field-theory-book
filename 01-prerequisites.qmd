@@ -55,6 +55,8 @@ after removing an initial first order bath average. No approximation has yet mad
 
 A weak coupling derivation typically replaces $\rho_{SB}(s)$ in this kernel by $\rho_S(s)\otimes\rho_B$ and then uses the short decay time of bath correlations to replace $\rho_S(s)$ by $\rho_S(t)$ inside the memory integral. Appropriate frequency averaging is also needed to obtain a completely positive generator. The bath correlation time must be short compared with the system relaxation time. This does **not** say that every system oscillation is slow, that every bath is white at every frequency, or that a local dissipator is automatically compatible with thermal equilibrium.
 
+The oscillator-bath calculation in @sec-worked-integrals derives the frequency dependent response and noise kernels explicitly and shows how their narrow frequency limit produces these rates.
+
 The resulting time independent equation has the form
 
 $$

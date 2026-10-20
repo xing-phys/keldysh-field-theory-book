@@ -37,7 +37,7 @@ Julia uses only `LinearAlgebra`, `Printf`, and `DelimitedFiles`. The scientific 
 ## Source layout
 
 - `index.qmd`, `00-*.qmd`–`13-*.qmd`: welcome and teaching chapters.
-- `a-mathematics.qmd`, `b-conventions.qmd`, `c-review-map.qmd`: mathematical tools, conventions, and section-by-section review coverage.
+- `a-mathematics.qmd`, `b-conventions.qmd`, `c-review-map.qmd`, `d-worked-integrals.qmd`: mathematical tools, conventions, section-by-section review coverage, and worked loop/integral calculations.
 - `assets/bibliography.bib`: verified paper metadata; `assets/*-refs.bib` record the editorial source groups.
 - `assets/macros.sty` and `assets/mathjax-config.html`: equivalent PDF/HTML physics macros.
 - `_quarto.yml`, `assets/styles.css`, and theme files: book structure and appearance.

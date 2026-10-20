@@ -1,0 +1,264 @@
+# Worked integrals: from a reservoir to a critical point {#sec-worked-integrals}
+
+A formal identity becomes useful when one can calculate with it. This appendix works through several recurring steps without assuming a previous field-theory course. The bath calculation connects microscopic unitary dynamics to a Markov action; the spectral calculation establishes the thermal relation; contour integration gives real-time propagators; and a momentum-shell calculation illustrates how a critical exponent actually emerges. These are teaching calculations, not a replacement for the nonequilibrium FRG truncation of @sec-condensation.
+
+## Integrate a harmonic reservoir explicitly
+
+Let a system oscillator couple linearly to independent reservoir oscillators,
+
+$$
+H=\omega_0 a^\dagger a+\sum_\nu\epsilon_\nu b_\nu^\dagger b_\nu
++\sum_\nu(g_\nu a^\dagger b_\nu+g_\nu^*b_\nu^\dagger a).
+$$ {#eq-workshop-bath-model}
+
+The rotating-wave coupling shown here conserves the total excitation number. Different system-bath couplings require their own kernels. Assume an initially factorized system and Gaussian bath state (or include any initial cross-correlations in a boundary functional). Let the bath have occupation $n_B(\epsilon_\nu)$ and no anomalous averages. Its action is quadratic, so the Schur complement in @sec-mathematics performs the integration exactly for this model. Define
+
+$$
+J(\epsilon)=\sum_\nu|g_\nu|^2\delta(\epsilon-\epsilon_\nu).
+$$
+
+Each free bath mode has $G_\nu^R=(\omega-\epsilon_\nu+i0^+)^{-1}$ and $G_\nu^K=-2\pi i[2n_B(\epsilon_\nu)+1]\delta(\omega-\epsilon_\nu)$. Multiplying by the two couplings and summing yields
+
+$$
+\begin{aligned}
+\Sigma^R(\omega)&=\int d\epsilon\,
+\frac{J(\epsilon)}{\omega-\epsilon+i0^+},\\
+\Sigma^K(\omega)&=-2\pi iJ(\omega)[2n_B(\omega)+1].
+\end{aligned}
+$$ {#eq-workshop-bath-selfenergy}
+
+The distributional identity $(x+i0^+)^{-1}=\mathcal P(1/x)-i\pi\delta(x)$ separates a frequency shift from damping. Near an isolated system resonance, assume that $J$ and the bath occupation vary little over the system linewidth. Evaluate them at that resonance and absorb the real principal-value shift into $\widetilde\omega_0$. Then
+
+$$
+P^R\simeq\omega-\widetilde\omega_0+i\kappa_B/2,\qquad
+P^K\simeq i\kappa_B(2n_B+1),\qquad
+\kappa_B=2\pi J(\widetilde\omega_0).
+$$ {#eq-workshop-markov-kernels}
+
+The signs follow from $P^R=P_S^R-\Sigma^R$ and $P^K=-\Sigma^K$ after the decaying initial-state contribution is omitted. The equivalent thermal oscillator master equation is
+
+$$
+\partial_t\rho=-i[\widetilde\omega_0a^\dagger a,\rho]
++\kappa_B(n_B+1)\mathcal D[a]\rho
++\kappa_B n_B\mathcal D[a^\dagger]\rho.
+$$ {#eq-workshop-thermal-rates}
+
+Thus our loss and pump rates are $\kappa=\kappa_B(n_B+1)$ and $p=\kappa_Bn_B$. Their difference is $\kappa_B$ and their sum is $\kappa_B(2n_B+1)$. At zero temperature the loss remains and the pump vanishes; the Keldysh noise is still nonzero. The vacuum contribution is required by the commutator.
+
+This derivation also specifies the approximation. Replacing $n_B(\omega)$ by a constant is a narrow-band Markov approximation. It reproduces the resonant oscillator's occupation, but it does not preserve the exact frequency-dependent thermal relation over an arbitrarily wide interval. In a rotating frame the bath functions must be evaluated at the corresponding laboratory frequencies. A time-independent rotating-frame Hamiltonian does not reset the physical reservoir to a Gibbs bath of that Hamiltonian.
+
+## Derive the fluctuation-dissipation relation from thermal weights
+
+Consider eigenstates $|m\rangle$ of a time-independent $H$ and conserved $N$, with energies $E_m$ and charges $N_m$. In a grand-canonical equilibrium state,
+
+$$
+p_m=Z^{-1}e^{-\beta(E_m-\mu N_m)}.
+$$
+
+Let $a$ lower $N$ by one unit. Define the two positive-order correlation functions
+$C^>(t)=\langle a(t)a^\dagger(0)\rangle$ and
+$C^<(t)=\langle a^\dagger(0)a(t)\rangle$.
+Insert a complete set of states between the operators and Fourier transform:
+
+$$
+\begin{aligned}
+C^>(\omega)&=2\pi\sum_{m,n}p_m
+ |a_{mn}|^2\delta\bigl(\omega-E_n+E_m\bigr),\\
+C^<(\omega)&=2\pi\sum_{m,n}p_n
+ |a_{mn}|^2\delta\bigl(\omega-E_n+E_m\bigr).
+\end{aligned}
+$$ {#eq-workshop-lehmann}
+
+A nonzero matrix element has $N_n-N_m=1$. On the delta function's support,
+
+$$
+\frac{p_n}{p_m}=e^{-\beta(\omega-\mu)},\qquad
+C^<(\omega)=e^{-\beta(\omega-\mu)}C^>(\omega).
+$$ {#eq-workshop-kms-weights}
+
+This is the spectral KMS relation. Now use the definitions
+
+$$
+iG^K=C^>+C^<,\qquad
+ i(G^R-G^A)=C^>-C^<.
+$$
+
+Dividing the two expressions gives
+
+$$
+\frac{G^K}{G^R-G^A}
+=\frac{1+e^{-\beta(\omega-\mu)}}{1-e^{-\beta(\omega-\mu)}}
+=\coth\frac{\beta(\omega-\mu)}2.
+$$ {#eq-workshop-fdr-proof}
+
+For a neutral Hermitian observable replace the charge difference by zero, so the argument is $\beta\omega/2$. For an operator carrying a different charge, keep that charge in the chemical-potential term. At $|\omega-\mu|\ll T$, expanding the exponential gives $2T/(\omega-\mu)$. The classical-looking infrared divergence has therefore emerged from quantum thermal weights; it was not an additional assumption.
+
+The converse requires care. Agreement of one ratio over one interval is much weaker than a full KMS property for all correlations. A Gaussian oscillator can have a geometric stationary number distribution and still have an approximate Markov spectrum that violates the exact relation away from its narrow resonance.
+
+## Evaluate the two frequency integrals used throughout the book
+
+Take $\Gamma>0$ and the Fourier convention of @sec-conventions. The simplest retarded transform is
+
+$$
+I_R(t)=\int_{-\infty}^{\infty}\frac{d\omega}{2\pi}
+\frac{e^{-i\omega t}}{\omega-\omega_0+i\Gamma}.
+$$
+
+For $t>0$, the exponential decays on a large semicircle in the lower half-plane. The contour closes clockwise and encloses the pole at $\omega_0-i\Gamma$. The residue theorem therefore contributes $-i$ times the residue. For $t<0$, close above and enclose no pole. Hence
+
+$$
+I_R(t)=-i\theta(t)e^{-i\omega_0t-\Gamma t}.
+$$ {#eq-workshop-retarded-residue}
+
+The sign and half-plane are both fixed by the Fourier convention. Using the same closure for negative time would produce a growing, acausal answer.
+
+Next factor a Lorentzian into its two poles:
+
+$$
+\frac1{x^2+\Gamma^2}
+=\frac1{2i\Gamma}\left(\frac1{x-i\Gamma}-\frac1{x+i\Gamma}\right).
+$$
+
+Closing below for positive time and above for negative time gives
+
+$$
+\int\frac{d\omega}{2\pi}
+\frac{e^{-i\omega t}}{(\omega-\omega_0)^2+\Gamma^2}
+=\frac{e^{-i\omega_0t-\Gamma|t|}}{2\Gamma}.
+$$ {#eq-workshop-lorentzian-residue}
+
+At $t=0$, this immediately gives the equal-time occupation integral. Multiplication by $-iD$ gives a Keldysh correlator. Multiplication instead by the spectral numerator $2\Gamma$ gives unit integrated spectral weight. The same denominator has different physical numerators, which is why response and noise cannot be interchanged.
+
+## Spatial correlations in one, two, and three dimensions
+
+Let a real equilibrium Gaussian field have free energy
+
+$$
+F[\varphi]=\frac12\int d^dx\,[\rho_s(\nabla\varphi)^2+r\varphi^2],
+\qquad \rho_s>0,\quad r>0.
+$$
+
+The Boltzmann weight is $e^{-F/T}$. Gaussian integration gives
+
+$$
+C(\mathbf q)=\frac{T}{\rho_s q^2+r},\qquad
+m^2=r/\rho_s,\qquad\xi=m^{-1}.
+$$ {#eq-workshop-static-covariance}
+
+A useful method is to introduce a positive parameter $s$:
+
+$$
+\frac1{q^2+m^2}=\int_0^\infty ds\,e^{-s(q^2+m^2)}.
+$$
+
+The remaining momentum integral is a product of ordinary Gaussians. For a separation $R=|\mathbf x|>0$,
+
+$$
+C(R)=\frac{T}{\rho_s}\int_0^\infty
+\frac{ds}{(4\pi s)^{d/2}}
+\exp\left(-m^2s-\frac{R^2}{4s}\right).
+$$ {#eq-workshop-schwinger-correlation}
+
+It yields
+
+$$
+C_{d=1}(R)=\frac{T}{2\rho_s m}e^{-mR},\qquad
+C_{d=2}(R)=\frac{T}{2\pi\rho_s}K_0(mR),\qquad
+C_{d=3}(R)=\frac{T}{4\pi\rho_s R}e^{-mR}.
+$$ {#eq-workshop-static-dimensions}
+
+Here $K_0(z)=\int_0^\infty dt\,e^{-z\cosh t}$ defines the modified Bessel function needed in two dimensions. At small $z$ it behaves as $-\log(z/2)-\gamma_E$, where $\gamma_E$ is Euler's constant. The zero-separation value in a continuum field theory requires a short-distance cutoff when the large-$q$ integral diverges.
+
+For a massless phase with $T/\rho_s$ replaced by $\Delta/D$, the difference of two fields removes the global zero mode:
+
+$$
+C_\theta(R)=2\frac\Delta D\int\frac{d^dq}{(2\pi)^d}
+\frac{1-\cos(\mathbf q\cdot\mathbf R)}{q^2}.
+$$ {#eq-workshop-phase-integral}
+
+In one dimension, differentiating twice with respect to $R$ gives a delta function; imposing $C_\theta(0)=0$ gives $C_\theta(R)=(\Delta/D)|R|$. In two dimensions, the angular average is $J_0(qR)$ and the remaining integral is logarithmic between $q\sim R^{-1}$ and the cutoff $\xi^{-1}$:
+
+$$
+C_\theta(R)\simeq\frac\Delta{\pi D}\log\frac R\xi,
+\qquad
+g^{(1)}(R)\simeq\left(\frac R\xi\right)^{-\Delta/(2\pi D)}.
+$$ {#eq-workshop-phase-log}
+
+The last step uses Gaussian phase statistics. In three dimensions the infrared contribution converges, so long-distance order is compatible with this phase approximation. In two dimensions a nonlinear KPZ term or vortices can invalidate the Gaussian conclusion. These integrals diagnose which fluctuations require further work; they do not decide an interacting phase diagram on their own.
+
+## A complete one-loop momentum-shell example
+
+To see how coarse graining produces a beta function, consider an equilibrium $O(n)$ model of $n$ real components. This $n$ counts components, not particles. Write its dimensionless free energy as
+
+$$
+\mathcal H[\boldsymbol\varphi]=\frac FT
+=\int d^dx\left[\frac12(\nabla\boldsymbol\varphi)^2
++\frac r2\boldsymbol\varphi^2
++\frac g{4!}(\boldsymbol\varphi^2)^2\right],\qquad g>0.
+$$ {#eq-workshop-on-model}
+
+Momenta are restricted to $|q|<\Lambda$. The free propagator is $\delta_{ab}/(q^2+r)$. The four-leg vertex has index tensor
+$\frac g3(\delta_{ab}\delta_{cd}+\delta_{ac}\delta_{bd}+\delta_{ad}\delta_{bc})$.
+For $n=1$ all three terms coincide and the vertex reduces to $g$.
+
+Separate the field into slow modes and a thin shell
+$\Lambda e^{-d\ell}<|q|<\Lambda$. Expand
+$-\log\langle e^{-\mathcal H_{\mathrm{int}}}\rangle_>$ in connected cumulants. The first cumulant gives a tadpole mass shift; the connected second cumulant gives the quartic correction. Wick contraction yields
+
+$$
+\delta r=\frac{n+2}{6}g\,I_1,\qquad
+\delta g=-\frac{n+8}{6}g^2\,I_2,
+\quad
+I_j=\int_{\mathrm{shell}}\frac{d^dq}{(2\pi)^d}\frac1{(q^2+r)^j}.
+$$ {#eq-workshop-loop-corrections}
+
+One can verify the mass factor by choosing a background in component 1. A transverse fluctuation contributes $g\varphi_1^2\langle\eta_a^2\rangle/12$ for each of the $n-1$ transverse components, while the longitudinal fluctuation contributes $g\varphi_1^2\langle\eta_1^2\rangle/4$. The sum is $(n+2)gI_1\varphi_1^2/12=\delta r\varphi_1^2/2$.
+
+For the quartic term, the same background gives fluctuating masses $g\varphi_1^2/2$ longitudinally and $g\varphi_1^2/6$ transversely. Expanding their one-loop trace logarithm,
+$\frac12\operatorname{Tr}\log(P+\delta P)$, to second order yields
+$-g^2[1/4+(n-1)/36]I_2\varphi_1^4/4
+=-(n+8)g^2I_2\varphi_1^4/144$.
+Comparison with $\delta g\varphi_1^4/24$ gives the second equation. This makes the combinatorial coefficient explicit rather than assigning a remembered diagram factor.
+
+Let $K_d=S_{d-1}/(2\pi)^d$, with $S_{d-1}$ the area of the unit sphere in $d$ dimensions. To first order in the shell thickness,
+
+$$
+I_1=\frac{K_d\Lambda^{d-2}}{1+\widetilde r}d\ell,
+\qquad I_2=\frac{K_d\Lambda^{d-4}}{(1+\widetilde r)^2}d\ell,
+\qquad\widetilde r=r/\Lambda^2.
+$$
+
+Rescale lengths and fields to restore the original cutoff and gradient coefficient. Canonically $r$ scales as a momentum squared and $g$ as momentum$^{4-d}$. With $u=K_d g\Lambda^{d-4}$, the one-loop flows are
+
+$$
+\begin{aligned}
+\frac{d\widetilde r}{d\ell}
+ &=2\widetilde r+\frac{n+2}{6}\frac{u}{1+\widetilde r},\\
+\frac{du}{d\ell}
+ &=(4-d)u-\frac{n+8}{6}\frac{u^2}{(1+\widetilde r)^2}.
+\end{aligned}
+$$ {#eq-workshop-wilson-flow}
+
+Unlike $s=\log(k/\Lambda)$ in the FRG chapters, $\ell$ increases toward the infrared. Their flow directions are opposite. At $d=4-\epsilon$ and small positive $\epsilon$, the interacting fixed point has
+
+$$
+u_* =\frac{6\epsilon}{n+8}+O(\epsilon^2),\qquad
+\widetilde r_*=-\frac{n+2}{2(n+8)}\epsilon+O(\epsilon^2),
+$$ {#eq-workshop-fixed-point}
+
+where $u_*$ denotes the fixed-point quartic coupling. Linearizing the mass direction gives the positive relevant eigenvalue
+
+$$
+y_r=2-\frac{n+2}{n+8}\epsilon+O(\epsilon^2),\qquad
+\nu=\frac1{y_r}=\frac12+\frac{n+2}{4(n+8)}\epsilon+O(\epsilon^2).
+$$ {#eq-workshop-nu}
+
+This is the basic Wilson-Fisher expansion [@WilsonFisher1972]. The exponent follows because a distance from criticality grows as $e^{y_r\ell}$ until it becomes order one, while the correlation length grows as $e^\ell$. For an $O(2)$ field, the first-order series gives $\nu=1/2+\epsilon/10$. Setting $\epsilon=1$ is an extrapolation; it is not a controlled precision prediction in three dimensions. Using $1/(2-0.4\epsilon)$ without re-expanding introduces uncomputed higher orders. There is no field anomalous dimension at this tadpole order because the self-energy is momentum independent.
+
+The example explains what a flow calculation must supply: a specified truncation, propagators, vertices, integration measure, rescaling, fixed point, and stability eigenvalues. In the driven problem the response/noise structure and complex couplings add independent directions. A static $O(2)$ loop cannot calculate the nonequilibrium decoherence exponent. That requires the dynamical projections in @sec-condensation.
+
+### Worked exercise: where perturbation theory fails
+
+Use @eq-workshop-loop-corrections to estimate when quartic corrections become comparable to the bare interaction as $r\to0$ below four dimensions.
+
+**Solution.** The infrared part of $I_2$ over all momenta scales as $r^{(d-4)/2}$. Thus $|\delta g|/g$ scales as $g\,r^{(d-4)/2}$, apart from cutoff and geometric factors. It grows without bound for $d<4$. In three dimensions the fluctuation region has $\sqrt r\lesssim \text{const.}\,g$ in these normalized units. This is the Ginzburg criterion: mean-field theory can remain useful outside a narrow critical region, but cannot determine the asymptotic interacting critical exponents inside it.

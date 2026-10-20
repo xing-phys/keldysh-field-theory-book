@@ -59,6 +59,7 @@ book:
     - a-mathematics.qmd
     - b-conventions.qmd
     - c-review-map.qmd
+    - d-worked-integrals.qmd
   page-footer:
     left: "An independent, open study companion · CC BY 4.0"
     right: "[Source & corrections](https://github.com/xing-phys/keldysh-field-theory-book)"

@@ -6,7 +6,7 @@ This chapter develops the density and phase description in review IV.A and the t
 
 ## A complex order parameter with noise
 
-Use the physical complex field $\psi=\phi_c/\sqrt{2}$, whose squared modulus is a particle density. A useful mesoscopic equation is
+Use the physical complex order parameter $\psi=\phi_c/\sqrt{2}$. Its squared modulus is the hydrodynamic mean-field density. For a regulated stochastic field representing symmetrically ordered fluctuations, the half quantum per mode must still be subtracted to reconstruct a normally ordered microscopic density. A useful mesoscopic equation is
 
 $$
 \partial_t\psi=
@@ -150,6 +150,37 @@ $$ {#eq-cond-wetterich}
 
 The trace includes momentum, frequency, and field indices. A regulator $R_k$ suppresses modes with $|\mathbf q|\lesssim k$. The equation is exact, but solving it requires approximating the functional form of $\Gamma_k$.
 
+## Where mean field loses control
+
+The Ginzburg criterion turns the warning about critical fluctuations into an estimate. In the effectively thermal sector, normalize a real two-component field $\boldsymbol\varphi$ by the static functional
+
+$$
+\mathcal H_{\mathrm{st}}=\int d^3x\left[
+\frac c2(\nabla\boldsymbol\varphi)^2+
+\frac r2\boldsymbol\varphi^2+
+\frac v4(\boldsymbol\varphi^2)^2\right],
+\qquad P\propto e^{-\mathcal H_{\mathrm{st}}/T_{\mathrm{eff}}}.
+$$
+
+Here $c,r,v$ are static coefficients in this explicitly chosen field normalization, not the bare complex coefficients in @eq-cond-cgle. The mass $r$ measures distance from the fluctuation-shifted transition. The one-loop contraction explained in @sec-worked-integrals gives, for $N$ real components,
+
+$$
+\delta r(r)-\delta r(0)
+=-\frac{(N+2)vT_{\mathrm{eff}}}{4\pi c^{3/2}}\sqrt r
++\text{terms analytic in }r,\qquad N=2.
+$$ {#eq-cond-ginzburg-loop}
+
+Subtracting the value at zero removes the cutoff-dependent shift of the transition. The remaining square-root correction is infrared physics. Requiring it to be small compared with $r$ gives
+
+$$
+r\gg r_G\equiv
+\left[\frac{(N+2)vT_{\mathrm{eff}}}{4\pi c^{3/2}}\right]^2,
+\qquad
+\xi\ll\xi_G=\sqrt{c/r_G}.
+$$ {#eq-cond-ginzburg-criterion}
+
+At $r\lesssim r_G$, using the bare saddle and a single perturbative loop is no longer controlled, even when $v$ was initially small. This is the regime for the nonperturbative critical flow. The coefficient in $r_G$ depends on the chosen normalization and on what counts as a small correction; the parametric dependence identifies the physical crossover. On the ordered side the analogous comparison uses longitudinal amplitude fluctuations against the saddle density.
+
 ## An explicit FRG truncation and its projections
 
 The following derivative and local-potential expansion reproduces the calculation summarized in review IV.B [@Sieberer2013; @Sieberer2014]:
@@ -241,6 +272,34 @@ extract precisely the coefficients displayed in the matrix. Here $\sigma_y$ is t
 
 For example, an optimized spatial regulator replaces $q^2$ by
 $q^2+(k^2-q^2)\Theta(k^2-q^2)$ in the gradient terms. All propagators below $k$ then have a gradient contribution proportional to $k^2$. These specifications, the trace equation, and the projections define a closed calculational scheme; lengthy rational threshold functions are evaluated from that trace, not additional physical assumptions.
+
+## Evaluate a regulator trace before differentiating it
+
+The projections above are operational, but a simple limit makes their use tangible. On the purely dissipative equilibrium subspace, first integrate the Gaussian frequency dependence. The static potential $V_k(\rho)$, with $\rho=\boldsymbol\varphi^2/2$, has one longitudinal and $N-1$ transverse propagators. Their inverse static denominators are respectively
+$cq^2+V_k'+2\rho V_k''$ and $cq^2+V_k'$. With the spatial regulator $R_k=c(k^2-q^2)\Theta(k^2-q^2)$, keeping $c$ fixed at this local-potential order, the remaining trace is
+
+$$
+\partial_s V_k(\rho)=
+\frac{T_{\mathrm{eff}}c k^5}{6\pi^2}
+\left[\frac{N-1}{ck^2+V_k'}+
+\frac1{ck^2+V_k'+2\rho V_k''}\right],\qquad d=3.
+$$ {#eq-cond-explicit-potential-trace}
+
+To obtain the coefficient, use $\partial_sR_k=2ck^2$ inside the ball $q<k$, the factor $1/2$ in the fluctuation trace, and
+$\int_{q<k}d^3q/(2\pi)^3=k^3/(6\pi^2)$. The cutoff makes the two propagators constant throughout that ball, so this particular momentum integral is elementary.
+
+For example, let $V_k=v_k(\rho-\rho_{0,k})^2$ locally. Differentiating the last equation once with respect to $\rho$ at its minimum gives
+
+$$
+\left.\partial_sV_k'\right|_{\rho_0}
+=-\frac{2T_{\mathrm{eff}}c k^5v_k}{6\pi^2}
+\left[\frac{N-1}{(ck^2)^2}+
+\frac3{(ck^2+4v_k\rho_0)^2}\right].
+$$
+
+Then $\partial_s\rho_0=-(\partial_sV_k')/V_k''$ follows by differentiating $V_k'(\rho_0)=0$. A second density derivative yields the quartic-coupling flow. This is exactly what “project onto the potential” means: evaluate one regulated loop function, then differentiate its field dependence and account for the running evaluation point.
+
+This static example neither calculates $Z$ nor the independent coherent ratios. Obtaining $z$ and the decoherence exponent requires the frequency and momentum projections of @eq-cond-frg-derivative-flow in the full real-time matrix. It nevertheless exposes the transverse/longitudinal thresholds and explains why a regulator prevents the Goldstone denominator from becoming singular before the flow reaches $k=0$.
 
 ## Scaling variables, thermalization, and decoherence
 

@@ -271,6 +271,34 @@ For $h=0$, a Bose distribution $n_q=[e^{u|q|/T}-1]^{-1}$ makes each collision br
 
 A practical calculation solves the two equations together. At each integration stage, start from the current $n_q$ and a positive trial $\sigma_q$. Evaluate the collision derivative, insert it into $f_p$, update the self-energy with damping of the iteration if necessary, and repeat to convergence. Only then advance $n_q$. Check positivity, convergence with momentum resolution, collision energy conservation, and $\sigma_q/(u|q|)\ll1$. Iterating only a linewidth while freezing an inconsistent derivative misses the feedback in $f_p$.
 
+For a reproducible discretization, leave the conserved zero mode separate and use positive momenta $q_j=j\Delta q$, $j=1,\ldots,M$, with $M\Delta q=\Lambda$. A uniform grid makes resonant sums and differences grid points, avoiding interpolation that can silently violate energy conservation. If a logarithmic grid is needed to resolve decades of infrared scaling, interpolation and quadrature convergence require separate checks. Define a collision routine $\mathcal C_j[n,\sigma]$ by the last two lines of @eq-heat-scba-collision. At a fixed time-integration stage the nonlinear residual to solve is
+
+$$
+\begin{aligned}
+d_j&=hq_j+\mathcal C_j[n,\sigma],\\
+f_j&=d_j/\sigma_j+2n_j+1,\\
+\mathcal R_j&=\sigma_j-v_0^2\sum_lw_l f_l
+\left[\frac{q_jq_l(q_j-q_l)}{\sigma_l+\sigma_{|j-l|}}+
+\frac{q_jq_l(q_j+q_l)}{\sigma_l+\sigma_{j+l}}\right].
+\end{aligned}
+$$ {#eq-heat-discrete-residual}
+
+The weights $w_l$ include $\Delta q/(2\pi)$; terms involving momenta outside the regulator range must be treated according to the chosen common cutoff. Set $\sigma_0=0$ as the limiting zero-mode value. At an internal endpoint with a vanishing numerator, use its limit rather than computing a numerical $0/0$. Combine the two signed kernel terms before summing whenever they nearly cancel. Artificially taking each contribution positive is particularly damaging in this step.
+
+A damped fixed-point update replaces $\sigma$ by $(1-\alpha)\sigma+\alpha(\sigma-\mathcal R)$ with $0<\alpha\leq1$; a nonlinear root solver can instead solve $\mathcal R=0$. Recompute $d_j$ after every linewidth update. Convergence requires both the residual and the resulting kinetic derivative to stabilize, rather than only a small change caused by choosing a tiny $\alpha$. If no positive-width solution is reached, clipping negative values does not establish a physical solution: examine the cutoff, quadrature, initial guess, and validity of the closure.
+
+During evolution monitor the energy density and source independently:
+
+$$
+e_{\mathrm{grid}}=2\sum_jw_j u q_j n_j,
+\qquad
+2\sum_jw_j u q_j\mathcal C_j\simeq0,
+\qquad
+\dot e_{\mathrm{grid}}\simeq2h\sum_jw_j u q_j^2.
+$$ {#eq-heat-discrete-energy-check}
+
+The factor two counts both directions of sound. Deviations of the middle expression should decrease with a properly conservative discretization or with refinement. One can enforce discrete energy balance more directly by updating the three occupations of each resonant process $q_i+q_j\leftrightarrow q_{i+j}$ together, with equal and opposite event weights and the identical linewidth denominator. Use an adaptive or sufficiently small time step to preserve $n_j\geq0$ and resolve evolution, while solving the instantaneous linewidth problem to tighter accuracy than the desired time-stepping error. These are tests of this approximation's numerical realization; passing them does not establish that vertex corrections are negligible.
+
 SCBA neglects vertex corrections. They are especially small initially for an unsqueezed vacuum and in the weak-heating window considered in the original analysis. Their neglect is not an exact theorem at arbitrary occupation or time. The scaling predictions that follow are analytic consequences of this kinetic approximation, supported by its numerical solution.
 
 ## The low-momentum constraint
@@ -372,6 +400,9 @@ $$ {#eq-heat-four-fifths}
 
 This is a subballistically growing distance over which modes have approximately thermalized. It is not the propagation front of density information, which moves with sound velocity $u$. The $4/5$ law combines the analytical linewidth relation with an occupation-growth law found in the kinetic solution; it should not be described as following from number conservation alone.
 
+An intersection of the two occupation asymptotes would define another estimate,
+$q_{\mathrm{occ}}\simeq\sqrt{T/(uc)}$. This is not identically the dynamical scale in @eq-heat-crossover-condition. Equating them assumes a sufficiently narrow crossover with compatible amplitudes. For example, imposing $c\propto t^2$ and $T\propto t$ as exact powers would give $q_{\mathrm{occ}}\propto t^{-1/2}$, rather than $t^{-4/5}$. Accordingly the approximate time laws reported in a finite kinetic window must not be promoted simultaneously to an exact global self-similar solution. Fit the crossover profile, test its definition, and report the actual window. The analytical $5/3$ linewidth relation is logically independent of this occupation-matching issue.
+
 The review also reports an approximately linear rise of the fitted $T(t)$ in its studied heating regime. That time dependence is regime and cutoff dependent. A constant energy influx alone does not imply $T\propto t$: a completely thermal, low-temperature one-dimensional phonon gas has $e=\pi T^2/(6u)$, which instead gives $T\propto\sqrt t$ for constant influx. Conversely a fully classical cutoff-limited gas has $e\propto\Lambda T$ and can have $T\propto t$. Here the distribution contains a moving nonthermal sector, so the fit and energy must be checked together. The robust distinction is the coexistence of $n_q\propto|q|$ and an approximately thermal sector, with their associated linewidth scalings.
 
 Heating ultimately invalidates Luttinger theory. One must stop when occupations violate the hydrodynamic bound, $T$ approaches $u\Lambda$, or nonlinear/gradient approximations no longer hold. The intermediate scaling is not an infinite-time fixed-temperature steady state.
@@ -405,6 +436,17 @@ $$
 S(q,t)=\int_\omega S(q,t,\omega)
 =\frac{K|q|}{2\pi}(2n_q+1).
 $$ {#eq-heat-static-structure}
+
+If anomalous correlations are retained, the exact equal-time conversion in the same phonon normalization is instead
+
+$$
+S(q,t)=\frac{K|q|}{2\pi}
+\left[1+n_q+n_{-q}+2\operatorname{Re}m_q\right],
+\qquad m_q=\langle a_qa_{-q}\rangle.
+$$ {#eq-heat-anomalous-static-structure}
+
+This follows by expanding
+$\delta n_q\delta n_{-q}\propto(a_q+a_{-q}^\dagger)(a_{-q}+a_q^\dagger)$ and using $a_qa_q^\dagger=1+a_q^\dagger a_q$. A squeezed initial state can therefore change the measured density fluctuations even at the same normal occupation. The diagonal two-Lorentzian dynamic expression assumes this additional component can be neglected; otherwise the matrix Nambu Green functions and their relative-time evolution must be retained. The weak-heating bound in @eq-heat-harmonic-solution is what justified that simplification for the unsqueezed preparation considered here.
 
 Our factor $1/2$ in the anticommutator defines this normalization; omitting it doubles both structure factors. In the thermal, highly occupied window this tends to $KT/(\pi u)$. In the heating infrared,
 

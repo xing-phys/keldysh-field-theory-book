@@ -102,6 +102,58 @@ $$ {#eq-gaussian-cavity-g2}
 
 Indeed, the normal two time correlator is $\langle a^\dagger(0)a(\tau)\rangle=n_{\mathrm{ss}}e^{-i\omega_0\tau-\gamma|\tau|}$, and the two Wick pairings give $n_{\mathrm{ss}}^2+|\langle a^\dagger(0)a(\tau)\rangle|^2$. Thus $g^{(2)}(0)=2$, characteristic of this Gaussian incoherent state. At exactly zero occupation, this normalized ratio is undefined. A coherently driven displaced state has different intensity statistics and must include its nonzero mean before applying Wick's theorem.
 
+## Regression, first order coherence, and photon detection
+
+The same cavity provides a worked connection between operator evolution and correlation measurements. For $\tau\geq0$, the two operator orderings require different initial insertions:
+
+$$
+\begin{aligned}
+C^>(\tau)&=\operatorname{tr}\left[a\,e^{\tau\mathcal L}
+(a^\dagger\rho_{\mathrm{ss}})\right],\\
+C^<(\tau)&=\operatorname{tr}\left[a\,e^{\tau\mathcal L}
+(\rho_{\mathrm{ss}}a^\dagger)\right].
+\end{aligned}
+$$ {#eq-gaussian-regression-orderings}
+
+Move the generator across the trace and use $\mathcal L^\dagger a=-(i\omega_0+\gamma)a$. Both functions satisfy $\dot C=-(i\omega_0+\gamma)C$, but their initial values differ: $C^>(0)=n_{\mathrm{ss}}+1$ and $C^<(0)=n_{\mathrm{ss}}$. Their difference therefore gives the commutator response, and their sum gives the symmetrized Keldysh function. The quantum one enters through the initial operator ordering, even though both functions obey the same linear differential equation.
+
+For nonzero occupation, the normalized first order coherence is
+
+$$
+g^{(1)}(\tau)=\frac{\langle a^\dagger(0)a(\tau)\rangle}{n_{\mathrm{ss}}}
+=e^{-i\omega_0\tau-\gamma\tau}.
+$$ {#eq-gaussian-g1}
+
+Its phase oscillates at the cavity frequency and its envelope decays at the amplitude linewidth. This distinguishes field coherence from population relaxation, whose rate is $2\gamma$.
+
+A second derivation of @eq-gaussian-cavity-g2 avoids Wick's theorem and explains photon bunching operationally. Detecting a photon in a monitored vacuum output port prepares the normalized conditional intracavity state
+
+$$
+\rho_{\mathrm{click}}=
+\frac{a\rho_{\mathrm{ss}}a^\dagger}{n_{\mathrm{ss}}}.
+$$
+
+The mean occupation immediately after a click is
+
+$$
+n_{\mathrm{click}}(0)
+=\frac{\langle n(n-1)\rangle}{n_{\mathrm{ss}}}
+=2n_{\mathrm{ss}}
+$$
+
+for the geometric stationary distribution. A click preferentially selects realizations that contained many photons; it does not prepare the unconditional mean population minus one. Evolving this conditional state with the same unconditional generator gives
+
+$$
+n_{\mathrm{click}}(\tau)=n_{\mathrm{ss}}
++\bigl[n_{\mathrm{click}}(0)-n_{\mathrm{ss}}\bigr]e^{-2\gamma\tau},
+\qquad
+g^{(2)}(\tau)=\frac{n_{\mathrm{click}}(\tau)}{n_{\mathrm{ss}}}.
+$$ {#eq-gaussian-conditional-g2}
+
+Thus $g^{(2)}=1+e^{-2\gamma\tau}$. The decay of bunching measures the relaxation of the excess population conditioned on a detection. In a port with escape rate $\kappa_{\mathrm{out}}$, the normally ordered emitted flux is $\kappa_{\mathrm{out}}n$; this factor cancels in normalized correlations. A coherently populated input port can add interference and must be treated with its input–output relation rather than this vacuum-port simplification.
+
+This calculation illustrates what regression assumes: the bath has lost the memory relevant to the future evolution, so the conditional insertion evolves with the same $\mathcal L$. An arbitrary non-Markovian bath can retain correlations with the earlier detection, invalidating that replacement.
+
 ## Distribution functions and the equilibrium comparison
 
 For the scalar stationary cavity, write
@@ -264,6 +316,80 @@ D_{\mathrm{cond}}=D_0+4\eta n_0.
 $$
 
 It is diagonal in the complex noise basis before Nambu rearrangement. Together with the retarded matrix and its adjoint, it fixes the Gaussian correlation matrix through $G^K=-G^R P^K G^A$. Including Nambu doubling in an action introduces a compensating factor $1/2$ to avoid counting the same complex field twice.
+
+## Wick expansion, causal diagrams, and a first interaction correction
+
+The Gaussian solution is also a calculational starting point. Split $S=S_0+S_{\mathrm{int}}$ and denote averaging with $e^{iS_0}$ by $\langle\cdots\rangle_0$. Expanding a normalized expectation gives
+
+$$
+\langle O\rangle=\langle O\rangle_0
++i\left[\langle O S_{\mathrm{int}}\rangle_0
+-\langle O\rangle_0\langle S_{\mathrm{int}}\rangle_0\right]
++O(S_{\mathrm{int}}^2).
+$$ {#eq-gaussian-wick-expansion}
+
+The subtraction removes a disconnected vacuum contribution. In a normalized causal theory the complete vacuum contributions cancel; retaining only a subset inconsistently can spoil $Z=1$. Wick's theorem reduces every Gaussian field moment in this expansion to products of pair contractions, thereby converting an interacting functional integral into explicit integrals of known propagators.
+
+The elementary contractions in the complex $c/q$ basis are
+
+$$
+\begin{aligned}
+\langle\phi_c\bar\phi_c\rangle_0&=iG_0^K,&
+\langle\phi_c\bar\phi_q\rangle_0&=iG_0^R,\\
+\langle\phi_q\bar\phi_c\rangle_0&=iG_0^A,&
+\langle\phi_q\bar\phi_q\rangle_0&=0.
+\end{aligned}
+$$ {#eq-gaussian-diagram-contractions}
+
+Spacetime arguments follow the order of the fields. Each vertex supplies its spacetime integral and $i$ times its coefficient in the action; expanding the exponential supplies $1/n!$ for $n$ identical insertions. One must then count the different Wick pairings. Alternatively, define a vertex by functional differentiation, which includes the associated field factorials, and use the matching diagram symmetry factors. Mixing those conventions doubles or removes combinatorial factors.
+
+Response lines have directed time support. A closed chain of retarded lines contains
+$\theta(t_1-t_2)\theta(t_2-t_3)\cdots\theta(t_m-t_1)$ and vanishes for distinct times. Equal time contacts require the original discretization; assigning $\theta(0)$ independently in different diagrams is not a replacement for it. These causal cancellations, together with the vanishing quantum–quantum contraction, greatly reduce the diagrams that can contribute. A purported purely classical inverse vertex is a warning that the normalization or contour bookkeeping has been lost.
+
+A concrete example is a weak Kerr interaction in the otherwise linear cavity,
+
+$$
+H_{\mathrm{int}}=\frac U2a^{\dagger2}a^2.
+$$
+
+Since this Hamiltonian commutes with $n$, the geometric stationary state of the pumped, lossy mode remains stationary exactly: the occupation $n_{\mathrm{ss}}=p/(\kappa-p)$ does not acquire an interaction correction in this particular model. Unequal time response still changes, because adding a photon has a density dependent energy cost.
+
+The first order retarded self energy is the Hartree shift
+
+$$
+\Sigma_H^R=2U n_{\mathrm{ss}},\qquad
+G^R(\omega)=G_0^R(\omega)
++G_0^R(\omega)(2Un_{\mathrm{ss}})G_0^R(\omega)+O(U^2).
+$$ {#eq-gaussian-hartree}
+
+The contraction has two equivalent choices of the annihilation field attached to the external response. Equivalently, for a small induced amplitude $\alpha$ in a zero mean number conserving Gaussian background, Wick factorization gives
+
+$$
+\langle a^\dagger aa\rangle
+=2n_{\mathrm{ss}}\alpha+O(|\alpha|^3,U).
+$$
+
+Substituting this into the exact equation
+$i\partial_t\langle a\rangle=(\omega_0-i\gamma)\langle a\rangle+U\langle a^\dagger aa\rangle+f$
+produces a response denominator $\omega-\omega_0-2Un_{\mathrm{ss}}+i\gamma$. Expanding that denominator verifies the sign and factor in @eq-gaussian-hartree. For perturbation theory over the relaxation time, $Un_{\mathrm{ss}}\ll\gamma$ is a sufficient simple smallness condition; a resummed shifted pole can remain useful somewhat beyond it.
+
+Normal ordering is consequential in this example. The internal density contraction is
+
+$$
+n_{\mathrm{ss}}=
+\frac12\left[iG_0^K(t,t)-1\right],
+$$
+
+rather than $iG_0^K/2$. The equal time commutator or its equivalent time-slice contact removes the vacuum half quantum. Using the symmetrized contraction without that correction would predict a spurious shift $U$ in an empty cavity. In fact, $H_{\mathrm{int}}$ annihilates both $|0\rangle$ and $|1\rangle$, so the vacuum-to-one-photon transition has no Kerr shift. Keeping the branch time prescription automatically implements this cancellation; subtracting it again afterward would also be wrong.
+
+There is an independent short time check, requiring no diagram language. Since $[a^\dagger a^2,a^\dagger]=2n$, regression gives
+
+$$
+\left.\partial_\tau\langle[a(\tau),a^\dagger(0)]\rangle\right|_{0^+}
+=-(i\omega_0+\gamma)-2iUn_{\mathrm{ss}}.
+$$ {#eq-gaussian-hartree-moment}
+
+The first spectral moment therefore agrees with the Hartree shift. At higher order the interaction can change linewidths, create resolved occupation dependent resonances, and generate non-Gaussian dynamical correlations. Those effects require additional self energy and vertex diagrams; replacing the entire interacting theory by one frequency shift would miss them.
 
 ## Exercises with solutions
 

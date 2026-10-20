@@ -163,6 +163,8 @@ For $\Gamma<0$, the nonlinearities have opposite signs. The flow instead approac
 
 Microscopic reservoir models can make the effective noise vary nonmonotonically with pump. The analysis underlying review IV.C consequently predicts a possible reentrant ordered regime: varying pump can enter and later leave algebraic order in the strongly anisotropic sector. This is a model-dependent phase-diagram prediction, rather than a universal requirement of the anisotropic equation. Algebraic coherence also does not by itself determine every definition of superfluid response in an open system; that requires an appropriate current-response calculation.
 
+For actual parameter scans, two coordinates are insufficient to decide the compact-phase diagram. Besides $g$ and $\Gamma$, track the running noise ratio $\kappa_\theta=\Delta/\sqrt{D_xD_y}$ and the vortex fugacity, which measures the statistical weight of a core. In the strongly anisotropic basin the smooth nonlinearity fades, but a large fugacity or a renormalized $\kappa_\theta>\pi/2$ can still give a disordered vortex phase. In the weakly anisotropic basin, record which of the finite system size, the nonlinear scale, and the defect scale is encountered first. This construction separates a finite-size algebraic window from a thermodynamic algebraic phase and states what additional microscopic information a phase diagram requires.
+
 ## One dimension: exact exponents and what they measure
 
 One-dimensional KPZ has unusually strong constraints. With periodic boundaries and in the smooth sector, the stationary slope distribution is
@@ -214,6 +216,35 @@ W^2(L,t)=L^{2\chi}\mathcal W(t/L^z),\qquad
 $$ {#eq-kpz-width-scaling}
 
 For a periodic stationary system, @eq-kpz-one-d-stationary gives the more specific result $W^2=\Delta L/(12D)$ after removing the zero mode. The saturation time grows as $L^{3/2}$ in KPZ and $L^2$ in the linear theory. Curves for several sizes should collapse with one pair of exponents, which is a stronger test than fitting a short straight segment on logarithmic axes.
+
+A finite system also modifies a temporal coherence measurement. In the linear theory the complete stationary-increment variance on a periodic ring is calculable:
+
+$$
+B_L(x,t)=\frac{2\Delta|t|}{L}+
+\frac{4\Delta}{DL}\sum_{m=1}^{\infty}
+\frac{1-e^{-Dq_m^2|t|}\cos(q_mx)}{q_m^2},
+\qquad q_m=\frac{2\pi m}{L}.
+$$ {#eq-kpz-finite-ring-time}
+
+The first term is diffusion of the spatially uniform phase. At $t=0$ this reduces to the ring covariance in @fig-phase-variance. At $t\gg L^2/D$, every nonzero mode has decorrelated and
+$B_L(x,t)\simeq2\Delta|t|/L+\Delta L/(6D)$. Thus the Gaussian temporal coherence eventually decays exponentially with rate $\Delta/L$, even though its intermediate infinite-system form is a stretched exponential. Omitting the uniform mode would instead produce a nonzero long-time plateau in that Gaussian calculation. This is a statement about subtracting a global phase, not about establishing coherence in a finite noisy condensate.
+
+For KPZ the Fourier modes are coupled, so replacing $Dq^2$ by a guessed $q^{3/2}$ in this sum is not a derivation. What survives is finite-size scaling. For the centered field $\vartheta=\theta-\bar\theta$, its increment variance has the form
+
+$$
+\left\langle[\vartheta(x,t)-\vartheta(0,0)]^2\right\rangle_c
+=L^{2\chi}\mathcal B\left(x/L,t/t_L\right),
+\qquad t_L\propto L^z.
+$$ {#eq-kpz-centered-finite-size}
+
+At small time arguments it reproduces the $t^{2/3}$ growth regime; at large time arguments it saturates at twice the centered stationary variance. The uncentered global phase is not automatically removed by an interferometric measurement. Spatially averaging the KPZ equation gives
+
+$$
+\partial_t\bar\theta=
+\frac{\lambda}{2L}\int_0^Ldx\,(\partial_x\theta)^2+\bar\eta.
+$$
+
+Its mean can be subtracted as a frequency shift, but its fluctuating part remains. If the finite system mixes and has a long-time phase diffusion regime without slips, matching at $t_L$ predicts a global phase-variance growth coefficient proportional to $L^{2\chi-z}=L^{-1/2}$ in one-dimensional KPZ. This is a finite-size scaling statement with a nonuniversal prefactor. The bare uniform noise alone gives the smaller contribution $2\Delta/L$; the nonlinear slope fluctuations also drive the global phase. A temporal fit should consequently specify whether it precedes finite-size saturation and whether a global phase was subtracted in processing.
 
 The weak-coupling one-dimensional crossover length is parametrically
 $L_{\mathrm{KPZ}}\sim D^3/(\lambda^2\Delta)$. A diffusive estimate of its associated time is $L_{\mathrm{KPZ}}^2/D$. Both must fit within the system and the observation window. There must also be enough time before rare phase slips, where the amplitude crosses zero and the winding changes. An unwrapped phase can be used only while such events are absent or are explicitly handled. Applying a noncompact width analysis across uncontrolled phase slips can create spurious roughness.
